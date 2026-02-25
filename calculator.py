@@ -2,13 +2,16 @@ from parser import fetch_package
 import requests
 import tarfile
 import io
-import os  
+import os
+import shutil
 from swh.model.from_disk import Directory
 
 def unpack_file(file_url):
-    target_dir = "tmp"  
-    
-    os.makedirs(target_dir, exist_ok=True)
+    target_dir = "tmp"
+
+    if os.path.exists(target_dir):
+        shutil.rmtree(target_dir)
+    os.makedirs(target_dir)
 
     print(f"Downloading from {file_url}...")
     resp = requests.get(file_url)
@@ -21,6 +24,7 @@ def unpack_file(file_url):
         print(f"Unpacking to '{target_dir}/'...")
         with tarfile.open(fileobj=file_obj, mode="r:gz") as tar:
             tar.extractall(path=target_dir, filter='data')
+            return target_dir
             
         print("Files unpacked")
             
@@ -29,7 +33,7 @@ def unpack_file(file_url):
 
 import os
 
-def find_source_root(extract_path):
+def find_source(extract_path):
    
     items = os.listdir(extract_path)
     
@@ -40,10 +44,10 @@ def find_source_root(extract_path):
             
     return extract_path
 
-def swhid_generator (folder_path):
-    directory = Directory.from_disk(path=folder_path)
+def swhid_generator(folder_path):
+    directory = Directory.from_disk(path=os.fsencode(folder_path), max_content_length=None)
     swhid = directory.swhid()
-    
+
     return swhid
 
 
