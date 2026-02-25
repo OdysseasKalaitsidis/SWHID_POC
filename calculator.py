@@ -1,4 +1,3 @@
-from parser import fetch_package
 import requests
 import tarfile
 import io
@@ -20,18 +19,12 @@ def unpack_file(file_url):
     # In memory download
     file_obj = io.BytesIO(resp.content)
     
-    try:
-        print(f"Unpacking to '{target_dir}/'...")
-        with tarfile.open(fileobj=file_obj, mode="r:gz") as tar:
-            tar.extractall(path=target_dir, filter='data')
-            return target_dir
-            
-        print("Files unpacked")
-            
-    except Exception as e:
-        print(f"Error unpacking: {e}")
+    print(f"Unpacking to '{target_dir}/'...")
+    with tarfile.open(fileobj=file_obj, mode="r:gz") as tar:
+        tar.extractall(path=target_dir, filter='data')
 
-import os
+    return target_dir
+
 
 def find_source(extract_path):
    
