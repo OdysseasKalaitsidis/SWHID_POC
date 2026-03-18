@@ -47,7 +47,7 @@ torch-2.6.0-cp310-cp310-manylinux...x86_64.whl ~750 MB
 ...20+ more
 ```
 
-See [`findings/pytorch_wheels.txt`](findings/pytorch_wheels.txt) for the full enumeration.
+Run `python analyze.py pkg:pypi/torch@2.6.0` to see the full wheel enumeration.
 
 ### Finding 2: crates.io — normalization produces a stable SWHID
 
@@ -71,7 +71,7 @@ SWH directory (git commit lookup): 3a2c5ef3e33bfbb98bb51e6fd7ef7fdac4082f17
 Result: MATCH — normalization confirmed.
 ```
 
-See [`findings/serde_diff.txt`](findings/serde_diff.txt) for the full output.
+Run `python analyze.py pkg:cargo/serde@1.0.203` to reproduce this result.
 
 ### Finding 3: the contrast is the finding
 
@@ -97,54 +97,46 @@ pip install -r requirements.txt
 
 ## Usage
 
-### Run all demos
-
 ```bash
-bash examples/demo.sh
+python analyze.py <purl>
 ```
-
-This runs all four demonstrations and saves output to `findings/`.
-
-### Run individually
 
 ```bash
 # PyPI: wheel-only package — shows the 1-to-many problem
-python pypi_analyzer.py pkg:pypi/torch@2.6.0
+python analyze.py pkg:pypi/torch@2.6.0
 
-# PyPI: working SWHID case
-python pypi_analyzer.py pkg:pypi/six@1.17.0
+# PyPI: SWHID found in SWH archive
+python analyze.py pkg:pypi/six@1.17.0
 
-# PyPI: broken SWHID case (generated files)
-python pypi_analyzer.py pkg:pypi/certifi@2024.12.14
+# PyPI: SWHID not found (generated files diverge from git)
+python analyze.py pkg:pypi/certifi@2024.12.14
 
 # crates.io: normalization proof
-python crates_analyzer.py pkg:cargo/serde@1.0.203
+python analyze.py pkg:cargo/serde@1.0.203
+
+# Machine-readable output
+python analyze.py pkg:pypi/six@1.17.0 --format json
 ```
 
-### Compute a SWHID for any local directory
-
-```bash
-python swhid_verifier.py path/to/directory
-```
+Findings are saved automatically to `findings/` (gitignored — runtime output).
 
 ---
 
 ## Repository Structure
 
 ```
-├── pypi_analyzer.py     # Queries PyPI API, enumerates wheels, attempts SWHID
-├── crates_analyzer.py   # Downloads crate, shows injected files, proves normalization
-├── swhid_verifier.py    # Shared SWHID computation and SWH archive verification
-├── findings/
-│   ├── pytorch_wheels.txt   # Raw output: torch 2.6.0 wheel enumeration
-│   └── serde_diff.txt       # Raw output: serde normalization proof
+├── analyze.py           # Entry point — accepts any PURL, dispatches by ecosystem
+├── pypi_analyzer.py     # PyPI analysis: metadata, artifact inventory, SWHID, scoring
+├── crates_analyzer.py   # crates.io analysis: injected files, normalization proof, scoring
+├── calculator.py        # Download, extract, strip injected files, compute SWHID
+├── parser.py            # Registry API queries (PyPI JSON API, crates.io API)
+├── swh_api.py           # Software Heritage archive REST API client
+├── swhid_verifier.py    # Standalone: compute SWHID for any local directory
+├── tests/               # Unit tests for calculator, parser, swh_api
 ├── examples/
-│   └── demo.sh          # Runs all demos in sequence
+│   └── demo.sh          # Runs the four key demonstrations
 └── requirements.txt
 ```
-
-The older `main.py`, `parser.py`, `calculator.py`, and `swh_api.py` are retained
-as the underlying utility layer used by the analyzers.
 
 ---
 
