@@ -1,15 +1,18 @@
 """
-pypi_analyzer.py — explore the PURL-to-SWHID gap for PyPI packages.
+pypi_analyzer.py - Deep PURL-to-SWHID analysis for PyPI packages.
 
-Demonstrates:
-  - pkg:pypi/torch@2.6.0  → 0 sdists, many wheels, wildly different sizes
-  - pkg:pypi/six@1.17.0   → sdist SWHID found in Software Heritage archive
-  - pkg:pypi/certifi@...  → sdist SWHID NOT found (generated files differ from git)
+Computes SWHIDs for sdists, verifies against the SWH archive, and returns a
+structured findings dict that the unified analyze.py CLI renders with rich.
 
-Usage:
-    python pypi_analyzer.py pkg:pypi/torch@2.6.0
+Key cases demonstrated:
+  pkg:pypi/torch@2.6.0        -> 0 sdists, many wheels -> 1 PURL : N artifacts
+  pkg:pypi/six@1.17.0         -> sdist SWHID FOUND in SWH archive
+  pkg:pypi/certifi@2024.12.14 -> sdist SWHID NOT FOUND (generated CA bundle)
+
+Usage (standalone):
     python pypi_analyzer.py pkg:pypi/six@1.17.0
-    python pypi_analyzer.py pkg:pypi/certifi@2024.12.14
+Or via unified analyzer:
+    python analyze.py pkg:pypi/six@1.17.0
 """
 
 import io
@@ -33,17 +36,87 @@ def parse_purl(purl):
     return name, version
 
 
-def query_pypi(name, version):
+def _query_pypi(name, version):
     resp = requests.get(f"{PYPI_API}/{name}/{version}/json")
     resp.raise_for_status()
-    data = resp.json()
+    return resp.json()
 
+
+def _download_and_extract_sdist(sdist):
+    target = "tmp"
+    if os.path.exists(target):
+        shutil.rmtree(target)
+    os.makedirs(target)
+
+    resp = requests.get(sdist["url"])
+    resp.raise_for_status()
+
+    with tarfile.open(fileobj=io.BytesIO(resp.content), mode="r:gz") as tar:
+        tar.extractall(path=target, filter="data")
+
+    items = os.listdir(target)
+    if len(items) == 1:
+        inner = os.path.join(target, items[0])
+        if os.path.isdir(inner):
+            return inner
+    return target
+
+
+def _extract_vcs_url(project_urls, home_page):
+    """Return the best VCS URL from PyPI project_urls metadata."""
+    if project_urls:
+        for key in ("Source", "Source Code", "Repository", "Code", "GitHub"):
+            for k, v in project_urls.items():
+                if key.lower() in k.lower():
+                    return v
+    return home_page or ""
+
+
+def _compute_scores(has_sdist, found_in_swh):
+    if not has_sdist:
+        return {"reproducibility": 0, "provenance": 0, "normalization": 0, "overall": 0}
+    if found_in_swh:
+        # Works for pure-Python packages; normalization is not formalized yet
+        return {"reproducibility": 8, "provenance": 10, "normalization": 6, "overall": 8}
+    # sdist exists but tree diverges from git
+    return {"reproducibility": 3, "provenance": 2, "normalization": 2, "overall": 2}
+
+
+def analyze(name, version, purl=None):
+    """
+    Download and analyze a PyPI package. Returns a structured findings dict.
+    Does not print anything - the caller is responsible for display.
+    """
+    purl = purl or f"pkg:pypi/{name}@{version}"
+    data = _query_pypi(name, version)
+    info = data["info"]
+
+    # --- metadata ---
+    project_urls = info.get("project_urls") or {}
+    vcs_url = _extract_vcs_url(project_urls, info.get("home_page", ""))
+    deps = info.get("requires_dist") or []
+
+    metadata = {
+        "summary":          info.get("summary", ""),
+        "license":          info.get("license", ""),
+        "author":           info.get("author", ""),
+        "requires_python":  info.get("requires_python", ""),
+        "home_page":        info.get("home_page", ""),
+        "project_urls":     project_urls,
+        "classifiers":      info.get("classifiers", []),
+        "dependencies":     deps,
+        "dependency_count": len(deps),
+        "vcs_url":          vcs_url,
+    }
+
+    # --- artifact inventory ---
     sdists, wheels = [], []
     for f in data["urls"]:
         entry = {
             "filename": f["filename"],
             "url":      f["url"],
             "size":     f["size"],
+            "sha256":   f.get("digests", {}).get("sha256", ""),
         }
         if f["packagetype"] == "sdist":
             sdists.append(entry)
@@ -54,104 +127,111 @@ def query_pypi(name, version):
             entry["platform"] = parts[4] if len(parts) > 4 else "?"
             wheels.append(entry)
 
-    return sdists, wheels
+    artifacts = {
+        "sdist_count": len(sdists),
+        "wheel_count": len(wheels),
+        "sdists":      sdists,
+        "wheels":      wheels,
+    }
 
+    # --- SWHID computation ---
+    swhid_data = {}
+    found_in_swh = None
 
-def print_wheels_table(wheels, name, version):
-    if not wheels:
-        print(f"  (no wheels)")
-        return
-    sizes   = [f"{w['size'] // 1024 // 1024:.1f} MB" if w['size'] > 1_000_000
-               else f"{w['size'] // 1024:,} KB" for w in wheels]
-    col_f = max(len(w['filename']) for w in wheels)
-    col_s = max(len(s) for s in sizes)
-    col_p = max(len(w['python'])   for w in wheels)
-    col_a = max(len(w['abi'])      for w in wheels)
-    col_t = max(len(w['platform']) for w in wheels)
+    if sdists:
+        source_path = _download_and_extract_sdist(sdists[0])
+        computed = compute_swhid(source_path)
+        found_in_swh = verify_swhid(computed)
+        swhid_data = {
+            "value":        str(computed),
+            "source":       "sdist",
+            "found_in_swh": found_in_swh,
+            "vcs_url":      vcs_url,
+        }
 
-    print(f"  {'Filename':<{col_f}}  {'Size':>{col_s}}  {'Python':<{col_p}}  {'ABI':<{col_a}}  Platform")
-    print(f"  {'-'*col_f}  {'-'*col_s}  {'-'*col_p}  {'-'*col_a}  {'-'*col_t}")
-    for w, size_str in zip(wheels, sizes):
-        print(f"  {w['filename']:<{col_f}}  {size_str:>{col_s}}  {w['python']:<{col_p}}  {w['abi']:<{col_a}}  {w['platform']}")
+    # --- verdict ---
+    has_sdist = len(sdists) > 0
 
-
-def download_and_extract_sdist(sdist):
-    target = "tmp"
-    if os.path.exists(target):
-        shutil.rmtree(target)
-    os.makedirs(target)
-
-    print(f"  Downloading {sdist['filename']} ({sdist['size'] // 1024:,} KB)...")
-    resp = requests.get(sdist["url"])
-    resp.raise_for_status()
-
-    with tarfile.open(fileobj=io.BytesIO(resp.content), mode="r:gz") as tar:
-        tar.extractall(path=target, filter="data")
-
-    # unwrap single top-level directory
-    items = os.listdir(target)
-    if len(items) == 1:
-        inner = os.path.join(target, items[0])
-        if os.path.isdir(inner):
-            return inner
-    return target
-
-
-def analyze(purl):
-    name, version = parse_purl(purl)
-
-    print(f"\n{'='*60}")
-    print(f"Package: {purl}")
-    print(f"{'='*60}")
-
-    sdists, wheels = query_pypi(name, version)
-
-    total_wheels_size = sum(w["size"] for w in wheels)
-    total_sdist_size  = sum(s["size"] for s in sdists)
-
-    print(f"\nArtifacts on PyPI:")
-    print(f"  sdists : {len(sdists)}" +
-          (f"  ({total_sdist_size // 1024:,} KB total)" if sdists else ""))
-    print(f"  wheels : {len(wheels)}" +
-          (f"  ({total_wheels_size // 1024 // 1024:.0f} MB total)" if wheels else ""))
-
-    if wheels:
-        min_w = min(wheels, key=lambda w: w["size"])
-        max_w = max(wheels, key=lambda w: w["size"])
-        print(f"  smallest wheel: {min_w['filename']}  ({min_w['size'] // 1024:,} KB)")
-        print(f"  largest wheel:  {max_w['filename']}  ({max_w['size'] // 1024 // 1024:.1f} MB)")
-        print(f"\nFull wheel list:")
-        print_wheels_table(wheels, name, version)
-
-    if not sdists:
-        print(f"\nFinding: No sdist published for {name} {version}.")
-        print(f"  A PURL cannot be resolved to a single source SWHID.")
-        print(f"  One PURL → {len(wheels)} artifacts — the mapping is 1-to-many.")
-        return
-
-    # sdist exists — attempt SWHID computation
-    print(f"\nsdist found — computing SWHID...")
-    source_path = download_and_extract_sdist(sdists[0])
-    swhid = compute_swhid(source_path)
-    found = verify_swhid(swhid)
-
-    print(f"\n  SWHID: {swhid}")
-    print(f"  SWH:   {'FOUND' if found else 'not found'}")
-
-    if found:
-        print(f"\nFinding: {name} {version} — sdist SWHID matches Software Heritage archive.")
-        print(f"  Pure-Python sdists with no generated files produce a stable, verifiable SWHID.")
+    if not has_sdist:
+        verdict = f"No sdist published - 1 PURL maps to {len(wheels)} wheel artifact(s)"
+        explanation = (
+            "PyPI distributes this package as wheels only. There is no canonical source "
+            "distribution, so a single PURL cannot be resolved to one stable SWHID. "
+            "The 1-to-many artifact mapping makes deterministic provenance impossible."
+        )
+        reproducible = False
+    elif found_in_swh:
+        verdict = "SWHID found in Software Heritage archive"
+        explanation = (
+            "The sdist tree matches the git tree archived by Software Heritage. "
+            "This typically applies to pure-Python packages with no generated files. "
+            "One PURL -> one stable SWHID. Provenance is fully verifiable."
+        )
+        reproducible = True
     else:
-        print(f"\nFinding: {name} {version} — SWHID computed but NOT found in Software Heritage.")
-        print(f"  The sdist tree diverges from the archived git tree.")
-        print(f"  Likely cause: generated files (.egg-info, CA bundles, etc.) present in sdist")
-        print(f"  but not in the git repository. Normalization rules for PyPI sdists are")
-        print(f"  not yet standardized — this is an open problem.")
+        verdict = "SWHID computed but NOT found in SWH archive"
+        explanation = (
+            "The sdist tree diverges from the archived git tree. Likely cause: generated "
+            "files (.egg-info, CA bundles, compiled extensions, SOURCES.txt entries) are "
+            "present in the sdist but absent from the git repository. PyPI normalization "
+            "rules are not yet standardized - this is an open research problem."
+        )
+        reproducible = False
+
+    analysis = {
+        "reproducible": reproducible,
+        "has_sdist":    has_sdist,
+        "has_wheels":   len(wheels) > 0,
+        "verdict":      verdict,
+        "explanation":  explanation,
+    }
+
+    scores = _compute_scores(has_sdist, found_in_swh)
+
+    return {
+        "purl":      purl,
+        "ecosystem": "pypi",
+        "name":      name,
+        "version":   version,
+        "metadata":  metadata,
+        "artifacts": artifacts,
+        "swhid":     swhid_data,
+        "analysis":  analysis,
+        "scores":    scores,
+    }
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: python pypi_analyzer.py <purl>")
-        print("  e.g. python pypi_analyzer.py pkg:pypi/torch@2.6.0")
+        print("  e.g. python pypi_analyzer.py pkg:pypi/six@1.17.0")
         sys.exit(1)
-    analyze(sys.argv[1])
+
+    purl_arg = sys.argv[1]
+    name, version = parse_purl(purl_arg)
+    findings = analyze(name, version, purl_arg)
+
+    a  = findings["artifacts"]
+    s  = findings["swhid"]
+    an = findings["analysis"]
+    sc = findings["scores"]
+    m  = findings["metadata"]
+
+    print(f"\n{'='*60}")
+    print(f"Package: {purl_arg}")
+    print(f"{'='*60}")
+    if m.get("summary"):
+        print(f"\n  {m['summary']}")
+    if m.get("license"):
+        print(f"  License: {m['license']}")
+    if m.get("vcs_url"):
+        print(f"  Source:  {m['vcs_url']}")
+    print(f"\nArtifacts:  sdists={a['sdist_count']}  wheels={a['wheel_count']}")
+    if s:
+        print(f"\nSWHID: {s['value']}")
+        print(f"SWH:   {'FOUND' if s['found_in_swh'] else 'NOT FOUND'}")
+    print(f"\nVerdict: {an['verdict']}")
+    print(f"  {an['explanation']}")
+    print(f"\nScores:")
+    for k in ("reproducibility", "provenance", "normalization", "overall"):
+        print(f"  {k:>15}: {sc[k]}/10")

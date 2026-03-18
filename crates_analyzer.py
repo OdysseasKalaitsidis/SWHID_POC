@@ -1,13 +1,16 @@
 """
-crates_analyzer.py — demonstrate SWHID normalization for crates.io packages.
+crates_analyzer.py - Deep PURL-to-SWHID analysis for crates.io packages.
 
-Demonstrates:
-  - pkg:cargo/serde@1.0.203 → downloads .crate, shows 3 injected files,
-    strips them, computes SWHID, compares against git tag SWHID in SWH archive.
-  - Result: MATCH — proving normalization is deterministic.
+Downloads the .crate artifact, identifies and strips the 3 registry-injected
+files, computes a SWHID, and verifies it against the SWH git archive.
 
-Usage:
+Key case demonstrated:
+  pkg:cargo/serde@1.0.203 -> MATCH - one PURL, one stable, verifiable SWHID.
+
+Usage (standalone):
     python crates_analyzer.py pkg:cargo/serde@1.0.203
+Or via unified analyzer:
+    python analyze.py pkg:cargo/serde@1.0.203
 """
 
 import io
@@ -19,7 +22,7 @@ import tarfile
 import requests
 from swhid_verifier import compute_swhid
 
-SWH_API       = "https://archive.softwareheritage.org/api/1"
+SWH_API        = "https://archive.softwareheritage.org/api/1"
 CRATES_HEADERS = {"User-Agent": "swhid-poc/0.1 (gsoc research)"}
 INJECTED_FILES = [".cargo_vcs_info.json", "Cargo.toml", "Cargo.toml.orig"]
 
@@ -34,34 +37,55 @@ def parse_purl(purl):
     return name, version
 
 
-def fetch_crate_url(name, version):
-    url = f"https://crates.io/api/v1/crates/{name}/{version}"
-    resp = requests.get(url, headers=CRATES_HEADERS)
+def _fetch_crate_metadata(name, version):
+    """Return merged metadata from the version endpoint and the crate endpoint."""
+    resp = requests.get(
+        f"https://crates.io/api/v1/crates/{name}/{version}",
+        headers=CRATES_HEADERS,
+    )
     resp.raise_for_status()
-    data = resp.json()
-    if data["version"]["yanked"]:
+    ver_data = resp.json()
+
+    if ver_data["version"]["yanked"]:
         raise ValueError(f"Crate {name} {version} is yanked")
-    return f"https://static.crates.io/crates/{name}/{name}-{version}.crate"
+
+    # Second call for crate-level fields (description, keywords, categories)
+    resp2 = requests.get(
+        f"https://crates.io/api/v1/crates/{name}",
+        headers=CRATES_HEADERS,
+    )
+    resp2.raise_for_status()
+    krate = resp2.json().get("crate", {})
+    ver   = ver_data["version"]
+
+    return {
+        "description":  krate.get("description", ""),
+        "license":      ver.get("license", ""),
+        "repository":   krate.get("repository", ""),
+        "homepage":     krate.get("homepage", ""),
+        "keywords":     krate.get("keywords", []),
+        "categories":   krate.get("categories", []),
+        "crate_size":   ver.get("crate_size"),
+        "downloads":    ver.get("downloads"),
+        "rust_version": ver.get("rust_version"),
+    }
 
 
-def download_and_extract(crate_url, name, version):
+def _download_and_extract(crate_url, name, version):
     target = "tmp"
     if os.path.exists(target):
         shutil.rmtree(target)
     os.makedirs(target)
 
-    print(f"  Downloading from {crate_url}...")
     resp = requests.get(crate_url)
     resp.raise_for_status()
 
     with tarfile.open(fileobj=io.BytesIO(resp.content), mode="r:gz") as tar:
         tar.extractall(path=target, filter="data")
 
-    # crates always extract to a single top-level dir: name-version/
     items = os.listdir(target)
     source_path = os.path.join(target, items[0]) if len(items) == 1 else target
 
-    # read injected files before stripping
     injected = {}
     for filename in INJECTED_FILES:
         full = os.path.join(source_path, filename)
@@ -72,7 +96,14 @@ def download_and_extract(crate_url, name, version):
     return source_path, injected
 
 
-def strip_injected(source_path):
+def _count_files(path):
+    count = 0
+    for _, _, files in os.walk(path):
+        count += len(files)
+    return count
+
+
+def _strip_injected(source_path):
     removed = []
     for filename in INJECTED_FILES:
         full = os.path.join(source_path, filename)
@@ -82,98 +113,143 @@ def strip_injected(source_path):
     return removed
 
 
-def fetch_swh_dir_for_revision(sha1):
-    resp = requests.get(f"{SWH_API}/revision/{sha1}/")
+def _fetch_swh_dir_for_revision(sha1):
+    resp = requests.get(f"{SWH_API}/revision/{sha1}/", headers=CRATES_HEADERS)
     if resp.status_code == 404:
         return None
     if resp.status_code == 429:
-        raise RuntimeError("SWH API rate limit reached — try again later")
+        raise RuntimeError("SWH API rate limit reached - try again later")
     resp.raise_for_status()
     return resp.json()["directory"]
 
 
-def analyze(purl):
-    name, version = parse_purl(purl)
+def _compute_scores(match, is_monorepo, swh_archived):
+    if is_monorepo:
+        # Normalization rules are valid, comparison is out of scope
+        return {"reproducibility": 7, "provenance": 7, "normalization": 8, "overall": 7}
+    if match is True:
+        return {"reproducibility": 10, "provenance": 10, "normalization": 10, "overall": 10}
+    if not swh_archived:
+        # Rules are known and deterministic; archive coverage is the gap
+        return {"reproducibility": 8, "provenance": 3, "normalization": 9, "overall": 7}
+    # MISMATCH - normalization did not recover the git tree
+    return {"reproducibility": 2, "provenance": 2, "normalization": 2, "overall": 2}
 
-    print(f"\n{'='*60}")
-    print(f"Crate: {purl}")
-    print(f"{'='*60}")
 
-    crate_url = fetch_crate_url(name, version)
-    print(f"\nStep 1 — Download and extract")
-    source_path, injected = download_and_extract(crate_url, name, version)
-    print(f"  Extracted to: {source_path}/")
+def analyze(name, version, purl=None):
+    """
+    Download and analyze a crates.io package. Returns a structured findings dict.
+    Does not print anything - the caller is responsible for display.
+    """
+    purl = purl or f"pkg:cargo/{name}@{version}"
 
-    # --- show injected files ---
-    print(f"\nStep 2 — Registry-injected files (present in .crate, absent from git)")
-    if not injected:
-        print("  (none found — older crate?)")
-    for filename in INJECTED_FILES:
-        if filename not in injected:
-            continue
-        lines = injected[filename].splitlines()
-        preview = "\n    ".join(lines[:6])
-        suffix  = f"\n    ... ({len(lines) - 6} more lines)" if len(lines) > 6 else ""
-        print(f"\n  {filename}")
-        print(f"  {'─'*len(filename)}")
-        print(f"    {preview}{suffix}")
+    metadata = _fetch_crate_metadata(name, version)
 
-    # --- strip ---
-    print(f"\nStep 3 — Strip injected files")
-    removed = strip_injected(source_path)
-    print(f"  Removed: {', '.join(removed)}")
+    crate_url = f"https://static.crates.io/crates/{name}/{name}-{version}.crate"
+    source_path, injected = _download_and_extract(crate_url, name, version)
 
-    # --- compute SWHID ---
-    print(f"\nStep 4 — Compute SWHID of stripped tree")
-    swhid = compute_swhid(source_path)
-    computed_hash = str(swhid).split(":")[-1]
-    print(f"  SWHID: {swhid}")
+    file_count_before = _count_files(source_path)
+    stripped          = _strip_injected(source_path)
+    file_count_after  = _count_files(source_path)
 
-    # --- git sha1 from vcs info ---
-    if ".cargo_vcs_info.json" not in injected:
-        print(f"\nNo .cargo_vcs_info.json — cannot retrieve git sha1 for comparison.")
-        return
+    computed      = compute_swhid(source_path)
+    computed_str  = str(computed)
+    computed_hash = computed_str.split(":")[-1]
 
-    vcs_info    = json.loads(injected[".cargo_vcs_info.json"])
-    sha1        = vcs_info.get("git", {}).get("sha1")
-    path_in_vcs = vcs_info.get("path_in_vcs", "")
+    # Parse VCS provenance from the injected manifest
+    sha1        = None
+    path_in_vcs = ""
+    is_monorepo = False
+    if ".cargo_vcs_info.json" in injected:
+        vcs_info    = json.loads(injected[".cargo_vcs_info.json"])
+        sha1        = vcs_info.get("git", {}).get("sha1")
+        path_in_vcs = vcs_info.get("path_in_vcs", "")
+        is_monorepo = bool(path_in_vcs)
 
-    if not sha1:
-        print(f"\nNo git sha1 in .cargo_vcs_info.json — cannot compare.")
-        return
+    normalization = {
+        "files_stripped":    stripped,
+        "file_count_before": file_count_before,
+        "file_count_after":  file_count_after,
+        "git_sha1":          sha1,
+        "path_in_vcs":       path_in_vcs,
+        "is_monorepo":       is_monorepo,
+    }
 
-    if path_in_vcs:
-        print(f"\nNote: path_in_vcs = '{path_in_vcs}'")
-        print(f"  This crate is published from a monorepo subdirectory.")
-        print(f"  The SWH revision points to the repo root, not the crate subdirectory.")
-        print(f"  Skipping comparison — would require traversing SWH directory tree.")
-        return
+    # SWH lookup and comparison
+    swh_dir_hash = None
+    match        = None
+    swh_archived = False
 
-    # --- SWH lookup ---
-    print(f"\nStep 5 — Look up git commit in Software Heritage archive")
-    print(f"  git sha1: {sha1}")
-    swh_dir_hash = fetch_swh_dir_for_revision(sha1)
+    if sha1 and not is_monorepo:
+        swh_dir_hash = _fetch_swh_dir_for_revision(sha1)
+        if swh_dir_hash is not None:
+            swh_archived = True
+            match = (computed_hash == swh_dir_hash)
 
-    if swh_dir_hash is None:
-        print(f"  Revision not yet archived by Software Heritage.")
-        print(f"  Cannot verify normalization without archive entry.")
-        return
+    swhid_data = {
+        "computed": computed_str,
+        "from_swh": swh_dir_hash,
+        "match":    match,
+    }
 
-    print(f"  SWH directory hash: {swh_dir_hash}")
-
-    # --- compare ---
-    print(f"\nStep 6 — Compare")
-    print(f"  Computed (stripped .crate): {computed_hash}")
-    print(f"  SWH (git tag):              {swh_dir_hash}")
-
-    if computed_hash == swh_dir_hash:
-        print(f"\nResult: MATCH")
-        print(f"  Stripping the 3 registry-injected files recovers the exact git tree.")
-        print(f"  One PURL → one stable SWHID. Normalization works for crates.io.")
+    # Verdict
+    if is_monorepo:
+        verdict = "Monorepo crate - comparison skipped"
+        explanation = (
+            f"This crate is published from a subdirectory ({path_in_vcs}) of a larger "
+            "repository. The SWH revision hash points to the repository root, not the "
+            "crate subdirectory. Resolving this requires traversing the SWH directory "
+            "tree - an extension planned for a future iteration."
+        )
+    elif match is True:
+        verdict = "MATCH - normalization confirmed"
+        explanation = (
+            "Stripping the 3 registry-injected files (.cargo_vcs_info.json, Cargo.toml, "
+            "Cargo.toml.orig) from the .crate artifact recovers the exact git tree "
+            "archived by Software Heritage. One PURL -> one stable, verifiable SWHID."
+        )
+    elif not sha1:
+        verdict = "No git sha1 - cannot compare"
+        explanation = (
+            "The .cargo_vcs_info.json file is absent or missing the git.sha1 field. "
+            "Normalization was applied but the result cannot be verified against SWH."
+        )
+    elif not swh_archived:
+        verdict = "Revision not yet archived by Software Heritage"
+        explanation = (
+            "The git commit recorded in .cargo_vcs_info.json has not been crawled by "
+            "Software Heritage yet. The normalization rules are still valid; the SWHID "
+            "can be verified once SWH archives the repository."
+        )
     else:
-        print(f"\nResult: MISMATCH")
-        print(f"  Hashes differ. Possible causes: additional injected content,")
-        print(f"  file permission differences, or a non-empty path_in_vcs.")
+        verdict = "MISMATCH - hashes differ"
+        explanation = (
+            "The computed SWHID does not match the SWH directory hash for this git commit. "
+            "Possible causes: additional injected content, file permission differences, "
+            "or an undocumented modification in the registry artifact."
+        )
+
+    analysis = {
+        "verdict":     verdict,
+        "explanation": explanation,
+        "match":       match,
+        "is_monorepo": is_monorepo,
+    }
+
+    scores = _compute_scores(match, is_monorepo, swh_archived)
+
+    return {
+        "purl":           purl,
+        "ecosystem":      "cargo",
+        "name":           name,
+        "version":        version,
+        "metadata":       metadata,
+        "injected_files": injected,
+        "normalization":  normalization,
+        "swhid":          swhid_data,
+        "analysis":       analysis,
+        "scores":         scores,
+    }
 
 
 if __name__ == "__main__":
@@ -181,4 +257,37 @@ if __name__ == "__main__":
         print("Usage: python crates_analyzer.py <purl>")
         print("  e.g. python crates_analyzer.py pkg:cargo/serde@1.0.203")
         sys.exit(1)
-    analyze(sys.argv[1])
+
+    purl_arg = sys.argv[1]
+    name, version = parse_purl(purl_arg)
+    findings = analyze(name, version, purl_arg)
+
+    m    = findings["metadata"]
+    inj  = findings["injected_files"]
+    norm = findings["normalization"]
+    s    = findings["swhid"]
+    an   = findings["analysis"]
+    sc   = findings["scores"]
+
+    print(f"\n{'='*60}")
+    print(f"Crate: {purl_arg}")
+    print(f"{'='*60}")
+    if m.get("description"):
+        print(f"\n  {m['description']}")
+    if m.get("license"):
+        print(f"  License:    {m['license']}")
+    if m.get("repository"):
+        print(f"  Repository: {m['repository']}")
+    print(f"\nInjected files: {', '.join(inj.keys()) or 'none'}")
+    print(f"Stripped:       {', '.join(norm['files_stripped']) or 'none'}")
+    print(f"File count:     {norm['file_count_before']} -> {norm['file_count_after']}")
+    if norm.get("git_sha1"):
+        print(f"git sha1:       {norm['git_sha1']}")
+    print(f"\nComputed SWHID: {s['computed']}")
+    if s.get("from_swh"):
+        print(f"SWH dir hash:   {s['from_swh']}")
+    print(f"\nVerdict: {an['verdict']}")
+    print(f"  {an['explanation']}")
+    print(f"\nScores:")
+    for k in ("reproducibility", "provenance", "normalization", "overall"):
+        print(f"  {k:>15}: {sc[k]}/10")
