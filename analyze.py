@@ -315,13 +315,9 @@ examples:
   python analyze.py pkg:cargo/serde@1.0.203
   python analyze.py pkg:pypi/torch@2.6.0
   python analyze.py pkg:pypi/certifi@2024.12.14 --format json
-  python analyze.py --ecosystem pypi --name six --version 1.17.0
         """,
     )
-    ap.add_argument("purl", nargs="?", help="Package URL, e.g. pkg:pypi/six@1.17.0")
-    ap.add_argument("--ecosystem", choices=["pypi", "cargo"])
-    ap.add_argument("--name")
-    ap.add_argument("--version")
+    ap.add_argument("purl", help="Package URL, e.g. pkg:pypi/six@1.17.0")
     ap.add_argument(
         "--format", choices=["text", "json"], default="text",
         help="Output format (default: text)",
@@ -332,18 +328,12 @@ examples:
     )
     args = ap.parse_args()
 
-    # Resolve ecosystem / name / version
-    if args.purl:
+    try:
         ecosystem, name, version = parse_purl(args.purl)
-        purl = args.purl
-    elif args.ecosystem and args.name and args.version:
-        ecosystem = args.ecosystem
-        name      = args.name
-        version   = args.version
-        purl      = f"pkg:{ecosystem}/{name}@{version}"
-    else:
-        ap.print_help()
+    except ValueError as e:
+        console.print(f"[red]{e}[/]")
         sys.exit(1)
+    purl = args.purl
 
     # Run analysis behind a spinner
     with Progress(

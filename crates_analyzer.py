@@ -7,9 +7,7 @@ files, computes a SWHID, and verifies it against the SWH git archive.
 Key case demonstrated:
   pkg:cargo/serde@1.0.203 -> MATCH - one PURL, one stable, verifiable SWHID.
 
-Usage (standalone):
-    python crates_analyzer.py pkg:cargo/serde@1.0.203
-Or via unified analyzer:
+Usage:
     python analyze.py pkg:cargo/serde@1.0.203
 """
 
@@ -253,41 +251,5 @@ def analyze(name, version, purl=None):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python crates_analyzer.py <purl>")
-        print("  e.g. python crates_analyzer.py pkg:cargo/serde@1.0.203")
-        sys.exit(1)
-
-    purl_arg = sys.argv[1]
-    name, version = parse_purl(purl_arg)
-    findings = analyze(name, version, purl_arg)
-
-    m    = findings["metadata"]
-    inj  = findings["injected_files"]
-    norm = findings["normalization"]
-    s    = findings["swhid"]
-    an   = findings["analysis"]
-    sc   = findings["scores"]
-
-    print(f"\n{'='*60}")
-    print(f"Crate: {purl_arg}")
-    print(f"{'='*60}")
-    if m.get("description"):
-        print(f"\n  {m['description']}")
-    if m.get("license"):
-        print(f"  License:    {m['license']}")
-    if m.get("repository"):
-        print(f"  Repository: {m['repository']}")
-    print(f"\nInjected files: {', '.join(inj.keys()) or 'none'}")
-    print(f"Stripped:       {', '.join(norm['files_stripped']) or 'none'}")
-    print(f"File count:     {norm['file_count_before']} -> {norm['file_count_after']}")
-    if norm.get("git_sha1"):
-        print(f"git sha1:       {norm['git_sha1']}")
-    print(f"\nComputed SWHID: {s['computed']}")
-    if s.get("from_swh"):
-        print(f"SWH dir hash:   {s['from_swh']}")
-    print(f"\nVerdict: {an['verdict']}")
-    print(f"  {an['explanation']}")
-    print(f"\nScores:")
-    for k in ("reproducibility", "provenance", "normalization", "overall"):
-        print(f"  {k:>15}: {sc[k]}/10")
+    import subprocess, sys as _sys
+    _sys.exit(subprocess.call(["python", "analyze.py"] + _sys.argv[1:]))

@@ -9,9 +9,7 @@ Key cases demonstrated:
   pkg:pypi/six@1.17.0         -> sdist SWHID FOUND in SWH archive
   pkg:pypi/certifi@2024.12.14 -> sdist SWHID NOT FOUND (generated CA bundle)
 
-Usage (standalone):
-    python pypi_analyzer.py pkg:pypi/six@1.17.0
-Or via unified analyzer:
+Usage:
     python analyze.py pkg:pypi/six@1.17.0
 """
 
@@ -202,36 +200,5 @@ def analyze(name, version, purl=None):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python pypi_analyzer.py <purl>")
-        print("  e.g. python pypi_analyzer.py pkg:pypi/six@1.17.0")
-        sys.exit(1)
-
-    purl_arg = sys.argv[1]
-    name, version = parse_purl(purl_arg)
-    findings = analyze(name, version, purl_arg)
-
-    a  = findings["artifacts"]
-    s  = findings["swhid"]
-    an = findings["analysis"]
-    sc = findings["scores"]
-    m  = findings["metadata"]
-
-    print(f"\n{'='*60}")
-    print(f"Package: {purl_arg}")
-    print(f"{'='*60}")
-    if m.get("summary"):
-        print(f"\n  {m['summary']}")
-    if m.get("license"):
-        print(f"  License: {m['license']}")
-    if m.get("vcs_url"):
-        print(f"  Source:  {m['vcs_url']}")
-    print(f"\nArtifacts:  sdists={a['sdist_count']}  wheels={a['wheel_count']}")
-    if s:
-        print(f"\nSWHID: {s['value']}")
-        print(f"SWH:   {'FOUND' if s['found_in_swh'] else 'NOT FOUND'}")
-    print(f"\nVerdict: {an['verdict']}")
-    print(f"  {an['explanation']}")
-    print(f"\nScores:")
-    for k in ("reproducibility", "provenance", "normalization", "overall"):
-        print(f"  {k:>15}: {sc[k]}/10")
+    import subprocess, sys as _sys
+    _sys.exit(subprocess.call(["python", "analyze.py"] + _sys.argv[1:]))
