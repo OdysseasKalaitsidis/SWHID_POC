@@ -1,6 +1,12 @@
 venv/
 __pycache__/
 *.pyc
+*.pyo
 tmp/
 .dist/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.claude/
 CLAUDE.md
