@@ -1,14 +1,8 @@
-"""
-pypi/wheel_enumerator.py — Enumerate all distribution artifacts for a PyPI package version.
-
-Takes a PURL like pkg:pypi/torch@2.6.0, queries the PyPI JSON API, and prints:
-  - total wheel count and sdist count
-  - each wheel filename with size and platform tags
-
-Usage:
-    python pypi/wheel_enumerator.py pkg:pypi/torch@2.6.0
-    python pypi/wheel_enumerator.py pkg:pypi/six@1.17.0
-"""
+# pypi/wheel_enumerator.py
+# Takes a PURL like pkg:pypi/torch@2.6.0 and lists all distribution artifacts
+# with sizes and platform tags.
+#
+# Usage: python pypi/wheel_enumerator.py pkg:pypi/torch@2.6.0
 
 import sys
 import requests
@@ -38,17 +32,17 @@ def enumerate_artifacts(name, version):
         size_mb = f["size"] / (1024 * 1024)
         entry = {
             "filename": f["filename"],
-            "size":     f["size"],
-            "size_mb":  size_mb,
-            "url":      f["url"],
-            "sha256":   f.get("digests", {}).get("sha256", ""),
+            "size": f["size"],
+            "size_mb": size_mb,
+            "url": f["url"],
+            "sha256": f.get("digests", {}).get("sha256", ""),
         }
         if f["packagetype"] == "sdist":
             sdists.append(entry)
         elif f["packagetype"] == "bdist_wheel":
             parts = f["filename"][:-4].split("-")
-            entry["python"]   = parts[2] if len(parts) > 2 else "?"
-            entry["abi"]      = parts[3] if len(parts) > 3 else "?"
+            entry["python"] = parts[2] if len(parts) > 2 else "?"
+            entry["abi"] = parts[3] if len(parts) > 3 else "?"
             entry["platform"] = parts[4] if len(parts) > 4 else "?"
             wheels.append(entry)
 

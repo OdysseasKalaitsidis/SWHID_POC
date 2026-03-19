@@ -1,15 +1,8 @@
-"""
-crates/crate_analyzer.py — Download a crate from crates.io, check out the matching
-                            git tag, and diff the two to show registry-injected files.
-
-Takes a crate name and version like serde@1.0.203 (or pkg:cargo/serde@1.0.203),
-downloads the .crate artifact, reads the embedded .cargo_vcs_info.json to find
-the source git commit, then reports which files the registry added or modified.
-
-Usage:
-    python crates/crate_analyzer.py pkg:cargo/serde@1.0.203
-    python crates/crate_analyzer.py serde 1.0.203
-"""
+# crates/crate_analyzer.py
+# Downloads a .crate from crates.io and reports which files the registry
+# added or modified compared to the original git source.
+#
+# Usage: python crates/crate_analyzer.py pkg:cargo/serde@1.0.203
 
 import io
 import json
@@ -38,13 +31,6 @@ def parse_input(args):
     return name, version
 
 
-def _download_crate(name, version):
-    url = f"https://static.crates.io/crates/{name}/{name}-{version}.crate"
-    resp = requests.get(url, headers=CRATES_HEADERS)
-    resp.raise_for_status()
-    return resp.content
-
-
 def _extract_crate(data, target):
     if os.path.exists(target):
         shutil.rmtree(target)
@@ -53,14 +39,6 @@ def _extract_crate(data, target):
         tar.extractall(path=target, filter="data")
     items = os.listdir(target)
     return os.path.join(target, items[0]) if len(items) == 1 else target
-
-
-def _read_vcs_info(source_path):
-    vcs_path = os.path.join(source_path, ".cargo_vcs_info.json")
-    if not os.path.exists(vcs_path):
-        return None
-    with open(vcs_path, "r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def _list_all_files(path):
@@ -81,7 +59,8 @@ def main(name, version):
     print()
 
     print(f"Downloading {name}-{version}.crate ...")
-    crate_data = _download_crate(name, version)
+    url = f"https://static.crates.io/crates/{name}/{name}-{version}.crate"
+    crate_data = requests.get(url, headers=CRATES_HEADERS).content
     print(f"Downloaded: {len(crate_data) / 1024:.1f} KB")
     print()
 
@@ -92,7 +71,8 @@ def main(name, version):
     print(f"Total files in .crate: {len(all_files)}")
     print()
 
-    vcs_info = _read_vcs_info(source_path)
+    vcs_path = os.path.join(source_path, ".cargo_vcs_info.json")
+    vcs_info = json.load(open(vcs_path)) if os.path.exists(vcs_path) else None
     if vcs_info:
         git_sha1    = vcs_info.get("git", {}).get("sha1", "unknown")
         path_in_vcs = vcs_info.get("path_in_vcs", "")
@@ -136,8 +116,7 @@ def main(name, version):
     print(f"  After stripping these files, the SWHID of the remaining tree")
     print(f"  can be compared against the SWH archive.")
     print()
-    print("  Run: python crates/crate_normalizer.py " +
-          ("pkg:cargo/" if True else "") + f"{name}@{version}")
+    print(f"  Run: python crates/crate_normalizer.py pkg:cargo/{name}@{version}")
 
 
 if __name__ == "__main__":

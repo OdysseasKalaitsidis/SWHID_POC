@@ -1,15 +1,8 @@
-"""
-pypi/swhid_verifier.py — Compute a SWHID for a PyPI sdist and verify it against
-                          the Software Heritage archive.
-
-Takes a PURL for a pure-Python package like pkg:pypi/six@1.17.0, downloads the
-sdist, computes its directory SWHID using swh.model, and checks if it exists in
-the Software Heritage archive.
-
-Usage:
-    python pypi/swhid_verifier.py pkg:pypi/six@1.17.0
-    python pypi/swhid_verifier.py pkg:pypi/certifi@2024.12.14
-"""
+# pypi/swhid_verifier.py
+# Downloads a PyPI sdist, computes its directory SWHID using swh.model,
+# and checks if it exists in the Software Heritage archive.
+#
+# Usage: python pypi/swhid_verifier.py pkg:pypi/six@1.17.0
 
 import io
 import os
@@ -68,21 +61,6 @@ def _download_and_extract(sdist):
     return target
 
 
-def _compute_swhid(folder_path):
-    directory = Directory.from_disk(
-        path=os.fsencode(folder_path), max_content_length=None
-    )
-    return directory.swhid()
-
-
-def _verify_swhid(swhid):
-    dir_hash = str(swhid).split(":")[-1]
-    resp = requests.get(f"{SWH_API}/directory/{dir_hash}/")
-    if resp.status_code == 429:
-        raise RuntimeError("SWH API rate limit reached — try again later")
-    return resp.status_code == 200
-
-
 def main(purl):
     name, version = parse_purl(purl)
 
@@ -102,12 +80,14 @@ def main(purl):
     source_path = _download_and_extract(sdist)
 
     print("Computing SWHID...")
-    swhid = _compute_swhid(source_path)
+    swhid = Directory.from_disk(path=os.fsencode(source_path), max_content_length=None).swhid()
     print(f"SWHID : {swhid}")
     print()
 
     print("Checking Software Heritage archive...")
-    found = _verify_swhid(swhid)
+    dir_hash = str(swhid).split(":")[-1]
+    resp = requests.get(f"{SWH_API}/directory/{dir_hash}/")
+    found = resp.status_code == 200
     if found:
         print("Result: FOUND in Software Heritage archive")
         print()

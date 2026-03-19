@@ -1,4 +1,12 @@
-
+# crates/crate_normalizer.py
+# Normalizes a .crate artifact by stripping registry-injected files and
+# verifying all source file content hashes against the SWH archive.
+#
+# Normalization: restore Cargo.toml from Cargo.toml.orig, remove
+# .cargo_vcs_info.json and Cargo.toml.orig. Then compare every remaining
+# file's content hash against the corresponding SWH blob.
+#
+# Usage: python crates/crate_normalizer.py pkg:cargo/serde@1.0.203
 
 import io
 import json
@@ -12,8 +20,7 @@ from swh.model.from_disk import Directory, Content
 CRATES_HEADERS = {"User-Agent": "swhid-poc/0.1 (gsoc research)"}
 SWH_API        = "https://archive.softwareheritage.org/api/1"
 
-REGISTRY_ADDED   = [".cargo_vcs_info.json", "Cargo.toml.orig"]
-REGISTRY_REWRITE = "Cargo.toml"
+REGISTRY_ADDED = [".cargo_vcs_info.json", "Cargo.toml.orig"]
 
 
 def parse_input(args):
@@ -46,24 +53,6 @@ def _download_and_extract(name, version):
     return os.path.join(target, items[0]) if len(items) == 1 else target
 
 
-def _read_vcs_info(source_path):
-    vcs_path = os.path.join(source_path, ".cargo_vcs_info.json")
-    if not os.path.exists(vcs_path):
-        return None, None
-    with open(vcs_path, "r", encoding="utf-8") as f:
-        vcs = json.load(f)
-    sha1        = vcs.get("git", {}).get("sha1")
-    path_in_vcs = vcs.get("path_in_vcs", "")
-    return sha1, path_in_vcs
-
-
-def _count_files(path):
-    count = 0
-    for _, _, files in os.walk(path):
-        count += len(files)
-    return count
-
-
 def _normalize(source_path):
     
     actions = []
@@ -84,18 +73,6 @@ def _normalize(source_path):
             actions.append(f"{filename} removed (registry-added file)")
 
     return actions
-
-
-def _compute_swhid(folder_path):
-    directory = Directory.from_disk(
-        path=os.fsencode(folder_path), max_content_length=None
-    )
-    return directory.swhid()
-
-
-def _content_swhid(file_path):
-    c = Content.from_file(path=os.fsencode(file_path), max_content_length=None)
-    return str(c.swhid()).split(":")[-1]
 
 
 def _build_swh_tree(dir_hash, prefix=""):
@@ -146,7 +123,14 @@ def main(name, version):
     print(f"Downloading {name}-{version}.crate ...")
     source_path = _download_and_extract(name, version)
 
-    sha1, path_in_vcs = _read_vcs_info(source_path)
+    # read provenance info embedded by the registry
+    vcs_path = os.path.join(source_path, ".cargo_vcs_info.json")
+    if os.path.exists(vcs_path):
+        vcs = json.load(open(vcs_path))
+        sha1 = vcs.get("git", {}).get("sha1")
+        path_in_vcs = vcs.get("path_in_vcs", "")
+    else:
+        sha1, path_in_vcs = None, ""
     is_monorepo = bool(path_in_vcs)
 
     if sha1:
@@ -155,19 +139,19 @@ def main(name, version):
         print(f"Monorepo    : path_in_vcs = {path_in_vcs}")
     print()
 
-    file_count_before = _count_files(source_path)
-    actions           = _normalize(source_path)
-    file_count_after  = _count_files(source_path)
+    before = sum(len(f) for _, _, f in os.walk(source_path))
+    actions = _normalize(source_path)
+    after = sum(len(f) for _, _, f in os.walk(source_path))
 
-    print(f"Files before normalization : {file_count_before}")
+    print(f"Files before normalization : {before}")
     print("Normalization steps:")
     for a in actions:
         print(f"  {a}")
-    print(f"Files after normalization  : {file_count_after}")
+    print(f"Files after normalization  : {after}")
     print()
 
     print("Computing SWHID of normalized tree...")
-    swhid = _compute_swhid(source_path)
+    swhid = Directory.from_disk(path=os.fsencode(source_path), max_content_length=None).swhid()
     print(f"Computed SWHID: {swhid}")
     print()
 
@@ -175,7 +159,7 @@ def main(name, version):
         print("Cannot verify: no git sha1 in .cargo_vcs_info.json")
         return
 
-    scope = f"serde-rs/{name} -> {path_in_vcs}/" if is_monorepo else f"{name} root"
+    scope = f"{name} -> {path_in_vcs}/" if is_monorepo else f"{name} root"
     print(f"Fetching SWH directory tree for git commit {sha1[:12]}... ({scope})")
     swh_dir_hash = _fetch_swh_dir(sha1, path_in_vcs)
 
@@ -203,7 +187,7 @@ def main(name, version):
         for fname in sorted(files):
             full_path = os.path.join(root, fname)
             rel = os.path.relpath(full_path, source_path).replace("\\", "/")
-            our_hash  = _content_swhid(full_path)
+            our_hash = str(Content.from_file(path=os.fsencode(full_path), max_content_length=None).swhid()).split(":")[-1]
             swh_hash  = swh_blobs.get(rel)
             if swh_hash is None:
                 not_in_git.append(rel)
