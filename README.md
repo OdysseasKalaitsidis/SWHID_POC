@@ -101,7 +101,7 @@ python crates/crate_analyzer.py pkg:cargo/serde@1.0.203
 python crates/crate_normalizer.py pkg:cargo/serde@1.0.203
 
 # Run all demos in sequence
-bash examples/demo.sh
+python examples/demo.py
 ```
 
 ---
@@ -140,7 +140,7 @@ SWHID_POC/
 +-- requirements.txt              # swh.model, requests
 |
 +-- examples/
-    +-- demo.sh                   # Runs all demos in sequence
+    +-- demo.py                   # Runs all demos in sequence
 ```
 
 ---
