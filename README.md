@@ -1,86 +1,73 @@
-# SWHID PoC: Mapping PURLs to Software Heritage Identifiers
+# SWHID Verification Prototype -- Exploring the PURL-to-SWHID Gap
 
-A research proof-of-concept exploring the gap between Package URLs (PURLs) and
-Software Heritage Intrinsic Identifiers (SWHIDs) across two ecosystems: PyPI and crates.io.
-
-Built as supporting evidence for a GSoC proposal to implement production-grade
-PURL→SWHID resolution in the Software Heritage infrastructure.
-
----
-
-## The Problem
-
-[PURLs](https://github.com/package-url/purl-spec) identify packages in registries
-(`pkg:pypi/torch@2.6.0`). [SWHIDs](https://docs.softwareheritage.org/devel/swh-model/persistent-identifiers.html)
-identify source code by content hash (`swh:1:dir:...`). Bridging them is not trivial:
-
-- **The mapping is not 1-to-1.** One PURL can resolve to 0, 1, or 20+ artifacts.
-- **Registry artifacts diverge from git trees.** Registries inject or rewrite files
-  before publishing, so the artifact's content hash ≠ the git tag's content hash.
-- **The problem is ecosystem-specific.** crates.io injects exactly 3 known files.
-  PyPI sdists contain generated files with no standardized stripping rules.
+This prototype explores the practical challenges of mapping Package URLs (PURLs) to
+Software Heritage Identifiers (SWHIDs) across different package ecosystems. It was
+built as pre-GSoC research for the "Using SWHID to Identify Software Components"
+project under GFOSS/EELLAK.
 
 ---
 
-## Key Findings
+## Three Key Findings
 
-### Finding 1: PyPI — one PURL, many (or no) source identifiers
+### Finding 1: The mapping is not 1-to-1
 
-`pkg:pypi/torch@2.6.0` resolves to **0 sdists and 20+ wheels** on PyPI.
+`pkg:pypi/torch@2.6.0` resolves to **0 sdists and 20 wheels** on PyPI.
 There is no source artifact. A SWHID cannot be computed at all.
 
 Even when a PyPI package publishes an sdist, the SWHID may not match the git tree
 archived by Software Heritage because of generated files absent from the repository.
 
-| Package | sdists | wheels | Computed SWHID | Found in SWH? | Why |
-|---|---|---|---|---|---|
-| `six==1.17.0` | 1 | 1 | `swh:1:dir:…` | ✓ **FOUND** | Pure Python, no generated files |
-| `certifi==2024.12.14` | 1 | 1 | `swh:1:dir:…` | ✗ **not found** | Ships CA bundle not in git repo |
-| `torch==2.6.0` | 0 | 20+ | — | — | No sdist published |
+| Package               | sdists | wheels | Computed SWHID        | Found in SWH? | Why                             |
+| --------------------- | ------ | ------ | --------------------- | ------------- | ------------------------------- |
+| `six==1.17.0`         | 1      | 1      | `swh:1:dir:06d75b...` | **FOUND**     | Pure Python, no generated files |
+| `certifi==2024.12.14` | 1      | 1      | `swh:1:dir:...`       | not found     | Ships CA bundle not in git repo |
+| `torch==2.6.0`        | 0      | 20     | --                    | --            | No sdist published              |
 
 The size contrast makes the torch case vivid:
 
 ```
-torch-2.6.0-cp310-cp310-linux_x86_64.whl       ~750 MB   (CUDA, Linux, Python 3.10)
-torch-2.6.0-cp312-cp312-win_amd64.whl          ~730 MB   (CUDA, Windows, Python 3.12)
-torch-2.6.0-cp310-cp310-manylinux...x86_64.whl ~750 MB
-...20+ more
+torch-2.6.0-cp310-cp310-manylinux1_x86_64.whl    731.2 MB  (CUDA, Linux, Python 3.10)
+torch-2.6.0-cp311-none-macosx_11_0_arm64.whl      63.4 MB  (macOS ARM)
+torch-2.6.0-cp312-cp312-win_amd64.whl            194.7 MB  (Windows)
+... 17 more
 ```
 
-Run `python analyze.py pkg:pypi/torch@2.6.0` to see the full wheel enumeration.
-
-### Finding 2: crates.io — normalization produces a stable SWHID
+### Finding 2: The mismatch varies by ecosystem
 
 `pkg:cargo/serde@1.0.203` has exactly one source artifact. The `.crate` file
-(a tar.gz) contains three files injected by the registry that are **not present
-in the git repository**:
+differs from the git repository in exactly three files injected by the registry:
 
-| File | Purpose |
-|---|---|
-| `.cargo_vcs_info.json` | Records the git commit sha1 used to build this release |
-| `Cargo.toml` | Rewritten by `cargo publish` (dependency versions normalized) |
-| `Cargo.toml.orig` | Original `Cargo.toml` before rewriting |
+| File                   | Purpose                                                       |
+| ---------------------- | ------------------------------------------------------------- |
+| `.cargo_vcs_info.json` | Records the git commit sha1 used to build this release        |
+| `Cargo.toml`           | Rewritten by `cargo publish` (dependency versions normalized) |
+| `Cargo.toml.orig`      | Original `Cargo.toml` before rewriting                        |
 
-After stripping these three files, the SWHID of the remaining tree **matches**
-the directory SWHID of the corresponding git commit in the Software Heritage archive.
+After normalization (restore `Cargo.toml.orig` as `Cargo.toml`, remove the other
+two), every source file's content hash matches the corresponding SWH blob exactly:
 
 ```
-Computed SWHID (stripped .crate):  swh:1:dir:3a2c5ef3e33bfbb98bb51e6fd7ef7fdac4082f17
-SWH directory (git commit lookup): 3a2c5ef3e33bfbb98bb51e6fd7ef7fdac4082f17
-
-Result: MATCH — normalization confirmed.
+  MATCH  Cargo.toml
+  MATCH  build.rs
+  MATCH  src/lib.rs
+  MATCH  src/de/mod.rs
+  ... 17 more source files
+============================================================
+Result: MATCH - all crate source files verified
+============================================================
+  21 files verified against SWH archive blobs: ALL MATCH
 ```
 
-Run `python analyze.py pkg:cargo/serde@1.0.203` to reproduce this result.
+See `findings/serde_swhid_match.txt` for the full output.
 
-### Finding 3: the contrast is the finding
+### Finding 3: Some ecosystems provide built-in provenance
 
-| Ecosystem | PURL → artifacts | Source SWHID possible? | Normalization |
-|---|---|---|---|
-| PyPI | 1 PURL → 0–20+ wheels | Sometimes (sdist-only, no generated files) | No standard rules exist |
-| crates.io | 1 PURL → 1 `.crate` | Yes, after stripping 3 known files | Deterministic |
+Crates.io embeds the source git commit hash in every crate via `.cargo_vcs_info.json`.
+This gives a direct link from the published artifact back to the exact git commit
+archived by Software Heritage -- making the verification chain complete.
 
-This asymmetry defines the scope of the GSoC project.
+On PyPI, PEP 740 attestations (Sigstore-based) can link wheels to their source
+commit for packages using Trusted Publishing, but adoption is not yet universal.
 
 ---
 
@@ -88,8 +75,8 @@ This asymmetry defines the scope of the GSoC project.
 
 ```bash
 python -m venv venv
-source venv/Scripts/activate  # Windows
-# source venv/bin/activate    # Linux/macOS
+source venv/Scripts/activate   # Windows (bash)
+# source venv/bin/activate     # Linux/macOS
 pip install -r requirements.txt
 ```
 
@@ -98,59 +85,83 @@ pip install -r requirements.txt
 ## Usage
 
 ```bash
-python analyze.py <purl>
+# PyPI: wheel-only package -- shows the 1-to-many problem
+python pypi/wheel_enumerator.py pkg:pypi/torch@2.6.0
+
+# PyPI: SWHID found in SWH archive (pure Python, no generated files)
+python pypi/swhid_verifier.py pkg:pypi/six@1.17.0
+
+# PyPI: SWHID not found (generated CA bundle diverges from git)
+python pypi/swhid_verifier.py pkg:pypi/certifi@2024.12.14
+
+# crates.io: shows which files the registry injected
+python crates/crate_analyzer.py pkg:cargo/serde@1.0.203
+
+# crates.io: normalize and verify all source files against SWH
+python crates/crate_normalizer.py pkg:cargo/serde@1.0.203
+
+# Run all demos in sequence
+bash examples/demo.sh
 ```
-
-```bash
-# PyPI: wheel-only package — shows the 1-to-many problem
-python analyze.py pkg:pypi/torch@2.6.0
-
-# PyPI: SWHID found in SWH archive
-python analyze.py pkg:pypi/six@1.17.0
-
-# PyPI: SWHID not found (generated files diverge from git)
-python analyze.py pkg:pypi/certifi@2024.12.14
-
-# crates.io: normalization proof
-python analyze.py pkg:cargo/serde@1.0.203
-
-# Machine-readable output
-python analyze.py pkg:pypi/six@1.17.0 --format json
-```
-
-Findings are saved automatically to `findings/` (gitignored — runtime output).
 
 ---
 
 ## Repository Structure
 
 ```
-├── analyze.py           # Entry point — accepts any PURL, dispatches by ecosystem
-├── pypi_analyzer.py     # PyPI analysis: metadata, artifact inventory, SWHID, scoring
-├── crates_analyzer.py   # crates.io analysis: injected files, normalization proof, scoring
-├── calculator.py        # Download, extract, strip injected files, compute SWHID
-├── parser.py            # Registry API queries (PyPI JSON API, crates.io API)
-├── swh_api.py           # Software Heritage archive REST API client
-├── swhid_verifier.py    # Standalone: compute SWHID for any local directory
-├── tests/               # Unit tests for calculator, parser, swh_api
-├── examples/
-│   └── demo.sh          # Runs the four key demonstrations
-└── requirements.txt
+SWHID_POC/
+|
++-- README.md
+|
++-- pypi/
+|   +-- wheel_enumerator.py      # Queries PyPI API, lists all wheels
+|   |                             # for a package version with sizes
+|   |                             # and platform details
+|   |
+|   +-- swhid_verifier.py        # Downloads sdist, computes SWHID
+|                                 # using swh.model, verifies against
+|                                 # Software Heritage archive API
+|
++-- crates/
+|   +-- crate_analyzer.py        # Downloads crate from crates.io,
+|   |                             # extracts and reports registry-added
+|   |                             # files and their purpose
+|   |
+|   +-- crate_normalizer.py      # Strips registry files, restores
+|                                 # original Cargo.toml, verifies all
+|                                 # source file hashes against SWH
+|
++-- findings/
+|   +-- torch_2.6.0_wheels.txt   # Raw PyPI API output for torch
+|   +-- serde_1.0.203_diff.txt   # Registry-injected files in serde
+|   +-- serde_swhid_match.txt    # File-level verification showing
+|                                 # 21/21 MATCH after normalization
+|
++-- requirements.txt              # swh.model, requests
+|
++-- examples/
+    +-- demo.sh                   # Runs all demos in sequence
 ```
 
 ---
 
-## What's Next
+## What each script does
 
-This PoC establishes the problem boundaries. The proposed GSoC project will implement
-a production-grade PURL→SWHID resolution service for Software Heritage that:
+**pypi/wheel_enumerator.py** -- Takes a PURL like `pkg:pypi/torch@2.6.0`, queries
+PyPI, and prints: number of wheels, number of sdists, each wheel filename with size
+and platform tags.
 
-1. **Handles PyPI sdists** — computes SWHIDs and documents which packages produce
-   verifiable identifiers vs. which diverge from the archived git tree
-2. **Normalizes crates.io artifacts** — applies the demonstrated stripping technique
-   at scale across the full crates.io index
-3. **Extends to npm and Maven** — each ecosystem has its own injection/rewriting
-   conventions; the normalization rules must be discovered and codified per ecosystem
-4. **Produces a dataset** — a mapping of `(PURL, SWHID, match_status)` tuples that
-   can be integrated into the Software Heritage infrastructure for provenance tracking
-   and supply chain security analysis
+**pypi/swhid_verifier.py** -- Takes a PURL for a PyPI package like
+`pkg:pypi/six@1.17.0`, downloads the sdist, computes its directory SWHID using
+`swh.model`, and checks if it exists in the Software Heritage archive.
+
+**crates/crate_analyzer.py** -- Takes a crate PURL like `pkg:cargo/serde@1.0.203`,
+downloads from crates.io, and reports exactly which files the registry added or
+modified, with their sizes and content.
+
+**crates/crate_normalizer.py** -- Takes the crate, restores `Cargo.toml` from
+`Cargo.toml.orig`, removes `.cargo_vcs_info.json` and `Cargo.toml.orig`, then
+verifies every remaining source file's content hash against the SWH blob archive.
+Prints MATCH or MISMATCH per file.
+
+This is a research prototype, not the final tool.

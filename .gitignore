@@ -10,4 +10,4 @@ build/
 .pytest_cache/
 .claude/
 CLAUDE.md
-findings/
+# findings/ is intentionally tracked -- contains pre-computed research output

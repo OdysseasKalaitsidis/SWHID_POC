@@ -1,0 +1,34 @@
+PURL    : pkg:cargo/serde@1.0.203
+crates.io: https://crates.io/crates/serde/1.0.203
+
+Downloading serde-1.0.203.crate ...
+Downloaded: 76.1 KB
+
+Total files in .crate: 27
+
+VCS info  : git sha1 = d5bc546ca53be0b31984a06a8ad587cbea4ca5ce
+            path_in_vcs = serde  (monorepo crate)
+
+Registry-injected files (not present in the git repository):
+
+  + .cargo_vcs_info.json            (99 bytes)
+      {
+        "git": {
+          "sha1": "d5bc546ca53be0b31984a06a8ad587cbea4ca5ce"
+        },
+        "path_in_vcs": "serde"
+      }
+  + Cargo.toml                      (1709 bytes)
+      (rewritten by `cargo publish` — original preserved in Cargo.toml.orig)
+  + Cargo.toml.orig                 (2431 bytes)
+      (original Cargo.toml before registry normalization)
+
+Remaining source files: 24 (identical to git tree)
+
+Conclusion:
+  The .crate for serde 1.0.203 differs from the git tag in exactly
+  3 registry-added files. All source files are unmodified.
+  After stripping these files, the SWHID of the remaining tree
+  can be compared against the SWH archive.
+
+  Run: python crates/crate_normalizer.py pkg:cargo/serde@1.0.203

@@ -1,0 +1,64 @@
+PURL: pkg:cargo/serde@1.0.203
+
+Downloading serde-1.0.203.crate ...
+Git sha1    : d5bc546ca53be0b31984a06a8ad587cbea4ca5ce
+Monorepo    : path_in_vcs = serde
+
+Files before normalization : 27
+Normalization steps:
+  Cargo.toml  <- restored from Cargo.toml.orig (undo registry rewrite)
+  .cargo_vcs_info.json  <- removed (registry-added file)
+  Cargo.toml.orig  <- removed (registry-added file)
+Files after normalization  : 25
+
+Computing SWHID of normalized tree...
+Computed SWHID: swh:1:dir:27babd292546fe0434099c93e8051d636248c50d
+
+Fetching SWH directory tree for git commit d5bc546ca53b... (serde-rs/serde -> serde/)
+SWH directory hash : 9bd19b08d58002b76d0ddedfd55e2f933432dd1d
+Building SWH blob index...
+SWH blobs indexed  : 21
+
+Verifying file content hashes against SWH archive:
+
+  MATCH  Cargo.toml
+  MATCH  build.rs
+  MATCH  src/integer128.rs
+  MATCH  src/lib.rs
+  MATCH  src/macros.rs
+  MATCH  src/std_error.rs
+  MATCH  src/de/format.rs
+  MATCH  src/de/ignored_any.rs
+  MATCH  src/de/impls.rs
+  MATCH  src/de/mod.rs
+  MATCH  src/de/seed.rs
+  MATCH  src/de/size_hint.rs
+  MATCH  src/de/value.rs
+  MATCH  src/private/de.rs
+  MATCH  src/private/doc.rs
+  MATCH  src/private/mod.rs
+  MATCH  src/private/ser.rs
+  MATCH  src/ser/fmt.rs
+  MATCH  src/ser/impls.rs
+  MATCH  src/ser/impossible.rs
+  MATCH  src/ser/mod.rs
+  --     LICENSE-APACHE  (not in git tree - excluded from crate)
+  --     LICENSE-MIT  (not in git tree - excluded from crate)
+  --     README.md  (not in git tree - excluded from crate)
+  --     crates-io.md  (not in git tree - excluded from crate)
+
+============================================================
+Result: MATCH - all crate source files verified
+============================================================
+
+  21 files verified against SWH archive blobs: ALL MATCH
+  4 files not in git tree (standard crate exclusions)
+
+The normalized crate contains only authentic source files.
+Every file's content hash matches the corresponding SWH blob
+at git commit d5bc546ca53be0b31984a06a8ad587cbea4ca5ce.
+
+Note: full directory SWHID comparison is not applicable here.
+Crates exclude test files, CI configs, and benchmarks that exist
+in the git repo - so the directory trees have different shapes.
+File-level content verification is the correct comparison unit.

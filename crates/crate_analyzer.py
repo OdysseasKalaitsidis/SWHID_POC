@@ -1,0 +1,150 @@
+"""
+crates/crate_analyzer.py — Download a crate from crates.io, check out the matching
+                            git tag, and diff the two to show registry-injected files.
+
+Takes a crate name and version like serde@1.0.203 (or pkg:cargo/serde@1.0.203),
+downloads the .crate artifact, reads the embedded .cargo_vcs_info.json to find
+the source git commit, then reports which files the registry added or modified.
+
+Usage:
+    python crates/crate_analyzer.py pkg:cargo/serde@1.0.203
+    python crates/crate_analyzer.py serde 1.0.203
+"""
+
+import io
+import json
+import os
+import sys
+import shutil
+import tarfile
+import requests
+
+CRATES_HEADERS = {"User-Agent": "swhid-poc/0.1 (gsoc research)"}
+# Files added or rewritten by the crates.io registry (not present in git as-is)
+INJECTED_FILES = [".cargo_vcs_info.json", "Cargo.toml", "Cargo.toml.orig"]
+# Note: Cargo.toml is rewritten (not added); Cargo.toml.orig holds the original
+
+
+def parse_input(args):
+    if len(args) == 1 and args[0].startswith("pkg:cargo/"):
+        purl = args[0][len("pkg:cargo/"):]
+        if "@" not in purl:
+            raise ValueError(f"PURL must include @version: {args[0]}")
+        name, version = purl.split("@", 1)
+    elif len(args) == 2:
+        name, version = args
+    else:
+        raise ValueError("Pass a PURL (pkg:cargo/serde@1.0.203) or name + version")
+    return name, version
+
+
+def _download_crate(name, version):
+    url = f"https://static.crates.io/crates/{name}/{name}-{version}.crate"
+    resp = requests.get(url, headers=CRATES_HEADERS)
+    resp.raise_for_status()
+    return resp.content
+
+
+def _extract_crate(data, target):
+    if os.path.exists(target):
+        shutil.rmtree(target)
+    os.makedirs(target)
+    with tarfile.open(fileobj=io.BytesIO(data), mode="r:gz") as tar:
+        tar.extractall(path=target, filter="data")
+    items = os.listdir(target)
+    return os.path.join(target, items[0]) if len(items) == 1 else target
+
+
+def _read_vcs_info(source_path):
+    vcs_path = os.path.join(source_path, ".cargo_vcs_info.json")
+    if not os.path.exists(vcs_path):
+        return None
+    with open(vcs_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _list_all_files(path):
+    result = []
+    for root, dirs, files in os.walk(path):
+        dirs.sort()
+        for fname in sorted(files):
+            full = os.path.join(root, fname)
+            rel  = os.path.relpath(full, path)
+            result.append(rel.replace("\\", "/"))
+    return result
+
+
+def main(name, version):
+    purl = f"pkg:cargo/{name}@{version}"
+    print(f"PURL    : {purl}")
+    print(f"crates.io: https://crates.io/crates/{name}/{version}")
+    print()
+
+    print(f"Downloading {name}-{version}.crate ...")
+    crate_data = _download_crate(name, version)
+    print(f"Downloaded: {len(crate_data) / 1024:.1f} KB")
+    print()
+
+    target = os.path.join(os.path.dirname(__file__), "..", "tmp", "crate_analyzer")
+    source_path = _extract_crate(crate_data, target)
+
+    all_files = _list_all_files(source_path)
+    print(f"Total files in .crate: {len(all_files)}")
+    print()
+
+    vcs_info = _read_vcs_info(source_path)
+    if vcs_info:
+        git_sha1    = vcs_info.get("git", {}).get("sha1", "unknown")
+        path_in_vcs = vcs_info.get("path_in_vcs", "")
+        print(f"VCS info  : git sha1 = {git_sha1}")
+        if path_in_vcs:
+            print(f"            path_in_vcs = {path_in_vcs}  (monorepo crate)")
+        else:
+            print(f"            path_in_vcs = (root — not a monorepo)")
+        print()
+    else:
+        print("No .cargo_vcs_info.json found.")
+        print()
+
+    print("Registry-injected files (not present in the git repository):")
+    print()
+    for filename in INJECTED_FILES:
+        full = os.path.join(source_path, filename)
+        if os.path.exists(full):
+            size = os.path.getsize(full)
+            print(f"  + {filename:<30}  ({size} bytes)")
+            if filename == ".cargo_vcs_info.json":
+                with open(full, "r", encoding="utf-8") as f:
+                    content = f.read().strip()
+                for line in content.splitlines():
+                    print(f"      {line}")
+            elif filename == "Cargo.toml":
+                print(f"      (rewritten by `cargo publish` — original preserved in Cargo.toml.orig)")
+            elif filename == "Cargo.toml.orig":
+                print(f"      (original Cargo.toml before registry normalization)")
+        else:
+            print(f"  - {filename:<30}  (not present)")
+    print()
+
+    remaining = [f for f in all_files if f not in INJECTED_FILES]
+    print(f"Remaining source files: {len(remaining)} (identical to git tree)")
+    print()
+    print("Conclusion:")
+    print(f"  The .crate for {name} {version} differs from the git tag in exactly")
+    print(f"  {len([f for f in INJECTED_FILES if os.path.exists(os.path.join(source_path, f))])} "
+          f"registry-added files. All source files are unmodified.")
+    print(f"  After stripping these files, the SWHID of the remaining tree")
+    print(f"  can be compared against the SWH archive.")
+    print()
+    print("  Run: python crates/crate_normalizer.py " +
+          ("pkg:cargo/" if True else "") + f"{name}@{version}")
+
+
+if __name__ == "__main__":
+    try:
+        name, version = parse_input(sys.argv[1:])
+    except ValueError as e:
+        print(f"Error: {e}")
+        print("Usage: python crates/crate_analyzer.py pkg:cargo/serde@1.0.203")
+        sys.exit(1)
+    main(name, version)

@@ -1,0 +1,31 @@
+PURL: pkg:pypi/torch@2.6.0
+PyPI: https://pypi.org/project/torch/2.6.0/
+
+sdists : 0
+wheels : 20
+
+Wheels:
+  torch-2.6.0-cp310-cp310-manylinux1_x86_64.whl                                       731.2 MB  python=cp310  abi=cp310  platform=manylinux1_x86_64
+  torch-2.6.0-cp310-cp310-manylinux_2_28_aarch64.whl                                   91.3 MB  python=cp310  abi=cp310  platform=manylinux_2_28_aarch64
+  torch-2.6.0-cp310-cp310-win_amd64.whl                                               194.7 MB  python=cp310  abi=cp310  platform=win_amd64
+  torch-2.6.0-cp310-none-macosx_11_0_arm64.whl                                         63.4 MB  python=cp310  abi=none  platform=macosx_11_0_arm64
+  torch-2.6.0-cp311-cp311-manylinux1_x86_64.whl                                       731.2 MB  python=cp311  abi=cp311  platform=manylinux1_x86_64
+  torch-2.6.0-cp311-cp311-manylinux_2_28_aarch64.whl                                   91.3 MB  python=cp311  abi=cp311  platform=manylinux_2_28_aarch64
+  torch-2.6.0-cp311-cp311-win_amd64.whl                                               194.7 MB  python=cp311  abi=cp311  platform=win_amd64
+  torch-2.6.0-cp311-none-macosx_11_0_arm64.whl                                         63.4 MB  python=cp311  abi=none  platform=macosx_11_0_arm64
+  torch-2.6.0-cp312-cp312-manylinux1_x86_64.whl                                       731.1 MB  python=cp312  abi=cp312  platform=manylinux1_x86_64
+  torch-2.6.0-cp312-cp312-manylinux_2_28_aarch64.whl                                   91.2 MB  python=cp312  abi=cp312  platform=manylinux_2_28_aarch64
+  torch-2.6.0-cp312-cp312-win_amd64.whl                                               194.7 MB  python=cp312  abi=cp312  platform=win_amd64
+  torch-2.6.0-cp312-none-macosx_11_0_arm64.whl                                         63.5 MB  python=cp312  abi=none  platform=macosx_11_0_arm64
+  torch-2.6.0-cp313-cp313-manylinux1_x86_64.whl                                       731.1 MB  python=cp313  abi=cp313  platform=manylinux1_x86_64
+  torch-2.6.0-cp313-cp313-manylinux_2_28_aarch64.whl                                   91.2 MB  python=cp313  abi=cp313  platform=manylinux_2_28_aarch64
+  torch-2.6.0-cp313-cp313-win_amd64.whl                                               194.7 MB  python=cp313  abi=cp313  platform=win_amd64
+  torch-2.6.0-cp313-none-macosx_11_0_arm64.whl                                         63.5 MB  python=cp313  abi=none  platform=macosx_11_0_arm64
+  torch-2.6.0-cp39-cp39-manylinux1_x86_64.whl                                         731.2 MB  python=cp39  abi=cp39  platform=manylinux1_x86_64
+  torch-2.6.0-cp39-cp39-manylinux_2_28_aarch64.whl                                     91.3 MB  python=cp39  abi=cp39  platform=manylinux_2_28_aarch64
+  torch-2.6.0-cp39-cp39-win_amd64.whl                                                 194.6 MB  python=cp39  abi=cp39  platform=win_amd64
+  torch-2.6.0-cp39-none-macosx_11_0_arm64.whl                                          63.4 MB  python=cp39  abi=none  platform=macosx_11_0_arm64
+
+Finding: 0 sdists, 20 wheels.
+A SWHID cannot be computed — there is no source artifact.
+One PURL maps to many platform-specific binary artifacts.
