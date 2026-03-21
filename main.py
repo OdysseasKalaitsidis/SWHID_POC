@@ -1,15 +1,16 @@
-# examples/demo.py
+# main.py
 # Runs all five demonstrations in sequence.
 #
-# Usage: python examples/demo.py
+# Usage: python main.py
 
 import sys
 import os
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.dirname(__file__))
 
 from pypi import wheel_enumerator, swhid_verifier
 from crates import crate_analyzer, crate_normalizer
+from maven import maven_analyzer
 
 demos = [
     ("PyPI - wheel-only package (torch)",
@@ -31,6 +32,10 @@ demos = [
     ("crates.io - normalization and verification (serde)",
      "after normalization, 21/21 source file hashes match SWH archive",
      lambda: crate_normalizer.main("serde", "1.0.203")),
+
+    ("Maven - SCM metadata survey (13 packages)",
+     "SCM block completeness and -sources.jar availability across top JVM packages",
+     lambda: maven_analyzer.main()),
 ]
 
 for i, (title, finding, run) in enumerate(demos, 1):
