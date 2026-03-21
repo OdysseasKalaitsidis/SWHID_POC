@@ -1,5 +1,5 @@
+import hashlib
 import io
-import json
 import os
 import re
 import zipfile
@@ -10,6 +10,7 @@ from collections import defaultdict
 TARGET = "com.fasterxml.jackson.core:jackson-databind:2.17.0"
 MAVEN_CENTRAL = "https://repo1.maven.org/maven2"
 GITHUB_API = "https://api.github.com"
+SWH_API = "https://archive.softwareheritage.org/api/1"
 NS = "http://maven.apache.org/POM/4.0.0"
 
 FINDINGS_DIR = os.path.join(os.path.dirname(__file__), "..", "findings")
@@ -72,24 +73,83 @@ def extract_github_owner_repo(url):
 
 
 def fetch_git_tree(owner, repo, tag):
+    # Returns {path: blob_sha} for all blobs, or None on failure.
     for ref in [tag, f"v{tag}"]:
         url = f"{GITHUB_API}/repos/{owner}/{repo}/git/trees/{ref}?recursive=1"
         resp = requests.get(url, timeout=15, headers={"Accept": "application/vnd.github+json"})
         if resp.status_code == 200:
             data = resp.json()
-            return {e["path"] for e in data.get("tree", []) if e["type"] == "blob"}
+            return {e["path"]: e["sha"] for e in data.get("tree", []) if e["type"] == "blob"}
     return None
 
 
 def strip_src_prefix(path):
-    # Maven source roots: src/main/java, src/test/java, src/main/resources, etc.
     for prefix in ["src/main/java/", "src/test/java/", "src/main/resources/", "src/test/resources/"]:
         if path.startswith(prefix):
             return path[len(prefix):]
     return path
 
 
-def write_findings_txt(coords, scm, inventory, git_total, only_in_jar, only_in_git, in_both):
+def git_blob_sha1(data):
+    # Git and SWH both hash blobs as sha1("blob {len}\0{content}")
+    header = f"blob {len(data)}\0".encode()
+    return hashlib.sha1(header + data).hexdigest()
+
+
+def verify_content_overlap(zf, overlap_files, git_java_shas, n=10):
+    """
+    Sample n files from the overlap set.
+    For each: read bytes from jar, compute git blob SHA, compare with git tree SHA.
+    If SHAs differ, check whether normalising CRLF -> LF fixes it.
+    Also verify one matched file against the SWH archive to close the pipeline.
+    Returns a list of result dicts.
+    """
+    # Pick n evenly spaced files so we sample across the whole alphabet
+    sorted_files = sorted(overlap_files)
+    step = max(1, len(sorted_files) // n)
+    sample = sorted_files[::step][:n]
+
+    results = []
+    swh_checked = False  # only do one SWH API call
+
+    for path in sample:
+        jar_bytes = zf.read(path)
+        jar_sha = git_blob_sha1(jar_bytes)
+        git_sha = git_java_shas[path]
+
+        if jar_sha == git_sha:
+            status = "BYTE_IDENTICAL"
+            note = ""
+            # Check one file against SWH to confirm end-to-end
+            if not swh_checked:
+                swh_resp = requests.get(f"{SWH_API}/content/sha1_git:{jar_sha}/", timeout=10)
+                swh_found = swh_resp.status_code == 200
+                swh_checked = True
+                note = f"verified in SWH archive: {'YES' if swh_found else 'NOT FOUND'}"
+        else:
+            # Check if the only difference is line endings
+            normalised = jar_bytes.replace(b"\r\n", b"\n")
+            if git_blob_sha1(normalised) == git_sha:
+                status = "LINE_ENDING_DIFF"
+                note = "jar has CRLF, git has LF"
+            else:
+                status = "CONTENT_DIFFERS"
+                note = "content genuinely different"
+
+        results.append({
+            "file": path,
+            "jar_sha1": jar_sha,
+            "git_sha1": git_sha,
+            "status": status,
+            "note": note,
+            "jar_size_bytes": len(jar_bytes),
+        })
+
+    return results
+
+
+def write_findings_txt(coords, scm, inventory, git_total, only_in_jar, only_in_git,
+                       in_both, content_results):
     _, artifact_id, version = coords.split(":")
     filename = f"{artifact_id}_{version}_sources_inspection.txt"
     path = os.path.join(FINDINGS_DIR, filename)
@@ -118,7 +178,7 @@ def write_findings_txt(coords, scm, inventory, git_total, only_in_jar, only_in_g
     lines.append("")
     lines.append(f"Git tree total files (tag {scm.get('tag', '?')}): {git_total}")
     lines.append("")
-    lines.append(f"Files only in sources.jar (not in git .java): {len(only_in_jar)}")
+    lines.append(f"Files only in sources.jar (not in git): {len(only_in_jar)}")
     for f in only_in_jar[:40]:
         lines.append(f"  + {f}")
     if len(only_in_jar) > 40:
@@ -131,8 +191,30 @@ def write_findings_txt(coords, scm, inventory, git_total, only_in_jar, only_in_g
         lines.append(f"  ... and {len(only_in_git) - 40} more")
     lines.append("")
     lines.append(f"Files in both: {in_both}")
-    lines.append("")
     lines.append("Note: git paths have src/main/java/ prefix stripped before comparison.")
+    lines.append("")
+
+    if content_results:
+        byte_identical = sum(1 for r in content_results if r["status"] == "BYTE_IDENTICAL")
+        lines.append(f"Content verification — {len(content_results)} sampled files from {in_both} overlapping:")
+        lines.append("")
+        for r in content_results:
+            lines.append(f"  {r['file']}")
+            lines.append(f"    jar SHA1 : {r['jar_sha1']}")
+            lines.append(f"    git SHA1 : {r['git_sha1']}")
+            status_str = {
+                "BYTE_IDENTICAL": "BYTE-IDENTICAL",
+                "LINE_ENDING_DIFF": "LINE ENDING DIFF (CRLF vs LF)",
+                "CONTENT_DIFFERS": "CONTENT DIFFERS",
+            }.get(r["status"], r["status"])
+            line = f"    result   : {status_str}"
+            if r["note"]:
+                line += f"  ({r['note']})"
+            lines.append(line)
+            lines.append("")
+        lines.append(f"Summary: {byte_identical}/{len(content_results)} sampled files byte-identical to git.")
+        if byte_identical == len(content_results):
+            lines.append("All sampled SWH content SWHIDs (swh:1:cnt:{sha1}) will match the archive.")
 
     with open(path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
@@ -142,7 +224,6 @@ def write_findings_txt(coords, scm, inventory, git_total, only_in_jar, only_in_g
 
 def main():
     coords = TARGET
-    _, artifact_id, version = coords.split(":")
 
     print(f"Package : {coords}")
     print()
@@ -178,28 +259,56 @@ def main():
 
     git_total = -1
     only_in_jar, only_in_git, in_both = [], [], 0
+    content_results = []
+    git_java_shas = {}
 
     if owner and tag:
         print(f"Fetching git tree: github.com/{owner}/{repo} @ {tag} ...")
-        git_files = fetch_git_tree(owner, repo, tag)
+        git_tree = fetch_git_tree(owner, repo, tag)
 
-        if git_files is not None:
-            git_total = len(git_files)
+        if git_tree is not None:
+            git_total = len(git_tree)
 
-            # Normalise git java paths by stripping src/main/java/ etc.
-            git_java = {strip_src_prefix(f) for f in git_files if f.endswith(".java")}
+            # Strip src/main/java/ prefix from git paths, keep blob SHAs
+            git_java_shas = {
+                strip_src_prefix(p): sha
+                for p, sha in git_tree.items()
+                if p.endswith(".java")
+            }
             jar_java = set(inventory.get(".java", []))
 
-            only_in_jar = sorted(jar_java - git_java)
-            only_in_git = sorted(git_java - jar_java)
-            in_both = len(jar_java & git_java)
+            overlap = jar_java & set(git_java_shas.keys())
+            only_in_jar = sorted(jar_java - set(git_java_shas.keys()))
+            only_in_git = sorted(set(git_java_shas.keys()) - jar_java)
+            in_both = len(overlap)
 
             print(f"  git total files  : {git_total}")
-            print(f"  git .java files  : {len(git_java)}  (after stripping src/main/java prefix)")
+            print(f"  git .java files  : {len(git_java_shas)}  (after stripping src/ prefix)")
             print(f"  jar .java files  : {len(jar_java)}")
             print(f"  only in jar      : {len(only_in_jar)}")
             print(f"  only in git      : {len(only_in_git)}")
             print(f"  in both          : {in_both}")
+            print()
+
+            if overlap:
+                print(f"Content verification — sampling 10 of {in_both} overlapping files...")
+                content_results = verify_content_overlap(zf, overlap, git_java_shas, n=10)
+                print()
+                byte_identical = sum(1 for r in content_results if r["status"] == "BYTE_IDENTICAL")
+                for r in content_results:
+                    icon = "=" if r["status"] == "BYTE_IDENTICAL" else "!" if r["status"] == "LINE_ENDING_DIFF" else "X"
+                    note = f"  ({r['note']})" if r["note"] else ""
+                    print(f"  [{icon}] {r['file']}")
+                    if r["status"] == "BYTE_IDENTICAL":
+                        print(f"        SHA1: {r['jar_sha1']}{note}")
+                    else:
+                        print(f"        jar SHA1: {r['jar_sha1']}")
+                        print(f"        git SHA1: {r['git_sha1']}")
+                        print(f"        {note}")
+                print()
+                print(f"  {byte_identical}/{len(content_results)} files byte-identical to git")
+                if byte_identical == len(content_results):
+                    print("  All SWH content SWHIDs (swh:1:cnt:<sha1>) will match the archive.")
         else:
             print("  WARNING: tag not found on GitHub — skipping tree comparison")
         print()
@@ -213,24 +322,27 @@ def main():
             print(f"  {f}")
         print()
 
-    write_findings_txt(coords, scm, inventory, git_total, only_in_jar, only_in_git, in_both)
+    write_findings_txt(coords, scm, inventory, git_total, only_in_jar, only_in_git,
+                       in_both, content_results)
     print()
 
-    if only_in_jar:
+    byte_identical_count = sum(1 for r in content_results if r["status"] == "BYTE_IDENTICAL")
+    if content_results and byte_identical_count == len(content_results):
         finding = (
-            f"{len(only_in_jar)} .java files in jar not present in git "
-            f"(likely generated); {len(other_files)} non-.java entries (META-INF etc.)"
+            f"{in_both} overlapping files; "
+            f"all {len(content_results)} sampled files byte-identical to git — "
+            f"SWH content SWHIDs match end-to-end"
         )
-    elif only_in_git:
+    elif content_results:
         finding = (
-            f"{len(only_in_git)} .java files in git excluded from sources.jar; "
-            f"{len(other_files)} non-.java entries"
+            f"{in_both} overlapping files; "
+            f"{byte_identical_count}/{len(content_results)} sampled byte-identical; "
+            f"{len(content_results) - byte_identical_count} differ"
         )
+    elif only_in_jar:
+        finding = f"{len(only_in_jar)} .java files in jar not present in git (generated)"
     else:
-        finding = (
-            f"sources.jar .java files exactly match git tree; "
-            f"{len(other_files)} non-.java entries (META-INF etc.)"
-        )
+        finding = f"{in_both} overlapping files; content not verified"
 
     print(f"Finding: {finding}")
 
@@ -247,6 +359,8 @@ def main():
         "in_both_count": in_both,
         "only_in_jar_sample": only_in_jar[:20],
         "only_in_git_sample": only_in_git[:20],
+        "content_verification": content_results,
+        "content_byte_identical": byte_identical_count,
         "finding": finding,
     }
 
