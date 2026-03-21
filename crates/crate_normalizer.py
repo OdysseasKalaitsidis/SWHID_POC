@@ -234,6 +234,26 @@ def main(name, version):
         print("The crate contains files that do not match the git source.")
         print("The 3 known registry files are not sufficient to explain the divergence.")
 
+    return {
+        "name": name,
+        "version": version,
+        "git_sha1": sha1,
+        "is_monorepo": is_monorepo,
+        "path_in_vcs": path_in_vcs,
+        "files_before_normalization": before,
+        "files_after_normalization": after,
+        "normalization_steps": actions,
+        "swhid": str(swhid),
+        "verified_matches": len(matched),
+        "verified_mismatches": len(mismatched),
+        "not_in_git": len(not_in_git),
+        "finding": (
+            f"all {len(matched)} source files verified against SWH blobs — MATCH"
+            if not mismatched else
+            f"{len(mismatched)} content mismatches after normalization"
+        ),
+    }
+
 
 if __name__ == "__main__":
     try:

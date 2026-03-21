@@ -82,6 +82,17 @@ def main(purl):
         print("A SWHID cannot be computed — there is no source artifact.")
         print("One PURL maps to many platform-specific binary artifacts.")
 
+    return {
+        "purl": purl,
+        "sdist_count": len(sdists),
+        "wheel_count": len(wheels),
+        "sdists": [{"filename": s["filename"], "sha256": s["sha256"]} for s in sdists],
+        "finding": (
+            f"wheel-only: {len(wheels)} platform wheels, no sdist — SWHID not possible"
+            if not sdists else f"{len(sdists)} sdist(s), {len(wheels)} wheel(s)"
+        ),
+    }
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

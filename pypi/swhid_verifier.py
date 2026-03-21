@@ -100,6 +100,19 @@ def main(purl):
         print("Likely cause: generated files (.egg-info, CA bundles, etc.) are")
         print("present in the sdist but absent from the git repository.")
 
+    return {
+        "purl": purl,
+        "sdist_filename": sdist["filename"],
+        "sdist_sha256": sdist["sha256"],
+        "swhid": str(swhid),
+        "found_in_swh": found,
+        "finding": (
+            "sdist tree matches git tree — SWHID verifiable in SWH archive"
+            if found else
+            "sdist tree diverges from git tree — generated files present in sdist"
+        ),
+    }
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

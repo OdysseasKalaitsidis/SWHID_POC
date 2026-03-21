@@ -1,0 +1,74 @@
+Package : com.fasterxml.jackson.core:jackson-databind:2.17.0
+SCM tag : jackson-databind-2.17.0
+SCM url : https://github.com/FasterXML/jackson-databind
+
+sources.jar contents:
+  Total entries : 482
+  .java files   : 475
+  (no ext)            : 2
+  .in                 : 1
+  .mf                 : 1
+  .objectcodec        : 1
+  .properties         : 1
+  .xml                : 1
+
+Non-.java files in sources.jar:
+  META-INF/LICENSE
+  META-INF/MANIFEST.MF
+  META-INF/NOTICE
+  META-INF/maven/com.fasterxml.jackson.core/jackson-databind/pom.properties
+  META-INF/maven/com.fasterxml.jackson.core/jackson-databind/pom.xml
+  META-INF/services/com.fasterxml.jackson.core.ObjectCodec
+  com/fasterxml/jackson/databind/cfg/PackageVersion.java.in
+
+Git tree total files (tag jackson-databind-2.17.0): 1252
+
+Files only in sources.jar (not in git .java): 1
+  + com/fasterxml/jackson/databind/cfg/PackageVersion.java
+
+Files only in git (not in sources.jar): 709
+  - attic/ContainerBuilder.java
+  - com/fasterxml/jackson/databind/BaseMapTest.java
+  - com/fasterxml/jackson/databind/BaseTest.java
+  - com/fasterxml/jackson/databind/BoundsChecksForInputTest.java
+  - com/fasterxml/jackson/databind/FormatSchemaTest.java
+  - com/fasterxml/jackson/databind/HandlerInstantiationTest.java
+  - com/fasterxml/jackson/databind/MapperFootprintTest.java
+  - com/fasterxml/jackson/databind/MapperViaParserTest.java
+  - com/fasterxml/jackson/databind/ModuleRegistrationTest.java
+  - com/fasterxml/jackson/databind/ObjectMapperTest.java
+  - com/fasterxml/jackson/databind/ObjectReaderTest.java
+  - com/fasterxml/jackson/databind/ObjectWriterTest.java
+  - com/fasterxml/jackson/databind/PropertyNameTest.java
+  - com/fasterxml/jackson/databind/RootNameTest.java
+  - com/fasterxml/jackson/databind/RoundtripTest.java
+  - com/fasterxml/jackson/databind/SerializeUsingJDKTest.java
+  - com/fasterxml/jackson/databind/VersionInfoTest.java
+  - com/fasterxml/jackson/databind/access/AnyGetterAccessTest.java
+  - com/fasterxml/jackson/databind/big/BiggerDataTest.java
+  - com/fasterxml/jackson/databind/cfg/BogusFormatFeature.java
+  - com/fasterxml/jackson/databind/cfg/CacheProviderTest.java
+  - com/fasterxml/jackson/databind/cfg/DatabindContextTest.java
+  - com/fasterxml/jackson/databind/cfg/DeserializationConfigTest.java
+  - com/fasterxml/jackson/databind/cfg/SerializationConfigTest.java
+  - com/fasterxml/jackson/databind/contextual/ContextAttributeWithDeserTest.java
+  - com/fasterxml/jackson/databind/contextual/ContextAttributeWithSerTest.java
+  - com/fasterxml/jackson/databind/contextual/ContextualDeserializationTest.java
+  - com/fasterxml/jackson/databind/contextual/ContextualKeyTypesTest.java
+  - com/fasterxml/jackson/databind/contextual/ContextualSerializationTest.java
+  - com/fasterxml/jackson/databind/contextual/ContextualWithAnnDeserializerTest.java
+  - com/fasterxml/jackson/databind/convert/ArrayConversionsTest.java
+  - com/fasterxml/jackson/databind/convert/BeanConversionsTest.java
+  - com/fasterxml/jackson/databind/convert/CoerceBoolToStringTest.java
+  - com/fasterxml/jackson/databind/convert/CoerceContainersTest.java
+  - com/fasterxml/jackson/databind/convert/CoerceEmptyArrayTest.java
+  - com/fasterxml/jackson/databind/convert/CoerceEmptyToInt3234Test.java
+  - com/fasterxml/jackson/databind/convert/CoerceEnumTest.java
+  - com/fasterxml/jackson/databind/convert/CoerceFloatToIntTest.java
+  - com/fasterxml/jackson/databind/convert/CoerceFloatToStringTest.java
+  - com/fasterxml/jackson/databind/convert/CoerceIntToFloatTest.java
+  ... and 669 more
+
+Files in both: 474
+
+Note: git paths have src/main/java/ prefix stripped before comparison.

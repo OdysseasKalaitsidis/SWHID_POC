@@ -1,0 +1,185 @@
+{
+  "ecosystem": "maven",
+  "generated_at": "2026-03-21",
+  "findings": [
+    {
+      "packages_surveyed": 13,
+      "packages_with_scm_block": 9,
+      "packages_with_sources_jar": 12,
+      "results": [
+        {
+          "coords": "com.google.guava:guava:33.0.0-jre",
+          "pom_ok": true,
+          "has_scm": false,
+          "scm_url": false,
+          "scm_connection": false,
+          "scm_tag": false,
+          "sources_jar": true
+        },
+        {
+          "coords": "junit:junit:4.13.2",
+          "pom_ok": true,
+          "has_scm": true,
+          "scm_url": true,
+          "scm_connection": true,
+          "scm_tag": true,
+          "sources_jar": true
+        },
+        {
+          "coords": "org.springframework:spring-core:6.1.4",
+          "pom_ok": true,
+          "has_scm": true,
+          "scm_url": true,
+          "scm_connection": true,
+          "scm_tag": false,
+          "sources_jar": true
+        },
+        {
+          "coords": "com.fasterxml.jackson.core:jackson-databind:2.17.0",
+          "pom_ok": true,
+          "has_scm": true,
+          "scm_url": true,
+          "scm_connection": true,
+          "scm_tag": true,
+          "sources_jar": true
+        },
+        {
+          "coords": "org.slf4j:slf4j-api:2.0.12",
+          "pom_ok": true,
+          "has_scm": false,
+          "scm_url": false,
+          "scm_connection": false,
+          "scm_tag": false,
+          "sources_jar": true
+        },
+        {
+          "coords": "org.apache.commons:commons-lang3:3.14.0",
+          "pom_ok": true,
+          "has_scm": true,
+          "scm_url": true,
+          "scm_connection": true,
+          "scm_tag": true,
+          "sources_jar": true
+        },
+        {
+          "coords": "commons-io:commons-io:2.15.1",
+          "pom_ok": true,
+          "has_scm": true,
+          "scm_url": true,
+          "scm_connection": true,
+          "scm_tag": true,
+          "sources_jar": true
+        },
+        {
+          "coords": "org.apache.httpcomponents:httpclient:4.5.14",
+          "pom_ok": true,
+          "has_scm": false,
+          "scm_url": false,
+          "scm_connection": false,
+          "scm_tag": false,
+          "sources_jar": true
+        },
+        {
+          "coords": "com.google.code.gson:gson:2.10.1",
+          "pom_ok": true,
+          "has_scm": false,
+          "scm_url": false,
+          "scm_connection": false,
+          "scm_tag": false,
+          "sources_jar": true
+        },
+        {
+          "coords": "org.mockito:mockito-core:5.10.0",
+          "pom_ok": true,
+          "has_scm": true,
+          "scm_url": true,
+          "scm_connection": false,
+          "scm_tag": false,
+          "sources_jar": true
+        },
+        {
+          "coords": "log4j:log4j:1.2.17",
+          "pom_ok": true,
+          "has_scm": true,
+          "scm_url": true,
+          "scm_connection": true,
+          "scm_tag": false,
+          "sources_jar": true
+        },
+        {
+          "coords": "org.projectlombok:lombok:1.18.30",
+          "pom_ok": true,
+          "has_scm": true,
+          "scm_url": true,
+          "scm_connection": true,
+          "scm_tag": false,
+          "sources_jar": true
+        },
+        {
+          "coords": "io.netty:netty-all:4.1.107.Final",
+          "pom_ok": true,
+          "has_scm": true,
+          "scm_url": true,
+          "scm_connection": true,
+          "scm_tag": true,
+          "sources_jar": false
+        }
+      ],
+      "finding": "9/13 packages have an <scm> block; 12/13 have a -sources.jar"
+    },
+    {
+      "coords": "com.fasterxml.jackson.core:jackson-databind:2.17.0",
+      "scm_url": "https://github.com/FasterXML/jackson-databind",
+      "scm_tag": "jackson-databind-2.17.0",
+      "jar_total_entries": 482,
+      "jar_by_extension": {
+        ".mf": 1,
+        ".java": 475,
+        ".in": 1,
+        "(no ext)": 2,
+        ".objectcodec": 1,
+        ".xml": 1,
+        ".properties": 1
+      },
+      "jar_non_java_files": [
+        "META-INF/LICENSE",
+        "META-INF/MANIFEST.MF",
+        "META-INF/NOTICE",
+        "META-INF/maven/com.fasterxml.jackson.core/jackson-databind/pom.properties",
+        "META-INF/maven/com.fasterxml.jackson.core/jackson-databind/pom.xml",
+        "META-INF/services/com.fasterxml.jackson.core.ObjectCodec",
+        "com/fasterxml/jackson/databind/cfg/PackageVersion.java.in"
+      ],
+      "git_total_files": 1252,
+      "only_in_jar_count": 1,
+      "only_in_git_count": 709,
+      "in_both_count": 474,
+      "only_in_jar_sample": [
+        "com/fasterxml/jackson/databind/cfg/PackageVersion.java"
+      ],
+      "only_in_git_sample": [
+        "attic/ContainerBuilder.java",
+        "com/fasterxml/jackson/databind/BaseMapTest.java",
+        "com/fasterxml/jackson/databind/BaseTest.java",
+        "com/fasterxml/jackson/databind/BoundsChecksForInputTest.java",
+        "com/fasterxml/jackson/databind/FormatSchemaTest.java",
+        "com/fasterxml/jackson/databind/HandlerInstantiationTest.java",
+        "com/fasterxml/jackson/databind/MapperFootprintTest.java",
+        "com/fasterxml/jackson/databind/MapperViaParserTest.java",
+        "com/fasterxml/jackson/databind/ModuleRegistrationTest.java",
+        "com/fasterxml/jackson/databind/ObjectMapperTest.java",
+        "com/fasterxml/jackson/databind/ObjectReaderTest.java",
+        "com/fasterxml/jackson/databind/ObjectWriterTest.java",
+        "com/fasterxml/jackson/databind/PropertyNameTest.java",
+        "com/fasterxml/jackson/databind/RootNameTest.java",
+        "com/fasterxml/jackson/databind/RoundtripTest.java",
+        "com/fasterxml/jackson/databind/SerializeUsingJDKTest.java",
+        "com/fasterxml/jackson/databind/VersionInfoTest.java",
+        "com/fasterxml/jackson/databind/access/AnyGetterAccessTest.java",
+        "com/fasterxml/jackson/databind/big/BiggerDataTest.java",
+        "com/fasterxml/jackson/databind/cfg/BogusFormatFeature.java"
+      ],
+      "finding": "1 .java files in jar not present in git (likely generated); 7 non-.java entries (META-INF etc.)"
+    }
+  ]
+}

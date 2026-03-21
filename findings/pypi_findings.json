@@ -1,0 +1,29 @@
+{
+  "ecosystem": "pypi",
+  "generated_at": "2026-03-21",
+  "findings": [
+    {
+      "purl": "pkg:pypi/torch@2.6.0",
+      "sdist_count": 0,
+      "wheel_count": 20,
+      "sdists": [],
+      "finding": "wheel-only: 20 platform wheels, no sdist \u2014 SWHID not possible"
+    },
+    {
+      "purl": "pkg:pypi/six@1.17.0",
+      "sdist_filename": "six-1.17.0.tar.gz",
+      "sdist_sha256": "ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81",
+      "swhid": "swh:1:dir:06d75b2068453349f94529b5d491c3f8cdcbb3eb",
+      "found_in_swh": true,
+      "finding": "sdist tree matches git tree \u2014 SWHID verifiable in SWH archive"
+    },
+    {
+      "purl": "pkg:pypi/certifi@2024.12.14",
+      "sdist_filename": "certifi-2024.12.14.tar.gz",
+      "sdist_sha256": "b650d30f370c2b724812bee08008be0c4163b163ddaec3f2546c1caf65f191db",
+      "swhid": "swh:1:dir:4da2041ac8f56cddd75d4e00d2f5d29a904db239",
+      "found_in_swh": false,
+      "finding": "sdist tree diverges from git tree \u2014 generated files present in sdist"
+    }
+  ]
+}

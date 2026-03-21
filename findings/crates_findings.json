@@ -1,0 +1,40 @@
+{
+  "ecosystem": "crates",
+  "generated_at": "2026-03-21",
+  "findings": [
+    {
+      "name": "serde",
+      "version": "1.0.203",
+      "total_files": 27,
+      "registry_injected_files": [
+        ".cargo_vcs_info.json",
+        "Cargo.toml",
+        "Cargo.toml.orig"
+      ],
+      "remaining_source_files": 24,
+      "git_sha1": "d5bc546ca53be0b31984a06a8ad587cbea4ca5ce",
+      "path_in_vcs": "serde",
+      "is_monorepo": true,
+      "finding": "3 registry-injected files; 24 source files unmodified"
+    },
+    {
+      "name": "serde",
+      "version": "1.0.203",
+      "git_sha1": "d5bc546ca53be0b31984a06a8ad587cbea4ca5ce",
+      "is_monorepo": true,
+      "path_in_vcs": "serde",
+      "files_before_normalization": 27,
+      "files_after_normalization": 25,
+      "normalization_steps": [
+        "Cargo.toml restored from Cargo.toml.orig (undo registry rewrite)",
+        ".cargo_vcs_info.json removed (registry-added file)",
+        "Cargo.toml.orig removed (registry-added file)"
+      ],
+      "swhid": "swh:1:dir:27babd292546fe0434099c93e8051d636248c50d",
+      "verified_matches": 21,
+      "verified_mismatches": 0,
+      "not_in_git": 4,
+      "finding": "all 21 source files verified against SWH blobs \u2014 MATCH"
+    }
+  ]
+}

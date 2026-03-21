@@ -142,6 +142,20 @@ def main():
     print()
     print_results(results)
 
+    has_scm_count = sum(1 for r in results if r["has_scm"])
+    has_sources_count = sum(1 for r in results if r["sources_jar"])
+
+    return {
+        "packages_surveyed": len(results),
+        "packages_with_scm_block": has_scm_count,
+        "packages_with_sources_jar": has_sources_count,
+        "results": results,
+        "finding": (
+            f"{has_scm_count}/{len(results)} packages have an <scm> block; "
+            f"{has_sources_count}/{len(results)} have a -sources.jar"
+        ),
+    }
+
 
 if __name__ == "__main__":
     main()

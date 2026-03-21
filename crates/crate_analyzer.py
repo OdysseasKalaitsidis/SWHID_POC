@@ -107,16 +107,32 @@ def main(name, version):
     print()
 
     remaining = [f for f in all_files if f not in INJECTED_FILES]
+    injected_present = [f for f in INJECTED_FILES if os.path.exists(os.path.join(source_path, f))]
+
     print(f"Remaining source files: {len(remaining)} (identical to git tree)")
     print()
     print("Conclusion:")
     print(f"  The .crate for {name} {version} differs from the git tag in exactly")
-    print(f"  {len([f for f in INJECTED_FILES if os.path.exists(os.path.join(source_path, f))])} "
-          f"registry-added files. All source files are unmodified.")
+    print(f"  {len(injected_present)} registry-added files. All source files are unmodified.")
     print(f"  After stripping these files, the SWHID of the remaining tree")
     print(f"  can be compared against the SWH archive.")
     print()
     print(f"  Run: python crates/crate_normalizer.py pkg:cargo/{name}@{version}")
+
+    return {
+        "name": name,
+        "version": version,
+        "total_files": len(all_files),
+        "registry_injected_files": injected_present,
+        "remaining_source_files": len(remaining),
+        "git_sha1": vcs_info.get("git", {}).get("sha1") if vcs_info else None,
+        "path_in_vcs": vcs_info.get("path_in_vcs", "") if vcs_info else None,
+        "is_monorepo": bool(vcs_info.get("path_in_vcs", "")) if vcs_info else False,
+        "finding": (
+            f"{len(injected_present)} registry-injected files; "
+            f"{len(remaining)} source files unmodified"
+        ),
+    }
 
 
 if __name__ == "__main__":
