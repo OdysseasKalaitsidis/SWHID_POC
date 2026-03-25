@@ -10,7 +10,7 @@ from datetime import date
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from pypi import wheel_enumerator, swhid_verifier
+from pypi import wheel_enumerator, swhid_verifier, attestation_verifier
 from crates import crate_analyzer, crate_normalizer
 from maven import maven_analyzer, sources_inspector
 
@@ -49,6 +49,12 @@ demos = [
         lambda: crate_normalizer.main("serde", "1.0.203"),
     ),
     (
+        "pypi",
+        "PyPI - PEP 740 attestation → SWH commit (pip)",
+        "attestation commit SHA found in SWH revision archive",
+        lambda: attestation_verifier.main("pip", "25.1.1"),
+    ),
+    (
         "maven",
         "Maven - SCM metadata survey (13 packages)",
         "SCM block completeness and -sources.jar availability across top JVM packages",
@@ -75,6 +81,109 @@ def write_ecosystem_json(ecosystem, findings):
     print(f"  -> written: findings/{ecosystem}_findings.json")
 
 
+def build_spdx_records(ecosystem_findings):
+    records = []
+
+    for f in ecosystem_findings.get("pypi", []):
+        purl = f.get("purl", "")
+        if "found_in_swh" in f:
+            # sdist package — directory SWHID was computed
+            records.append({
+                "purl": purl,
+                "swhid": f.get("swhid"),
+                "confidence": "verified" if f["found_in_swh"] else "partial",
+                "found_in_swh": f["found_in_swh"],
+                "verifiedFiles": None,
+                "totalFiles": None,
+                "relationship": "hasDistributionArtifact",
+                "note": f.get("finding", ""),
+            })
+        elif "commit_in_swh" in f:
+            # PEP 740 attestation — commit SHA verified
+            sha = f.get("commit_sha", "")
+            records.append({
+                "purl": purl,
+                "swhid": f"swh:1:rev:{sha}" if sha else None,
+                "confidence": "verified" if f["commit_in_swh"] else "inferred",
+                "found_in_swh": f["commit_in_swh"],
+                "verifiedFiles": None,
+                "totalFiles": None,
+                "relationship": "hasDistributionArtifact",
+                "note": f.get("finding", ""),
+            })
+        else:
+            # wheel-only — no SWHID possible
+            records.append({
+                "purl": purl,
+                "swhid": None,
+                "confidence": "not_applicable",
+                "found_in_swh": None,
+                "verifiedFiles": None,
+                "totalFiles": None,
+                "relationship": "hasDistributionArtifact",
+                "note": f.get("finding", ""),
+            })
+
+    for f in ecosystem_findings.get("crates", []):
+        if "swhid" not in f:
+            continue  # crate_analyzer entry — normalizer entry has the swhid
+        purl = f"pkg:cargo/{f['name']}@{f['version']}"
+        total = f.get("verified_matches", 0) + f.get("verified_mismatches", 0)
+        records.append({
+            "purl": purl,
+            "swhid": f.get("swhid"),
+            "confidence": "verified_file_level" if f.get("verified_mismatches") == 0 else "partial",
+            "found_in_swh": f.get("verified_mismatches") == 0,
+            "verifiedFiles": f.get("verified_matches"),
+            "totalFiles": total,
+            "relationship": "hasDistributionArtifact",
+            "note": f.get("finding", ""),
+        })
+
+    for f in ecosystem_findings.get("maven", []):
+        # SCM survey entry — no per-package SWHID, skip
+        if "packages_surveyed" in f:
+            continue
+        # sources inspector entry
+        coords = f.get("coords", "")
+        if not coords:
+            continue
+        group, artifact, version = coords.split(":")
+        purl = f"pkg:maven/{group}/{artifact}@{version}"
+        verified = [r for r in f.get("content_verification", []) if r["status"] == "BYTE_IDENTICAL"]
+        sample_swhid = f"swh:1:cnt:{verified[0]['jar_sha1']}" if verified else None
+        
+        confidence = "verified_file_level_sample"
+        if f.get("content_byte_identical") == f.get("in_both_count") and f.get("in_both_count", 0) > 0:
+            confidence = "verified_file_level"
+
+        records.append({
+            "purl": purl,
+            "swhid": sample_swhid,
+            "confidence": confidence,
+            "found_in_swh": len(verified) > 0,
+            "verifiedFiles": f.get("content_byte_identical"),
+            "totalFiles": f.get("in_both_count"),
+            "relationship": "hasDistributionArtifact",
+            "note": f.get("finding", ""),
+        })
+
+    return records
+
+
+def write_spdx_json(records):
+    path = os.path.join(FINDINGS_DIR, "SPDX.json")
+    data = {
+        "spdxVersion": "SPDX-2.3",
+        "generated_at": str(date.today()),
+        "comment": "SWHID provenance records computed by swhid-poc across PyPI, crates.io, and Maven",
+        "packages": records,
+    }
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+    print(f"  -> written: findings/SPDX.json  ({len(records)} records)")
+
+
 # Collect findings keyed by ecosystem
 ecosystem_findings = {"pypi": [], "crates": [], "maven": []}
 
@@ -93,3 +202,7 @@ print()
 for ecosystem, findings in ecosystem_findings.items():
     if findings:
         write_ecosystem_json(ecosystem, findings)
+
+spdx_records = build_spdx_records(ecosystem_findings)
+write_spdx_json(spdx_records)
+

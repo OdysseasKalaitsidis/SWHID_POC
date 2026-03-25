@@ -1,0 +1,37 @@
+{
+  "@context": "https://spdx.org/rdf/3.0.0/spdx-context.jsonld",
+  "@graph": [
+    {
+      "type": "software_Package",
+      "spdxId": "SPDXRef-Package-six",
+      "name": "six",
+      "packageVersion": "1.17.0",
+      "externalIdentifier": [
+        {
+          "type": "ExternalIdentifier",
+          "externalIdentifierType": "purl",
+          "identifier": "pkg:pypi/six@1.17.0"
+        }
+      ]
+    },
+    {
+      "type": "software_File",
+      "spdxId": "SPDXRef-File-six-sdist",
+      "name": "six-1.17.0.tar.gz",
+      "contentIdentifier": [
+        {
+          "type": "ContentIdentifier",
+          "contentIdentifierType": "swhid",
+          "contentIdentifierValue": "swh:1:dir:06d75b2068453349f94529b5d491c3f8cdcbb3eb"
+        }
+      ]
+    },
+    {
+      "type": "Relationship",
+      "spdxId": "SPDXRef-Relationship-1",
+      "from": "SPDXRef-Package-six",
+      "relationshipType": "hasDistributionArtifact",
+      "to": ["SPDXRef-File-six-sdist"]
+    }
+  ]
+}

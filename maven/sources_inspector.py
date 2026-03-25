@@ -96,23 +96,20 @@ def git_blob_sha1(data):
     return hashlib.sha1(header + data).hexdigest()
 
 
-def verify_content_overlap(zf, overlap_files, git_java_shas, n=10):
+def verify_content_overlap(zf, overlap_files, git_java_shas):
     """
-    Sample n files from the overlap set.
+    Check all files from the overlap set.
     For each: read bytes from jar, compute git blob SHA, compare with git tree SHA.
     If SHAs differ, check whether normalising CRLF -> LF fixes it.
     Also verify one matched file against the SWH archive to close the pipeline.
     Returns a list of result dicts.
     """
-    # Pick n evenly spaced files so we sample across the whole alphabet
     sorted_files = sorted(overlap_files)
-    step = max(1, len(sorted_files) // n)
-    sample = sorted_files[::step][:n]
 
     results = []
     swh_checked = False  # only do one SWH API call
 
-    for path in sample:
+    for path in sorted_files:
         jar_bytes = zf.read(path)
         jar_sha = git_blob_sha1(jar_bytes)
         git_sha = git_java_shas[path]
@@ -196,7 +193,7 @@ def write_findings_txt(coords, scm, inventory, git_total, only_in_jar, only_in_g
 
     if content_results:
         byte_identical = sum(1 for r in content_results if r["status"] == "BYTE_IDENTICAL")
-        lines.append(f"Content verification — {len(content_results)} sampled files from {in_both} overlapping:")
+        lines.append(f"Content verification — checked all {len(content_results)} files from {in_both} overlapping:")
         lines.append("")
         for r in content_results:
             lines.append(f"  {r['file']}")
@@ -212,9 +209,9 @@ def write_findings_txt(coords, scm, inventory, git_total, only_in_jar, only_in_g
                 line += f"  ({r['note']})"
             lines.append(line)
             lines.append("")
-        lines.append(f"Summary: {byte_identical}/{len(content_results)} sampled files byte-identical to git.")
+        lines.append(f"Summary: {byte_identical}/{len(content_results)} files are byte-identical to git.")
         if byte_identical == len(content_results):
-            lines.append("All sampled SWH content SWHIDs (swh:1:cnt:{sha1}) will match the archive.")
+            lines.append("All content SWHIDs (swh:1:cnt:{sha1}) will match the archive.")
 
     with open(path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
@@ -291,8 +288,8 @@ def main():
             print()
 
             if overlap:
-                print(f"Content verification — sampling 10 of {in_both} overlapping files...")
-                content_results = verify_content_overlap(zf, overlap, git_java_shas, n=10)
+                print(f"Content verification — checking all {in_both} overlapping files...")
+                content_results = verify_content_overlap(zf, overlap, git_java_shas)
                 print()
                 byte_identical = sum(1 for r in content_results if r["status"] == "BYTE_IDENTICAL")
                 for r in content_results:
@@ -308,7 +305,7 @@ def main():
                 print()
                 print(f"  {byte_identical}/{len(content_results)} files byte-identical to git")
                 if byte_identical == len(content_results):
-                    print("  All SWH content SWHIDs (swh:1:cnt:<sha1>) will match the archive.")
+                    print("  All content SWHIDs (swh:1:cnt:<sha1>) will match the archive.")
         else:
             print("  WARNING: tag not found on GitHub — skipping tree comparison")
         print()
@@ -330,13 +327,13 @@ def main():
     if content_results and byte_identical_count == len(content_results):
         finding = (
             f"{in_both} overlapping files; "
-            f"all {len(content_results)} sampled files byte-identical to git — "
+            f"all {len(content_results)} files byte-identical to git — "
             f"SWH content SWHIDs match end-to-end"
         )
     elif content_results:
         finding = (
             f"{in_both} overlapping files; "
-            f"{byte_identical_count}/{len(content_results)} sampled byte-identical; "
+            f"{byte_identical_count}/{len(content_results)} files byte-identical; "
             f"{len(content_results) - byte_identical_count} differ"
         )
     elif only_in_jar:

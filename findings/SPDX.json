@@ -1,0 +1,67 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "generated_at": "2026-03-25",
+  "comment": "SWHID provenance records computed by swhid-poc across PyPI, crates.io, and Maven",
+  "packages": [
+    {
+      "purl": "pkg:pypi/torch@2.6.0",
+      "swhid": null,
+      "confidence": "not_applicable",
+      "found_in_swh": null,
+      "verifiedFiles": null,
+      "totalFiles": null,
+      "relationship": "hasDistributionArtifact",
+      "note": "wheel-only: 20 platform wheels, no sdist \u2014 SWHID not possible"
+    },
+    {
+      "purl": "pkg:pypi/six@1.17.0",
+      "swhid": "swh:1:dir:06d75b2068453349f94529b5d491c3f8cdcbb3eb",
+      "confidence": "verified",
+      "found_in_swh": true,
+      "verifiedFiles": null,
+      "totalFiles": null,
+      "relationship": "hasDistributionArtifact",
+      "note": "sdist tree matches git tree \u2014 SWHID verifiable in SWH archive"
+    },
+    {
+      "purl": "pkg:pypi/certifi@2024.12.14",
+      "swhid": "swh:1:dir:4da2041ac8f56cddd75d4e00d2f5d29a904db239",
+      "confidence": "partial",
+      "found_in_swh": false,
+      "verifiedFiles": null,
+      "totalFiles": null,
+      "relationship": "hasDistributionArtifact",
+      "note": "sdist tree diverges from git tree \u2014 generated files present in sdist"
+    },
+    {
+      "purl": "pkg:pypi/pip@25.1.1",
+      "swhid": "swh:1:rev:01857ef79f59a98db592bacb6e7b48f354528c80",
+      "confidence": "verified",
+      "found_in_swh": true,
+      "verifiedFiles": null,
+      "totalFiles": null,
+      "relationship": "hasDistributionArtifact",
+      "note": "PEP 740 attestation links pkg:pypi/pip@25.1.1 to commit 01857ef79f59a98db592bacb6e7b48f354528c80, found in Software Heritage"
+    },
+    {
+      "purl": "pkg:cargo/serde@1.0.203",
+      "swhid": "swh:1:dir:27babd292546fe0434099c93e8051d636248c50d",
+      "confidence": "verified_file_level",
+      "found_in_swh": true,
+      "verifiedFiles": 21,
+      "totalFiles": 21,
+      "relationship": "hasDistributionArtifact",
+      "note": "all 21 source files verified against SWH blobs \u2014 MATCH"
+    },
+    {
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.0",
+      "swhid": "swh:1:cnt:8f92a35d1b18d9e28afb948ba0e143e8553b50a1",
+      "confidence": "verified_file_level",
+      "found_in_swh": true,
+      "verifiedFiles": 474,
+      "totalFiles": 474,
+      "relationship": "hasDistributionArtifact",
+      "note": "474 overlapping files; all 474 files byte-identical to git \u2014 SWH content SWHIDs match end-to-end"
+    }
+  ]
+}

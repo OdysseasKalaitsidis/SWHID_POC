@@ -23,7 +23,7 @@ Non-.java files in sources.jar:
 
 Git tree total files (tag jackson-databind-2.17.0): 1252
 
-Files only in sources.jar (not in git .java): 1
+Files only in sources.jar (not in git): 1
   + com/fasterxml/jackson/databind/cfg/PackageVersion.java
 
 Files only in git (not in sources.jar): 709
@@ -70,5 +70,2379 @@ Files only in git (not in sources.jar): 709
   ... and 669 more
 
 Files in both: 474
-
 Note: git paths have src/main/java/ prefix stripped before comparison.
+
+Content verification — checked all 474 files from 474 overlapping:
+
+  com/fasterxml/jackson/databind/AbstractTypeResolver.java
+    jar SHA1 : 8f92a35d1b18d9e28afb948ba0e143e8553b50a1
+    git SHA1 : 8f92a35d1b18d9e28afb948ba0e143e8553b50a1
+    result   : BYTE-IDENTICAL  (verified in SWH archive: YES)
+
+  com/fasterxml/jackson/databind/AnnotationIntrospector.java
+    jar SHA1 : c7d03d212ef3b38d9ad8e4717fbfff749227db0a
+    git SHA1 : c7d03d212ef3b38d9ad8e4717fbfff749227db0a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/BeanDescription.java
+    jar SHA1 : 603ed87437e1acbc084a74bbb86617df0690b7d6
+    git SHA1 : 603ed87437e1acbc084a74bbb86617df0690b7d6
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/BeanProperty.java
+    jar SHA1 : 58f456b9301caa5b8d4c2dbd4c045def70867822
+    git SHA1 : 58f456b9301caa5b8d4c2dbd4c045def70867822
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/DatabindContext.java
+    jar SHA1 : be2fd7d4289dc1d6bdcf36446c9add8859b9a338
+    git SHA1 : be2fd7d4289dc1d6bdcf36446c9add8859b9a338
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/DatabindException.java
+    jar SHA1 : 460c3ce86ace4eff6d3634b57b7fc4cff2986b24
+    git SHA1 : 460c3ce86ace4eff6d3634b57b7fc4cff2986b24
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/DeserializationConfig.java
+    jar SHA1 : 015a242049cea8bec86cce6bd06c57d1b6d24b68
+    git SHA1 : 015a242049cea8bec86cce6bd06c57d1b6d24b68
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/DeserializationContext.java
+    jar SHA1 : 3dd858f537e425b0cbacf59da96ae334e4376a13
+    git SHA1 : 3dd858f537e425b0cbacf59da96ae334e4376a13
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/DeserializationFeature.java
+    jar SHA1 : 595df82fa563ef69a99e8ba84bffaf77d0bcdd36
+    git SHA1 : 595df82fa563ef69a99e8ba84bffaf77d0bcdd36
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/EnumNamingStrategies.java
+    jar SHA1 : 0fe5989354e01bf4a4d13dc9dfb4b93f95a41d7b
+    git SHA1 : 0fe5989354e01bf4a4d13dc9dfb4b93f95a41d7b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/EnumNamingStrategy.java
+    jar SHA1 : 9504d4f080db9fda96c8ecadfee2c494b9a181af
+    git SHA1 : 9504d4f080db9fda96c8ecadfee2c494b9a181af
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/InjectableValues.java
+    jar SHA1 : 9d170c34584a2ef039cfff26d3f2060897b23d7c
+    git SHA1 : 9d170c34584a2ef039cfff26d3f2060897b23d7c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/JavaType.java
+    jar SHA1 : b708f24e121cf172413aba9b7ab97f445bc4aa67
+    git SHA1 : b708f24e121cf172413aba9b7ab97f445bc4aa67
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/JsonDeserializer.java
+    jar SHA1 : 108f99995432fc053acaed12ec92b797c8a17ebf
+    git SHA1 : 108f99995432fc053acaed12ec92b797c8a17ebf
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/JsonMappingException.java
+    jar SHA1 : c4ceb5667114989415d79848209755a12878bf7c
+    git SHA1 : c4ceb5667114989415d79848209755a12878bf7c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/JsonNode.java
+    jar SHA1 : f81acf6685e0365b77191672de356f4fa8eb0eea
+    git SHA1 : f81acf6685e0365b77191672de356f4fa8eb0eea
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/JsonSerializable.java
+    jar SHA1 : a08898a74cba089ae9b02b1bee6896111a4d9d9e
+    git SHA1 : a08898a74cba089ae9b02b1bee6896111a4d9d9e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/JsonSerializer.java
+    jar SHA1 : aac810e470ce1329ff88e74eadd3ed0166770cb3
+    git SHA1 : aac810e470ce1329ff88e74eadd3ed0166770cb3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/KeyDeserializer.java
+    jar SHA1 : 217527d412f0185f94ee7a2c18d84242e92f6c62
+    git SHA1 : 217527d412f0185f94ee7a2c18d84242e92f6c62
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/MapperFeature.java
+    jar SHA1 : 5a2c824987429dee0a856ffc45bd7991202de488
+    git SHA1 : 5a2c824987429dee0a856ffc45bd7991202de488
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/MappingIterator.java
+    jar SHA1 : 34f0e8f619456092d265fd63529330b4060ad762
+    git SHA1 : 34f0e8f619456092d265fd63529330b4060ad762
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/MappingJsonFactory.java
+    jar SHA1 : 5151641831ed733b9b6269c571ba7a0e95dcf8e3
+    git SHA1 : 5151641831ed733b9b6269c571ba7a0e95dcf8e3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/Module.java
+    jar SHA1 : 12463fdb8818e72fe3815c7b0b077f4fdb278374
+    git SHA1 : 12463fdb8818e72fe3815c7b0b077f4fdb278374
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ObjectMapper.java
+    jar SHA1 : bfb051b86d263b6a570e7b005fdf5f9bcaa401ea
+    git SHA1 : bfb051b86d263b6a570e7b005fdf5f9bcaa401ea
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ObjectReader.java
+    jar SHA1 : 6035d1d1965a95391e00a5cb7fe7985e518abff3
+    git SHA1 : 6035d1d1965a95391e00a5cb7fe7985e518abff3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ObjectWriter.java
+    jar SHA1 : db013c995670bede0b3a6f4a7fecd5b7655b9036
+    git SHA1 : db013c995670bede0b3a6f4a7fecd5b7655b9036
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/PropertyMetadata.java
+    jar SHA1 : ede810913868f37b206a8b28dc011ac3e491bc56
+    git SHA1 : ede810913868f37b206a8b28dc011ac3e491bc56
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/PropertyName.java
+    jar SHA1 : 6a92bc260a78cffb7883687b71be07cd0c2db6aa
+    git SHA1 : 6a92bc260a78cffb7883687b71be07cd0c2db6aa
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/PropertyNamingStrategies.java
+    jar SHA1 : c0b7664dbaa2ac0b2c00ed4cbc4b77f0fc32c923
+    git SHA1 : c0b7664dbaa2ac0b2c00ed4cbc4b77f0fc32c923
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/PropertyNamingStrategy.java
+    jar SHA1 : 4fe61056bf76e2325eaa48fcc0cf17a446940ea3
+    git SHA1 : 4fe61056bf76e2325eaa48fcc0cf17a446940ea3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/RuntimeJsonMappingException.java
+    jar SHA1 : 22508ac9d133b7a1e8de9000868c62d908a64e41
+    git SHA1 : 22508ac9d133b7a1e8de9000868c62d908a64e41
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/SequenceWriter.java
+    jar SHA1 : c833a1737e02db5ed23eac5108479329137ca88e
+    git SHA1 : c833a1737e02db5ed23eac5108479329137ca88e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/SerializationConfig.java
+    jar SHA1 : a710d51ab84f613e0215deda020771704a39cc76
+    git SHA1 : a710d51ab84f613e0215deda020771704a39cc76
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/SerializationFeature.java
+    jar SHA1 : 526cde4bdf0f9706cbe94122637b849464ce2007
+    git SHA1 : 526cde4bdf0f9706cbe94122637b849464ce2007
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/SerializerProvider.java
+    jar SHA1 : 14db5ccde16c20870ab9e534d2ef128e230a659c
+    git SHA1 : 14db5ccde16c20870ab9e534d2ef128e230a659c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/EnumNaming.java
+    jar SHA1 : d3a49d2770e2ff8193126b71c040b671130f7bbd
+    git SHA1 : d3a49d2770e2ff8193126b71c040b671130f7bbd
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/JacksonStdImpl.java
+    jar SHA1 : 5ed3dbd29657db216597a02f7e7d351958a5ac92
+    git SHA1 : 5ed3dbd29657db216597a02f7e7d351958a5ac92
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/JsonAppend.java
+    jar SHA1 : e77e76e714983134d7ebc788e6f562f705f2eafb
+    git SHA1 : e77e76e714983134d7ebc788e6f562f705f2eafb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/JsonDeserialize.java
+    jar SHA1 : f9f243564a27c1fdfefbbdc4d4f60df85768db11
+    git SHA1 : f9f243564a27c1fdfefbbdc4d4f60df85768db11
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/JsonNaming.java
+    jar SHA1 : e190721567eefd43a2003799d1fccd35ed0c284e
+    git SHA1 : e190721567eefd43a2003799d1fccd35ed0c284e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/JsonPOJOBuilder.java
+    jar SHA1 : 2c6841df1d3bc7fa3214fa38f10c1007c62c3620
+    git SHA1 : 2c6841df1d3bc7fa3214fa38f10c1007c62c3620
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/JsonSerialize.java
+    jar SHA1 : 93cad5ba846c98fcc2fbdfa09437c8cbf1300d10
+    git SHA1 : 93cad5ba846c98fcc2fbdfa09437c8cbf1300d10
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/JsonTypeIdResolver.java
+    jar SHA1 : 8aa41cb5229b2892626f789302352e9ff47936f4
+    git SHA1 : 8aa41cb5229b2892626f789302352e9ff47936f4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/JsonTypeResolver.java
+    jar SHA1 : b46e0aa715b483df7700a9b9c1ab91da74911e56
+    git SHA1 : b46e0aa715b483df7700a9b9c1ab91da74911e56
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/JsonValueInstantiator.java
+    jar SHA1 : be9ff03ab3ef38b1b55efbe0d637f1e5a2198d81
+    git SHA1 : be9ff03ab3ef38b1b55efbe0d637f1e5a2198d81
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/NoClass.java
+    jar SHA1 : ff8ebae322c6872f6e7e1c5f2fcca034a4b2e91f
+    git SHA1 : ff8ebae322c6872f6e7e1c5f2fcca034a4b2e91f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/annotation/package-info.java
+    jar SHA1 : 302500219e1ce5fa358ef605e1545acc6e069ac3
+    git SHA1 : 302500219e1ce5fa358ef605e1545acc6e069ac3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/BaseSettings.java
+    jar SHA1 : de46bdeb24da856f43b106e256a8393f5ace7db4
+    git SHA1 : de46bdeb24da856f43b106e256a8393f5ace7db4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/CacheProvider.java
+    jar SHA1 : 0ea97f33f5e3da0aa6a2d9f095d47c1cb0c7d49a
+    git SHA1 : 0ea97f33f5e3da0aa6a2d9f095d47c1cb0c7d49a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/CoercionAction.java
+    jar SHA1 : c535ed256a93abf3aa95a69ea35c6bffc229c5d8
+    git SHA1 : c535ed256a93abf3aa95a69ea35c6bffc229c5d8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/CoercionConfig.java
+    jar SHA1 : 81490e9a96743f0c113383a1c9397bcc7d2a9dcc
+    git SHA1 : 81490e9a96743f0c113383a1c9397bcc7d2a9dcc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/CoercionConfigs.java
+    jar SHA1 : d5c68315c77a8bfabc96853628dcc152f0fb0ce7
+    git SHA1 : d5c68315c77a8bfabc96853628dcc152f0fb0ce7
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/CoercionInputShape.java
+    jar SHA1 : 8f17ce1c29da8956cc5a08f6a69dc3512d15cc3d
+    git SHA1 : 8f17ce1c29da8956cc5a08f6a69dc3512d15cc3d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/ConfigFeature.java
+    jar SHA1 : ff218f79228366f311a03d9c8e67f653016b9377
+    git SHA1 : ff218f79228366f311a03d9c8e67f653016b9377
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/ConfigOverride.java
+    jar SHA1 : f0bc76c66510f7b47454ddf1b54396293b91114f
+    git SHA1 : f0bc76c66510f7b47454ddf1b54396293b91114f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/ConfigOverrides.java
+    jar SHA1 : 103ca1c2da36dfbcd09d280e78b88343d2caae33
+    git SHA1 : 103ca1c2da36dfbcd09d280e78b88343d2caae33
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/ConstructorDetector.java
+    jar SHA1 : bf1514974a17655faac5518530622e950de329c6
+    git SHA1 : bf1514974a17655faac5518530622e950de329c6
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/ContextAttributes.java
+    jar SHA1 : b4715fae558ee131126f10d6dc0171bd443f7f73
+    git SHA1 : b4715fae558ee131126f10d6dc0171bd443f7f73
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/DatatypeFeature.java
+    jar SHA1 : 8a4f36592a9347869e17899de8204824528e6d2a
+    git SHA1 : 8a4f36592a9347869e17899de8204824528e6d2a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/DatatypeFeatures.java
+    jar SHA1 : 8ed240dd1c0a9632da74c6d62510737e80c1992f
+    git SHA1 : 8ed240dd1c0a9632da74c6d62510737e80c1992f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/DefaultCacheProvider.java
+    jar SHA1 : f75b708e1e841084607522736fbfeb9a93b85e05
+    git SHA1 : f75b708e1e841084607522736fbfeb9a93b85e05
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/DeserializerFactoryConfig.java
+    jar SHA1 : dc78404b6e4f2a7805e7a3628f94a136cd82e908
+    git SHA1 : dc78404b6e4f2a7805e7a3628f94a136cd82e908
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/EnumFeature.java
+    jar SHA1 : 0709724e2a3bebd068bef8a4260a8832c55df19a
+    git SHA1 : 0709724e2a3bebd068bef8a4260a8832c55df19a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/HandlerInstantiator.java
+    jar SHA1 : 05df86209ace78449940a92821111fb974d9b4f6
+    git SHA1 : 05df86209ace78449940a92821111fb974d9b4f6
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/JsonNodeFeature.java
+    jar SHA1 : 8a70476c4aec2acc734772a04ce03d341426f8e9
+    git SHA1 : 8a70476c4aec2acc734772a04ce03d341426f8e9
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/MapperBuilder.java
+    jar SHA1 : 04dd3bac55d9541f710947e5908e12b4c856ee55
+    git SHA1 : 04dd3bac55d9541f710947e5908e12b4c856ee55
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/MapperConfig.java
+    jar SHA1 : d31f39cf9b2de242c55d60ae63987e865bf17a0a
+    git SHA1 : d31f39cf9b2de242c55d60ae63987e865bf17a0a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/MapperConfigBase.java
+    jar SHA1 : 843f8e4aed434d69719b911d632944a980f8cad0
+    git SHA1 : 843f8e4aed434d69719b911d632944a980f8cad0
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/MutableCoercionConfig.java
+    jar SHA1 : 71991e2d5265594aa3e10d1cefe1be91831b3bda
+    git SHA1 : 71991e2d5265594aa3e10d1cefe1be91831b3bda
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/MutableConfigOverride.java
+    jar SHA1 : b30b99b7d7747f216097953e546248a09453dc31
+    git SHA1 : b30b99b7d7747f216097953e546248a09453dc31
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/SerializerFactoryConfig.java
+    jar SHA1 : 2cc0e6967f5e9d28d5fbe0682c8729883d5043c9
+    git SHA1 : 2cc0e6967f5e9d28d5fbe0682c8729883d5043c9
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/cfg/package-info.java
+    jar SHA1 : 5afd53a998b4f553830e0d223b9840932dcc2478
+    git SHA1 : 5afd53a998b4f553830e0d223b9840932dcc2478
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/AbstractDeserializer.java
+    jar SHA1 : f38665851b05747b279f007c46ac107d939a1b52
+    git SHA1 : f38665851b05747b279f007c46ac107d939a1b52
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/BasicDeserializerFactory.java
+    jar SHA1 : ff060f4f5d0896a27dc69889fb526afc806ec358
+    git SHA1 : ff060f4f5d0896a27dc69889fb526afc806ec358
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/BeanDeserializer.java
+    jar SHA1 : 25ae119c6c632b7276fd34307eb7d54cd4020b06
+    git SHA1 : 25ae119c6c632b7276fd34307eb7d54cd4020b06
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/BeanDeserializerBase.java
+    jar SHA1 : 3007714a1d084f547d46d9a5e667fb10ef66d563
+    git SHA1 : 3007714a1d084f547d46d9a5e667fb10ef66d563
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/BeanDeserializerBuilder.java
+    jar SHA1 : f05666a76413c55865d648b8689c15065c027cf7
+    git SHA1 : f05666a76413c55865d648b8689c15065c027cf7
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/BeanDeserializerFactory.java
+    jar SHA1 : 8487b1e049134e2d59b66e077fb8ace31632d189
+    git SHA1 : 8487b1e049134e2d59b66e077fb8ace31632d189
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/BeanDeserializerModifier.java
+    jar SHA1 : ecc1a8a1cfc2884321ffb0dd6408954222614d9f
+    git SHA1 : ecc1a8a1cfc2884321ffb0dd6408954222614d9f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/BuilderBasedDeserializer.java
+    jar SHA1 : d9bf79ba4c8d20d2d51d4ced28023d7c14cb41a9
+    git SHA1 : d9bf79ba4c8d20d2d51d4ced28023d7c14cb41a9
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/ContextualDeserializer.java
+    jar SHA1 : b213d7ffa3534c0a876551ce86fd40f6fadd0e11
+    git SHA1 : b213d7ffa3534c0a876551ce86fd40f6fadd0e11
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/ContextualKeyDeserializer.java
+    jar SHA1 : 118b8b870bf63ff9420f82dbd7ec338dd7356529
+    git SHA1 : 118b8b870bf63ff9420f82dbd7ec338dd7356529
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/CreatorProperty.java
+    jar SHA1 : 5e7ce8c98d12c8f2e391065149e0313a1d998395
+    git SHA1 : 5e7ce8c98d12c8f2e391065149e0313a1d998395
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/DataFormatReaders.java
+    jar SHA1 : 6246572dd51d6038842d064c02c9a04c77a1a70a
+    git SHA1 : 6246572dd51d6038842d064c02c9a04c77a1a70a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/DefaultDeserializationContext.java
+    jar SHA1 : 748bce4ac20f048f2d84619703a63e79b831dc35
+    git SHA1 : 748bce4ac20f048f2d84619703a63e79b831dc35
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/DeserializationProblemHandler.java
+    jar SHA1 : 9fb89692a5ae43044999a1b9ede049a21c02e038
+    git SHA1 : 9fb89692a5ae43044999a1b9ede049a21c02e038
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/DeserializerCache.java
+    jar SHA1 : 032723c8142da4c4b2a4efc2668e6ebc0d5bda7d
+    git SHA1 : 032723c8142da4c4b2a4efc2668e6ebc0d5bda7d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/DeserializerFactory.java
+    jar SHA1 : f7319ba8d834de115db33bd1c7a48ca870f4adf0
+    git SHA1 : f7319ba8d834de115db33bd1c7a48ca870f4adf0
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/Deserializers.java
+    jar SHA1 : 0fd687d73c131c61a4ad076f7561741e4595489b
+    git SHA1 : 0fd687d73c131c61a4ad076f7561741e4595489b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/KeyDeserializers.java
+    jar SHA1 : e7b263ed7a388723bd733c987dc088f35ed762c3
+    git SHA1 : e7b263ed7a388723bd733c987dc088f35ed762c3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/NullValueProvider.java
+    jar SHA1 : d0a305c1154044c7f7ada0b4f55099adb115db7d
+    git SHA1 : d0a305c1154044c7f7ada0b4f55099adb115db7d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/ResolvableDeserializer.java
+    jar SHA1 : ced8353a8a9077d1bcc16a26f5986c08ef317657
+    git SHA1 : ced8353a8a9077d1bcc16a26f5986c08ef317657
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/SettableAnyProperty.java
+    jar SHA1 : b7aafa205bf7b6f24372cedd453c700d19d48d96
+    git SHA1 : b7aafa205bf7b6f24372cedd453c700d19d48d96
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/SettableBeanProperty.java
+    jar SHA1 : 920cbd61d7323c27982c6d54daddfae8c4561a69
+    git SHA1 : 920cbd61d7323c27982c6d54daddfae8c4561a69
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/UnresolvedForwardReference.java
+    jar SHA1 : b678b68dbe14c253726d7325ab2fc5d0629aa352
+    git SHA1 : b678b68dbe14c253726d7325ab2fc5d0629aa352
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/UnresolvedId.java
+    jar SHA1 : 767f806670a9ebf15cea548eb7400852272e2305
+    git SHA1 : 767f806670a9ebf15cea548eb7400852272e2305
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/ValueInstantiator.java
+    jar SHA1 : 648bdcc3d39120a6b4ed7dae1b4dc96760684399
+    git SHA1 : 648bdcc3d39120a6b4ed7dae1b4dc96760684399
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/ValueInstantiators.java
+    jar SHA1 : 4579bdd49aa8ad5c1c6aaa594b57b397746bec9d
+    git SHA1 : 4579bdd49aa8ad5c1c6aaa594b57b397746bec9d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/BeanAsArrayBuilderDeserializer.java
+    jar SHA1 : 050d97523ecd38297b96b90f0ce9c0e1047863e5
+    git SHA1 : 050d97523ecd38297b96b90f0ce9c0e1047863e5
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/BeanAsArrayDeserializer.java
+    jar SHA1 : 71c28d1fa58fd3d320da4abb2ae2f2af15191e1a
+    git SHA1 : 71c28d1fa58fd3d320da4abb2ae2f2af15191e1a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/BeanPropertyMap.java
+    jar SHA1 : ac4a7ede80bd17851983d229449e5849e463b438
+    git SHA1 : ac4a7ede80bd17851983d229449e5849e463b438
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/CreatorCandidate.java
+    jar SHA1 : 4cf62cd64edd70ad840fe7f4c115cc6d31bc7426
+    git SHA1 : 4cf62cd64edd70ad840fe7f4c115cc6d31bc7426
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/CreatorCollector.java
+    jar SHA1 : 5f574186c31824e42a2799791ea9cb0597f927b8
+    git SHA1 : 5f574186c31824e42a2799791ea9cb0597f927b8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/ErrorThrowingDeserializer.java
+    jar SHA1 : e2447d580d53645c55cf11d8eaa179ecf850fc41
+    git SHA1 : e2447d580d53645c55cf11d8eaa179ecf850fc41
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/ExternalTypeHandler.java
+    jar SHA1 : c6b2628b57b6a27326295585d1d515e86054fb4a
+    git SHA1 : c6b2628b57b6a27326295585d1d515e86054fb4a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/FailingDeserializer.java
+    jar SHA1 : d1f724e550a2aadb82df0189025a646c92b0a935
+    git SHA1 : d1f724e550a2aadb82df0189025a646c92b0a935
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/FieldProperty.java
+    jar SHA1 : b3eb59658375ef39433f0ebcbf3e25353cba828b
+    git SHA1 : b3eb59658375ef39433f0ebcbf3e25353cba828b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/InnerClassProperty.java
+    jar SHA1 : 5a2f38408cb26d4a39e0b3b10e566a07aad8fcdc
+    git SHA1 : 5a2f38408cb26d4a39e0b3b10e566a07aad8fcdc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/JDKValueInstantiators.java
+    jar SHA1 : 4e6788fdc824bbe329e83f8d218ce199be1de8e0
+    git SHA1 : 4e6788fdc824bbe329e83f8d218ce199be1de8e0
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/JavaUtilCollectionsDeserializers.java
+    jar SHA1 : 5d7e254a6019509dd8daccdd2dad939296dd0740
+    git SHA1 : 5d7e254a6019509dd8daccdd2dad939296dd0740
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/ManagedReferenceProperty.java
+    jar SHA1 : a3f241a0b81f19c08790973be037d3b1c91644eb
+    git SHA1 : a3f241a0b81f19c08790973be037d3b1c91644eb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/MergingSettableBeanProperty.java
+    jar SHA1 : db9fda775b85f6331e1b1bf2dcba56c58ff7d69b
+    git SHA1 : db9fda775b85f6331e1b1bf2dcba56c58ff7d69b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/MethodProperty.java
+    jar SHA1 : 69af26514f104782fca1c2799bda1b353167a725
+    git SHA1 : 69af26514f104782fca1c2799bda1b353167a725
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/NullsAsEmptyProvider.java
+    jar SHA1 : a2fc845a98bcde462d9feefa6e8b6f9760082bbc
+    git SHA1 : a2fc845a98bcde462d9feefa6e8b6f9760082bbc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/NullsConstantProvider.java
+    jar SHA1 : 4a238e384237c3494f089c6b5e1e2be8cd645ece
+    git SHA1 : 4a238e384237c3494f089c6b5e1e2be8cd645ece
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/NullsFailProvider.java
+    jar SHA1 : 7c6f9bad7a7d43d82eab62d0acb1af86d9b7156f
+    git SHA1 : 7c6f9bad7a7d43d82eab62d0acb1af86d9b7156f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/ObjectIdReader.java
+    jar SHA1 : e582c0a66083e1434042c900cf50edac6a1cbdb8
+    git SHA1 : e582c0a66083e1434042c900cf50edac6a1cbdb8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/ObjectIdReferenceProperty.java
+    jar SHA1 : eba973240e7064ca475f88d9702b8cc8cd6a9c10
+    git SHA1 : eba973240e7064ca475f88d9702b8cc8cd6a9c10
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/ObjectIdValueProperty.java
+    jar SHA1 : 7c0ad313ea0a722bff43e4bda2643a7ea414bb47
+    git SHA1 : 7c0ad313ea0a722bff43e4bda2643a7ea414bb47
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/PropertyBasedCreator.java
+    jar SHA1 : 5225baaab6add97c693a8fbde854fa17f3c07580
+    git SHA1 : 5225baaab6add97c693a8fbde854fa17f3c07580
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/PropertyBasedObjectIdGenerator.java
+    jar SHA1 : cc9fb48c3a5271a80a4f124f42fe74a70b062506
+    git SHA1 : cc9fb48c3a5271a80a4f124f42fe74a70b062506
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/PropertyValue.java
+    jar SHA1 : 6558b3dcf30ee4b92257f54aedd6241157c91689
+    git SHA1 : 6558b3dcf30ee4b92257f54aedd6241157c91689
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/PropertyValueBuffer.java
+    jar SHA1 : 5d323381a02de28d23cddfdedb93bd66247dcef0
+    git SHA1 : 5d323381a02de28d23cddfdedb93bd66247dcef0
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/ReadableObjectId.java
+    jar SHA1 : 529ecbc0a63b66373d89efb735477bf1fde6bb7a
+    git SHA1 : 529ecbc0a63b66373d89efb735477bf1fde6bb7a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/SetterlessProperty.java
+    jar SHA1 : 1ca49860351a35c002eaa15922b8f7546c77133c
+    git SHA1 : 1ca49860351a35c002eaa15922b8f7546c77133c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/TypeWrappedDeserializer.java
+    jar SHA1 : 531188ef00076f30a24775177492c231d577b265
+    git SHA1 : 531188ef00076f30a24775177492c231d577b265
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/UnsupportedTypeDeserializer.java
+    jar SHA1 : d9e31199a827df29e15734387ae14bc41e8649e8
+    git SHA1 : d9e31199a827df29e15734387ae14bc41e8649e8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/UnwrappedPropertyHandler.java
+    jar SHA1 : 5dadec12711c79daeae7295bc4e0df02750e59a4
+    git SHA1 : 5dadec12711c79daeae7295bc4e0df02750e59a4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/ValueInjector.java
+    jar SHA1 : f3ac02df122e94bda1c548371a5bd155b08f4195
+    git SHA1 : f3ac02df122e94bda1c548371a5bd155b08f4195
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/impl/package-info.java
+    jar SHA1 : bcd12475d9e2625edca5f6be9750a3d7dd9b9911
+    git SHA1 : bcd12475d9e2625edca5f6be9750a3d7dd9b9911
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/package-info.java
+    jar SHA1 : 2fe0920977fcb3e88ced4446cb87a943fc994e95
+    git SHA1 : 2fe0920977fcb3e88ced4446cb87a943fc994e95
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/ArrayBlockingQueueDeserializer.java
+    jar SHA1 : a27211b9ebf6baf9185629ff6bf851b766704159
+    git SHA1 : a27211b9ebf6baf9185629ff6bf851b766704159
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/AtomicBooleanDeserializer.java
+    jar SHA1 : 8d75c01efc38272789e1a5a0ec9d814e0198b55e
+    git SHA1 : 8d75c01efc38272789e1a5a0ec9d814e0198b55e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/AtomicIntegerDeserializer.java
+    jar SHA1 : c4a151927ebdfeb01e102bad5ff60a4a9c0f93f9
+    git SHA1 : c4a151927ebdfeb01e102bad5ff60a4a9c0f93f9
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/AtomicLongDeserializer.java
+    jar SHA1 : 015e0b30899c48b2e0a9498c9eb3687f5fab875e
+    git SHA1 : 015e0b30899c48b2e0a9498c9eb3687f5fab875e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/AtomicReferenceDeserializer.java
+    jar SHA1 : c9e1326340da66618a2d6728360d914473b2a83f
+    git SHA1 : c9e1326340da66618a2d6728360d914473b2a83f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/ByteBufferDeserializer.java
+    jar SHA1 : bcd7149901e05c38695354485a0aabca4d6cda10
+    git SHA1 : bcd7149901e05c38695354485a0aabca4d6cda10
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/CollectionDeserializer.java
+    jar SHA1 : 764474d2b3c45b4e8ff7bff486a4e28a9f877017
+    git SHA1 : 764474d2b3c45b4e8ff7bff486a4e28a9f877017
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/ContainerDeserializerBase.java
+    jar SHA1 : 1d85ac52b7fea54676773804a01e2a5ce652dacc
+    git SHA1 : 1d85ac52b7fea54676773804a01e2a5ce652dacc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/DateDeserializers.java
+    jar SHA1 : 4b96ca42d3d1fcf6e5425cc6954689f502b85d1a
+    git SHA1 : 4b96ca42d3d1fcf6e5425cc6954689f502b85d1a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/DelegatingDeserializer.java
+    jar SHA1 : 7ffe50ae9828e01103bf384750eafb4d3785e170
+    git SHA1 : 7ffe50ae9828e01103bf384750eafb4d3785e170
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/EnumDeserializer.java
+    jar SHA1 : 68c2be07c60d20e4daa6bcbf2beb18bb9016d184
+    git SHA1 : 68c2be07c60d20e4daa6bcbf2beb18bb9016d184
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/EnumMapDeserializer.java
+    jar SHA1 : 260cb6e7468b8e23890e52638e844dd67bf51e9e
+    git SHA1 : 260cb6e7468b8e23890e52638e844dd67bf51e9e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/EnumSetDeserializer.java
+    jar SHA1 : 09d45bf284b136f9fb7be6aadcc5586c355c7d25
+    git SHA1 : 09d45bf284b136f9fb7be6aadcc5586c355c7d25
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/FactoryBasedEnumDeserializer.java
+    jar SHA1 : a278b1dc23d3071747974b9c5fed9641198cf234
+    git SHA1 : a278b1dc23d3071747974b9c5fed9641198cf234
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/FromStringDeserializer.java
+    jar SHA1 : 2fccdd0c1eeecdff28607a9e5d08da4c7c18f292
+    git SHA1 : 2fccdd0c1eeecdff28607a9e5d08da4c7c18f292
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/JdkDeserializers.java
+    jar SHA1 : 8250befaf0c09e5a61f67734123246eef6fc5a10
+    git SHA1 : 8250befaf0c09e5a61f67734123246eef6fc5a10
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/JsonLocationInstantiator.java
+    jar SHA1 : 90b815dc4b1e2c42486481dde651a73ca74f9a72
+    git SHA1 : 90b815dc4b1e2c42486481dde651a73ca74f9a72
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/JsonNodeDeserializer.java
+    jar SHA1 : 54fb895db67267bc413fe5685ae5c2bdb99f455d
+    git SHA1 : 54fb895db67267bc413fe5685ae5c2bdb99f455d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/MapDeserializer.java
+    jar SHA1 : 55ea967e02980bd8ab2bdbd299b749183b3865a7
+    git SHA1 : 55ea967e02980bd8ab2bdbd299b749183b3865a7
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/MapEntryDeserializer.java
+    jar SHA1 : 526e503afc1f7681b5be78cda3e182e2172c9b51
+    git SHA1 : 526e503afc1f7681b5be78cda3e182e2172c9b51
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/NullifyingDeserializer.java
+    jar SHA1 : 0dadc5214f1ea4c50612c74203a71a0aa66276b4
+    git SHA1 : 0dadc5214f1ea4c50612c74203a71a0aa66276b4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/NumberDeserializers.java
+    jar SHA1 : 522e75b92cc97cc46c85dffd98d19b5f4ba8745a
+    git SHA1 : 522e75b92cc97cc46c85dffd98d19b5f4ba8745a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/ObjectArrayDeserializer.java
+    jar SHA1 : 881d9904d0503cb4bc0b790d407c80ecbcd477f7
+    git SHA1 : 881d9904d0503cb4bc0b790d407c80ecbcd477f7
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/PrimitiveArrayDeserializers.java
+    jar SHA1 : fc802d92c949c51cdcc8ac570388de3cfe29c0e6
+    git SHA1 : fc802d92c949c51cdcc8ac570388de3cfe29c0e6
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/ReferenceTypeDeserializer.java
+    jar SHA1 : 251dbc99dac169093825bc3a29e875a4cc63ce7c
+    git SHA1 : 251dbc99dac169093825bc3a29e875a4cc63ce7c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StackTraceElementDeserializer.java
+    jar SHA1 : 6b0aa630a2da1858a7be1a6bf23a0b762ace8115
+    git SHA1 : 6b0aa630a2da1858a7be1a6bf23a0b762ace8115
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StdDelegatingDeserializer.java
+    jar SHA1 : 37374a0c438fcebe2be0b6f62856683f749bf737
+    git SHA1 : 37374a0c438fcebe2be0b6f62856683f749bf737
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StdDeserializer.java
+    jar SHA1 : bb3c982cae64a146f17cfb1b9fa56e482e9075e5
+    git SHA1 : bb3c982cae64a146f17cfb1b9fa56e482e9075e5
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StdKeyDeserializer.java
+    jar SHA1 : d7eabc484af12b260109357e85f72a76d940c3a1
+    git SHA1 : d7eabc484af12b260109357e85f72a76d940c3a1
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StdKeyDeserializers.java
+    jar SHA1 : 12159de205be25536b139c0cd4dc90f4affb7986
+    git SHA1 : 12159de205be25536b139c0cd4dc90f4affb7986
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StdNodeBasedDeserializer.java
+    jar SHA1 : 40b802c77d8d963f8ef1852592d38a1391377c57
+    git SHA1 : 40b802c77d8d963f8ef1852592d38a1391377c57
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StdScalarDeserializer.java
+    jar SHA1 : 7c21f672d921f81d4c03145d73e2619e22d6fcff
+    git SHA1 : 7c21f672d921f81d4c03145d73e2619e22d6fcff
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StdValueInstantiator.java
+    jar SHA1 : 09630b36abfc8b991fd9e38bab0e3be5559db8ad
+    git SHA1 : 09630b36abfc8b991fd9e38bab0e3be5559db8ad
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StringArrayDeserializer.java
+    jar SHA1 : 6cee5167909bf1c8eb9e409079c65157747027c9
+    git SHA1 : 6cee5167909bf1c8eb9e409079c65157747027c9
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StringCollectionDeserializer.java
+    jar SHA1 : 899726502132f03609c9295619d73f15aa4c35c7
+    git SHA1 : 899726502132f03609c9295619d73f15aa4c35c7
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/StringDeserializer.java
+    jar SHA1 : 188269fd346bfd103f2b1dc393cfa453fe40ca48
+    git SHA1 : 188269fd346bfd103f2b1dc393cfa453fe40ca48
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/ThrowableDeserializer.java
+    jar SHA1 : ee6ee0f93935d94e32c082e55ca402ccb3cf52e8
+    git SHA1 : ee6ee0f93935d94e32c082e55ca402ccb3cf52e8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/TokenBufferDeserializer.java
+    jar SHA1 : d36644791d6f3a6fe67f6b53024921c889427314
+    git SHA1 : d36644791d6f3a6fe67f6b53024921c889427314
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/UUIDDeserializer.java
+    jar SHA1 : 19a7a73b336d56d30afbbb4a31a0d716cfd99af0
+    git SHA1 : 19a7a73b336d56d30afbbb4a31a0d716cfd99af0
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/UntypedObjectDeserializer.java
+    jar SHA1 : 3f3598278820d904951186b8d8cfbecc1e76e2fb
+    git SHA1 : 3f3598278820d904951186b8d8cfbecc1e76e2fb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/UntypedObjectDeserializerNR.java
+    jar SHA1 : 41206a92b7a82e7e570d28c13ac596baa228aa5a
+    git SHA1 : 41206a92b7a82e7e570d28c13ac596baa228aa5a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/deser/std/package-info.java
+    jar SHA1 : 0ac0149b2c758d78f261aca4115797c6dc104a3b
+    git SHA1 : 0ac0149b2c758d78f261aca4115797c6dc104a3b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/exc/IgnoredPropertyException.java
+    jar SHA1 : cce28c9a74061c85561f3ef15e6b01507b7515fa
+    git SHA1 : cce28c9a74061c85561f3ef15e6b01507b7515fa
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/exc/InvalidDefinitionException.java
+    jar SHA1 : 444e6d94f837a06f22a3df32a8873031c244133f
+    git SHA1 : 444e6d94f837a06f22a3df32a8873031c244133f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/exc/InvalidFormatException.java
+    jar SHA1 : 288ff66565a7be0f8e455f4f40dd3462a604e0ce
+    git SHA1 : 288ff66565a7be0f8e455f4f40dd3462a604e0ce
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/exc/InvalidNullException.java
+    jar SHA1 : 05652bd30a39b8057ec374f01e21168d3f92c8e7
+    git SHA1 : 05652bd30a39b8057ec374f01e21168d3f92c8e7
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/exc/InvalidTypeIdException.java
+    jar SHA1 : d405a439b90a2c7fee9ea700c36f2155faa6958a
+    git SHA1 : d405a439b90a2c7fee9ea700c36f2155faa6958a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/exc/MismatchedInputException.java
+    jar SHA1 : 183831a90c8a3deaf44358f8ec91104a4fae7b93
+    git SHA1 : 183831a90c8a3deaf44358f8ec91104a4fae7b93
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/exc/PropertyBindingException.java
+    jar SHA1 : eff622d3604133d35eacac4f08af67bf1473eaa8
+    git SHA1 : eff622d3604133d35eacac4f08af67bf1473eaa8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/exc/UnrecognizedPropertyException.java
+    jar SHA1 : fb33e196d0bcb4e2372069ad2218f968d2673c3f
+    git SHA1 : fb33e196d0bcb4e2372069ad2218f968d2673c3f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/exc/ValueInstantiationException.java
+    jar SHA1 : 72dc8e8a91a893ce03f79ca410f00aabe6c6759c
+    git SHA1 : 72dc8e8a91a893ce03f79ca410f00aabe6c6759c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/CoreXMLDeserializers.java
+    jar SHA1 : 6c756979ec5bfbf370a9ca61ed1fae23a6c40ca7
+    git SHA1 : 6c756979ec5bfbf370a9ca61ed1fae23a6c40ca7
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/CoreXMLSerializers.java
+    jar SHA1 : 219d9a43db1d57a1682ae0cfbe223cb7bf6375f5
+    git SHA1 : 219d9a43db1d57a1682ae0cfbe223cb7bf6375f5
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/DOMDeserializer.java
+    jar SHA1 : 085785266ad58cd7ff49c0ddb9925c5616c443cb
+    git SHA1 : 085785266ad58cd7ff49c0ddb9925c5616c443cb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/DOMSerializer.java
+    jar SHA1 : a8ec5d90b9356a6bc8fbd737a4a64c908ba59a6f
+    git SHA1 : a8ec5d90b9356a6bc8fbd737a4a64c908ba59a6f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/Java7Handlers.java
+    jar SHA1 : 4982d2129c98ac68c840bde7f9af0658182bf146
+    git SHA1 : 4982d2129c98ac68c840bde7f9af0658182bf146
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/Java7HandlersImpl.java
+    jar SHA1 : de3e3c0ead7f98627e226abd8af937b2d58f59b1
+    git SHA1 : de3e3c0ead7f98627e226abd8af937b2d58f59b1
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/Java7Support.java
+    jar SHA1 : 02b5793231bc1b3ee268a11641d5ea6b129f1bb4
+    git SHA1 : 02b5793231bc1b3ee268a11641d5ea6b129f1bb4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/Java7SupportImpl.java
+    jar SHA1 : 660c23cc4fa854bbaf71895a03cba4491732ed12
+    git SHA1 : 660c23cc4fa854bbaf71895a03cba4491732ed12
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/NioPathDeserializer.java
+    jar SHA1 : e74dde872834ec7d9314e8364a3dd699c82ea39a
+    git SHA1 : e74dde872834ec7d9314e8364a3dd699c82ea39a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/NioPathSerializer.java
+    jar SHA1 : b8c23a5911af463e6a3c0494ea5a7d7ce5ba1ee8
+    git SHA1 : b8c23a5911af463e6a3c0494ea5a7d7ce5ba1ee8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/OptionalHandlerFactory.java
+    jar SHA1 : f4200ff2b4b32fff05244079254c31e0c2beb0f1
+    git SHA1 : f4200ff2b4b32fff05244079254c31e0c2beb0f1
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/SqlBlobSerializer.java
+    jar SHA1 : 2199ec34c58d2e2cc6f469c894e01d6250b370e8
+    git SHA1 : 2199ec34c58d2e2cc6f469c894e01d6250b370e8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ext/package-info.java
+    jar SHA1 : 05c2989e3966c8aa0cfd26fdde5fe8832e475021
+    git SHA1 : 05c2989e3966c8aa0cfd26fdde5fe8832e475021
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AccessorNamingStrategy.java
+    jar SHA1 : 8dc24c168c04ad3637e201529f0bcf6597698703
+    git SHA1 : 8dc24c168c04ad3637e201529f0bcf6597698703
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/Annotated.java
+    jar SHA1 : 2f93b00f2c65b38aa2c9642622eaa6e31383de35
+    git SHA1 : 2f93b00f2c65b38aa2c9642622eaa6e31383de35
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedAndMetadata.java
+    jar SHA1 : d4fbf11187f2885f0787835c1e20a6a1e58edf54
+    git SHA1 : d4fbf11187f2885f0787835c1e20a6a1e58edf54
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedClass.java
+    jar SHA1 : aef8152da6e2acffba0d2587bdf496285e572bfc
+    git SHA1 : aef8152da6e2acffba0d2587bdf496285e572bfc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedClassResolver.java
+    jar SHA1 : 1762a5ec71c96a95913f90ac63741df9a8f87b40
+    git SHA1 : 1762a5ec71c96a95913f90ac63741df9a8f87b40
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedConstructor.java
+    jar SHA1 : 9a653c6af9ddd12cdbcc712e9e07f3b1faa8c62c
+    git SHA1 : 9a653c6af9ddd12cdbcc712e9e07f3b1faa8c62c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedCreatorCollector.java
+    jar SHA1 : 96741181af29e78dbb34f188a6741e33271c48de
+    git SHA1 : 96741181af29e78dbb34f188a6741e33271c48de
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedField.java
+    jar SHA1 : be182b72bfe8711eda99bd6bb9b2541c8667736d
+    git SHA1 : be182b72bfe8711eda99bd6bb9b2541c8667736d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedFieldCollector.java
+    jar SHA1 : f56081c35c359a6bc813a60d547a5933fa392072
+    git SHA1 : f56081c35c359a6bc813a60d547a5933fa392072
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedMember.java
+    jar SHA1 : e2da0c8cca18612c908a649869f4f8a648eda02e
+    git SHA1 : e2da0c8cca18612c908a649869f4f8a648eda02e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedMethod.java
+    jar SHA1 : 4cf136fbd2bf5cc3ff84e0dd511df370c71c6d39
+    git SHA1 : 4cf136fbd2bf5cc3ff84e0dd511df370c71c6d39
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedMethodCollector.java
+    jar SHA1 : 91782bbae45a54ee55f1dfcfd5445ae182896726
+    git SHA1 : 91782bbae45a54ee55f1dfcfd5445ae182896726
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedMethodMap.java
+    jar SHA1 : dcd08a278b9b680ad851e74859bb403201b19423
+    git SHA1 : dcd08a278b9b680ad851e74859bb403201b19423
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedParameter.java
+    jar SHA1 : 3be31c6d6f5980a4079abb621ecccdf7e0fa6bf9
+    git SHA1 : 3be31c6d6f5980a4079abb621ecccdf7e0fa6bf9
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotatedWithParams.java
+    jar SHA1 : 4f415a68e30f62d8b27bc3cf1585a81179f6735d
+    git SHA1 : 4f415a68e30f62d8b27bc3cf1585a81179f6735d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotationCollector.java
+    jar SHA1 : b43749aeee1788a7036857fd3a9bca12381bf034
+    git SHA1 : b43749aeee1788a7036857fd3a9bca12381bf034
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotationIntrospectorPair.java
+    jar SHA1 : 0ac4c3d804a40ec25a9322189fe48229afbbad38
+    git SHA1 : 0ac4c3d804a40ec25a9322189fe48229afbbad38
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/AnnotationMap.java
+    jar SHA1 : 05c97c7e428e76a3016f904fde20a749a26aa3b5
+    git SHA1 : 05c97c7e428e76a3016f904fde20a749a26aa3b5
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/BasicBeanDescription.java
+    jar SHA1 : 20c79f6e7e59ba34d29caf2e19c43f202f73edeb
+    git SHA1 : 20c79f6e7e59ba34d29caf2e19c43f202f73edeb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/BasicClassIntrospector.java
+    jar SHA1 : 8e46959a01f0c1d7c6ee85e08fac95065ad17f98
+    git SHA1 : 8e46959a01f0c1d7c6ee85e08fac95065ad17f98
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/BeanPropertyDefinition.java
+    jar SHA1 : 92d2de3b8d7ec835a31e9c0f8a7aa8f036ea8715
+    git SHA1 : 92d2de3b8d7ec835a31e9c0f8a7aa8f036ea8715
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/ClassIntrospector.java
+    jar SHA1 : 13a1e3d011c933da889815a2c0fce314209f94e8
+    git SHA1 : 13a1e3d011c933da889815a2c0fce314209f94e8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/CollectorBase.java
+    jar SHA1 : a1132ed699b9f3a1d6ee017f79122d02afdf9d8a
+    git SHA1 : a1132ed699b9f3a1d6ee017f79122d02afdf9d8a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/ConcreteBeanPropertyBase.java
+    jar SHA1 : a54f797f73105f5d8f5bc34f2235e00582cd7b88
+    git SHA1 : a54f797f73105f5d8f5bc34f2235e00582cd7b88
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/DefaultAccessorNamingStrategy.java
+    jar SHA1 : 3bee890d10a60040d39c84de7ffca938fcf19ecc
+    git SHA1 : 3bee890d10a60040d39c84de7ffca938fcf19ecc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/EnumNamingStrategyFactory.java
+    jar SHA1 : bb5cecde2f4791fe78653d2f455b7d4ddf502415
+    git SHA1 : bb5cecde2f4791fe78653d2f455b7d4ddf502415
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/JacksonAnnotationIntrospector.java
+    jar SHA1 : 6e40b0ae28921e4ff8e14f60c30794b432fa22c3
+    git SHA1 : 6e40b0ae28921e4ff8e14f60c30794b432fa22c3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/MemberKey.java
+    jar SHA1 : 58563b8cc0b0c785c49a3b5fe4a7ce128dd72673
+    git SHA1 : 58563b8cc0b0c785c49a3b5fe4a7ce128dd72673
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/MethodGenericTypeResolver.java
+    jar SHA1 : 50fbd715115ee3881f3ab038a51c645cc14a9f3f
+    git SHA1 : 50fbd715115ee3881f3ab038a51c645cc14a9f3f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/NopAnnotationIntrospector.java
+    jar SHA1 : f42f9c0e47cbb2ddf2b4db4d07869a3eb06e1b38
+    git SHA1 : f42f9c0e47cbb2ddf2b4db4d07869a3eb06e1b38
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/ObjectIdInfo.java
+    jar SHA1 : 6c01c4abd401f03493912ddca5a0006409e453bf
+    git SHA1 : 6c01c4abd401f03493912ddca5a0006409e453bf
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/POJOPropertiesCollector.java
+    jar SHA1 : ba4694a3a32ea53619c0b1b861b1258f9c907f2a
+    git SHA1 : ba4694a3a32ea53619c0b1b861b1258f9c907f2a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/POJOPropertyBuilder.java
+    jar SHA1 : 75f201741c04bf71ae521728c97adc96ccea19a9
+    git SHA1 : 75f201741c04bf71ae521728c97adc96ccea19a9
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/SimpleMixInResolver.java
+    jar SHA1 : 71910581fda8b50a316d53086d5c23d949f79cc3
+    git SHA1 : 71910581fda8b50a316d53086d5c23d949f79cc3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/TypeResolutionContext.java
+    jar SHA1 : 3428db366cbe108668cd06b6ee97c24b4d4aeb61
+    git SHA1 : 3428db366cbe108668cd06b6ee97c24b4d4aeb61
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/VirtualAnnotatedMember.java
+    jar SHA1 : 1dcd8f5a7f483a5ba70ba70a6e576ec2788e4c34
+    git SHA1 : 1dcd8f5a7f483a5ba70ba70a6e576ec2788e4c34
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/VisibilityChecker.java
+    jar SHA1 : 3d0364d5115bf37655118aacd086d8174e495663
+    git SHA1 : 3d0364d5115bf37655118aacd086d8174e495663
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/WithMember.java
+    jar SHA1 : 2118a575f6fdff69cae172a7dfc171f9273707f6
+    git SHA1 : 2118a575f6fdff69cae172a7dfc171f9273707f6
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/introspect/package-info.java
+    jar SHA1 : 17f85672366643ccbd82af1df832afa3ed107de0
+    git SHA1 : 17f85672366643ccbd82af1df832afa3ed107de0
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jdk14/JDK14Util.java
+    jar SHA1 : 640935f9f859ad637697b38984095d69f8bdfd19
+    git SHA1 : 640935f9f859ad637697b38984095d69f8bdfd19
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jdk14/package-info.java
+    jar SHA1 : 49e99721bf9d363775c4278bdbb02eda687a1fbc
+    git SHA1 : 49e99721bf9d363775c4278bdbb02eda687a1fbc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/json/JsonMapper.java
+    jar SHA1 : acac5920c3f5d96ed049186b093da53099590586
+    git SHA1 : acac5920c3f5d96ed049186b093da53099590586
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonAnyFormatVisitor.java
+    jar SHA1 : 5073675eec60c3ad57ea3deed95f6458547a90d4
+    git SHA1 : 5073675eec60c3ad57ea3deed95f6458547a90d4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonArrayFormatVisitor.java
+    jar SHA1 : 9c2409bcabd131dda35acc871de809ab6d19f511
+    git SHA1 : 9c2409bcabd131dda35acc871de809ab6d19f511
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonBooleanFormatVisitor.java
+    jar SHA1 : 0ca65b9a05cda7af0fca849bbc4b0353b91f46e2
+    git SHA1 : 0ca65b9a05cda7af0fca849bbc4b0353b91f46e2
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonFormatTypes.java
+    jar SHA1 : dbeb39fb23880b7afd16ea4371a8fcb9a59bb230
+    git SHA1 : dbeb39fb23880b7afd16ea4371a8fcb9a59bb230
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonFormatVisitable.java
+    jar SHA1 : 3b226fac9011f60fd5da77f0e012a8bf28b05ed4
+    git SHA1 : 3b226fac9011f60fd5da77f0e012a8bf28b05ed4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonFormatVisitorWithSerializerProvider.java
+    jar SHA1 : 31c3cff9bf783f43ffc07867243f9a14f3f156d4
+    git SHA1 : 31c3cff9bf783f43ffc07867243f9a14f3f156d4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonFormatVisitorWrapper.java
+    jar SHA1 : 40b1c57074a9aadb71ecdd5ed06c2d67d4eb4e3d
+    git SHA1 : 40b1c57074a9aadb71ecdd5ed06c2d67d4eb4e3d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonIntegerFormatVisitor.java
+    jar SHA1 : 238cb7353abf75792586487346ab93b89c8c31e3
+    git SHA1 : 238cb7353abf75792586487346ab93b89c8c31e3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonMapFormatVisitor.java
+    jar SHA1 : fe45643c3bfef9d99ca84a745419772764f9bfa4
+    git SHA1 : fe45643c3bfef9d99ca84a745419772764f9bfa4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonNullFormatVisitor.java
+    jar SHA1 : c0cab718966527d1b4b7c4427bc3419a5b25275b
+    git SHA1 : c0cab718966527d1b4b7c4427bc3419a5b25275b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonNumberFormatVisitor.java
+    jar SHA1 : a131552a878266ba0291dc0952ff6343afdf8dcf
+    git SHA1 : a131552a878266ba0291dc0952ff6343afdf8dcf
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonObjectFormatVisitor.java
+    jar SHA1 : 72dbbe1923ff7f9586c9f905751a177502961037
+    git SHA1 : 72dbbe1923ff7f9586c9f905751a177502961037
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonStringFormatVisitor.java
+    jar SHA1 : 981b8a9becd20c60a3008c859eb5043a3c239680
+    git SHA1 : 981b8a9becd20c60a3008c859eb5043a3c239680
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonValueFormat.java
+    jar SHA1 : 115124f9ce787d6d109e77d466819e30166c868a
+    git SHA1 : 115124f9ce787d6d109e77d466819e30166c868a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/JsonValueFormatVisitor.java
+    jar SHA1 : 107898b5d1734f1c8f269555c5599aa6d0f1d93f
+    git SHA1 : 107898b5d1734f1c8f269555c5599aa6d0f1d93f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonFormatVisitors/package-info.java
+    jar SHA1 : b33937acfd9b9781efbbd9893b6581246c713e36
+    git SHA1 : b33937acfd9b9781efbbd9893b6581246c713e36
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonschema/JsonSchema.java
+    jar SHA1 : 98a66a0ded4c47084037a2a59db162476619dc8f
+    git SHA1 : 98a66a0ded4c47084037a2a59db162476619dc8f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonschema/JsonSerializableSchema.java
+    jar SHA1 : fd7ca49c487d85871aff05e2ad06ba5ae53429bc
+    git SHA1 : fd7ca49c487d85871aff05e2ad06ba5ae53429bc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonschema/SchemaAware.java
+    jar SHA1 : 2b8fbb40d1e266b665f76498f15722e66aadc166
+    git SHA1 : 2b8fbb40d1e266b665f76498f15722e66aadc166
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsonschema/package-info.java
+    jar SHA1 : 443dcf48f9ddb616d128250513ef1cbfaf80b026
+    git SHA1 : 443dcf48f9ddb616d128250513ef1cbfaf80b026
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/BasicPolymorphicTypeValidator.java
+    jar SHA1 : 832c4136b4386f37a6358c1ecea936ec19417da1
+    git SHA1 : 832c4136b4386f37a6358c1ecea936ec19417da1
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/DefaultBaseTypeLimitingValidator.java
+    jar SHA1 : 2ebc2a9cc9b94a4200324dc819cfed796d711f55
+    git SHA1 : 2ebc2a9cc9b94a4200324dc819cfed796d711f55
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/NamedType.java
+    jar SHA1 : 05f9a7af3e93ce3e6666a28cf9285be79f41436e
+    git SHA1 : 05f9a7af3e93ce3e6666a28cf9285be79f41436e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/PolymorphicTypeValidator.java
+    jar SHA1 : f21d77213eccf12ef1e8a0a2e6767abc1b1e6a11
+    git SHA1 : f21d77213eccf12ef1e8a0a2e6767abc1b1e6a11
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/SubtypeResolver.java
+    jar SHA1 : 24e1e586bc6445b1d804c44799e2105a96bc4e1c
+    git SHA1 : 24e1e586bc6445b1d804c44799e2105a96bc4e1c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/TypeDeserializer.java
+    jar SHA1 : a5045963aa5f099e9d4e0ebbc13562e18325e97a
+    git SHA1 : a5045963aa5f099e9d4e0ebbc13562e18325e97a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/TypeIdResolver.java
+    jar SHA1 : 844a5dd39031e8af4859394a7318fb17d247ceec
+    git SHA1 : 844a5dd39031e8af4859394a7318fb17d247ceec
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/TypeResolverBuilder.java
+    jar SHA1 : ac23c6f0e538029f564c6324e8a98e8fa682566b
+    git SHA1 : ac23c6f0e538029f564c6324e8a98e8fa682566b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/TypeSerializer.java
+    jar SHA1 : c20c7cd4b7aefc4092216afd4eefc5105bfc0054
+    git SHA1 : c20c7cd4b7aefc4092216afd4eefc5105bfc0054
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsArrayTypeDeserializer.java
+    jar SHA1 : 94e7b732c887ce9b3a28f5d0a98089b03fbcde3c
+    git SHA1 : 94e7b732c887ce9b3a28f5d0a98089b03fbcde3c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsArrayTypeSerializer.java
+    jar SHA1 : f55a37d829b3c8d4c97bfa3c8731ce8daba9f4a2
+    git SHA1 : f55a37d829b3c8d4c97bfa3c8731ce8daba9f4a2
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsDeductionTypeDeserializer.java
+    jar SHA1 : 1d2fa29717c09c38f47108da3a0adab848dc2c18
+    git SHA1 : 1d2fa29717c09c38f47108da3a0adab848dc2c18
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsDeductionTypeSerializer.java
+    jar SHA1 : 77762012352a2e408b61de30d8c6c330d186a562
+    git SHA1 : 77762012352a2e408b61de30d8c6c330d186a562
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsExistingPropertyTypeSerializer.java
+    jar SHA1 : ec8ddaacd7c9fa198c3b9b73c5b79e4afaf355fc
+    git SHA1 : ec8ddaacd7c9fa198c3b9b73c5b79e4afaf355fc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsExternalTypeDeserializer.java
+    jar SHA1 : e0e44a38abc08852af82ace3845e7e275227a2f4
+    git SHA1 : e0e44a38abc08852af82ace3845e7e275227a2f4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsExternalTypeSerializer.java
+    jar SHA1 : 0a0ca2edf070ac69747328bef7e26cff9b589820
+    git SHA1 : 0a0ca2edf070ac69747328bef7e26cff9b589820
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsPropertyTypeDeserializer.java
+    jar SHA1 : 3e1ae93eeb9175a0d5342d7d41ba04fbf4ca663c
+    git SHA1 : 3e1ae93eeb9175a0d5342d7d41ba04fbf4ca663c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsPropertyTypeSerializer.java
+    jar SHA1 : 74bc34c7e87804374789044ae18097625020ad52
+    git SHA1 : 74bc34c7e87804374789044ae18097625020ad52
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsWrapperTypeDeserializer.java
+    jar SHA1 : 8bcf2b0e86e83ec2e746c3dab098c3ebcce37dd6
+    git SHA1 : 8bcf2b0e86e83ec2e746c3dab098c3ebcce37dd6
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/AsWrapperTypeSerializer.java
+    jar SHA1 : 0dc8bd401550c51847e9904b2a9c8f8752e98a15
+    git SHA1 : 0dc8bd401550c51847e9904b2a9c8f8752e98a15
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/ClassNameIdResolver.java
+    jar SHA1 : bd388b74c1b2a93f524706ba72fe1930a159223d
+    git SHA1 : bd388b74c1b2a93f524706ba72fe1930a159223d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/LaissezFaireSubTypeValidator.java
+    jar SHA1 : 38f1105d664aa9e9daa082ff10e39bbf746ce12e
+    git SHA1 : 38f1105d664aa9e9daa082ff10e39bbf746ce12e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/MinimalClassNameIdResolver.java
+    jar SHA1 : 135de72360e871053f52b821fb1133703611bec0
+    git SHA1 : 135de72360e871053f52b821fb1133703611bec0
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/SimpleNameIdResolver.java
+    jar SHA1 : 8af7473344b31ddb9f00ecbb6be286938700800e
+    git SHA1 : 8af7473344b31ddb9f00ecbb6be286938700800e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/StdSubtypeResolver.java
+    jar SHA1 : 319c207f18ab40fa6cf85cb36f2168e0ceb443aa
+    git SHA1 : 319c207f18ab40fa6cf85cb36f2168e0ceb443aa
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/StdTypeResolverBuilder.java
+    jar SHA1 : 988f39a16560e117015d6f411b91ba9d6666e8bc
+    git SHA1 : 988f39a16560e117015d6f411b91ba9d6666e8bc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/SubTypeValidator.java
+    jar SHA1 : 7937a8ad5fc7122b0031a8873816ef3a0635dc68
+    git SHA1 : 7937a8ad5fc7122b0031a8873816ef3a0635dc68
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/TypeDeserializerBase.java
+    jar SHA1 : 2af739da33ea3c8b6e4f2d6407e921d6c6ee0c15
+    git SHA1 : 2af739da33ea3c8b6e4f2d6407e921d6c6ee0c15
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/TypeIdResolverBase.java
+    jar SHA1 : 6f4710a46b04e46bc600156a899428f7d6e863bf
+    git SHA1 : 6f4710a46b04e46bc600156a899428f7d6e863bf
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/TypeNameIdResolver.java
+    jar SHA1 : 2fa4a450bfade39091c0c5af80edbea60e2037f4
+    git SHA1 : 2fa4a450bfade39091c0c5af80edbea60e2037f4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/TypeSerializerBase.java
+    jar SHA1 : 6db57d6403244b9558f10ef9eb9d5ab428956900
+    git SHA1 : 6db57d6403244b9558f10ef9eb9d5ab428956900
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/impl/package-info.java
+    jar SHA1 : 8bb399dbd6f9756d33a7b23c61a0e7dadb91fc61
+    git SHA1 : 8bb399dbd6f9756d33a7b23c61a0e7dadb91fc61
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/jsontype/package-info.java
+    jar SHA1 : 41874d6071084987ea0e5e2b007b408153967f8d
+    git SHA1 : 41874d6071084987ea0e5e2b007b408153967f8d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/module/SimpleAbstractTypeResolver.java
+    jar SHA1 : e487d8c39818e5ff2974b04c905a337f54c300d3
+    git SHA1 : e487d8c39818e5ff2974b04c905a337f54c300d3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/module/SimpleDeserializers.java
+    jar SHA1 : 5ebc5c01d253b2c4221b0124ff7bb22defb5f26d
+    git SHA1 : 5ebc5c01d253b2c4221b0124ff7bb22defb5f26d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/module/SimpleKeyDeserializers.java
+    jar SHA1 : 0e43425ce93ca5845e31cf10766a28edb7da1d23
+    git SHA1 : 0e43425ce93ca5845e31cf10766a28edb7da1d23
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/module/SimpleModule.java
+    jar SHA1 : d8ba7293667bcf42e6d0866170f7dc8f3137a3fd
+    git SHA1 : d8ba7293667bcf42e6d0866170f7dc8f3137a3fd
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/module/SimpleSerializers.java
+    jar SHA1 : 8def48d3faed87c2199e472446b534f95055824e
+    git SHA1 : 8def48d3faed87c2199e472446b534f95055824e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/module/SimpleValueInstantiators.java
+    jar SHA1 : e3f4bdefeee139d8211a86607d8f40fb2ecbf5d4
+    git SHA1 : e3f4bdefeee139d8211a86607d8f40fb2ecbf5d4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/module/package-info.java
+    jar SHA1 : 75cf2956488d4fa7ca6ca78bc3ebef899092c132
+    git SHA1 : 75cf2956488d4fa7ca6ca78bc3ebef899092c132
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/ArrayNode.java
+    jar SHA1 : 2ec021dc2ad90c4435361d8b26c041d655084760
+    git SHA1 : 2ec021dc2ad90c4435361d8b26c041d655084760
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/BaseJsonNode.java
+    jar SHA1 : 508cb0e9f905b8941cd03c3a63f90f265c0669b1
+    git SHA1 : 508cb0e9f905b8941cd03c3a63f90f265c0669b1
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/BigIntegerNode.java
+    jar SHA1 : ba20d7496c417034af29ba483d8ed3ebb59d73eb
+    git SHA1 : ba20d7496c417034af29ba483d8ed3ebb59d73eb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/BinaryNode.java
+    jar SHA1 : 5f5f0da23c4bb01e49c1c00966ed0b93d739eacf
+    git SHA1 : 5f5f0da23c4bb01e49c1c00966ed0b93d739eacf
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/BooleanNode.java
+    jar SHA1 : 300ad4ec6fe1fd6d495d1eed00354c1df093b2ea
+    git SHA1 : 300ad4ec6fe1fd6d495d1eed00354c1df093b2ea
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/ContainerNode.java
+    jar SHA1 : 85d6ef4f88092e2147442cc32c1100554ac21c81
+    git SHA1 : 85d6ef4f88092e2147442cc32c1100554ac21c81
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/DecimalNode.java
+    jar SHA1 : c454b54dca035f692c33b68ada623e3216b3de33
+    git SHA1 : c454b54dca035f692c33b68ada623e3216b3de33
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/DoubleNode.java
+    jar SHA1 : f14451ef0a2f6f9bb26bf77ff535b19b6c890664
+    git SHA1 : f14451ef0a2f6f9bb26bf77ff535b19b6c890664
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/FloatNode.java
+    jar SHA1 : e6f8c08e580d9545b52a28afff6cf75318e2ce98
+    git SHA1 : e6f8c08e580d9545b52a28afff6cf75318e2ce98
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/IntNode.java
+    jar SHA1 : 1d4bcdd4b5aed21c1670c2cc32354347f738f432
+    git SHA1 : 1d4bcdd4b5aed21c1670c2cc32354347f738f432
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/InternalNodeMapper.java
+    jar SHA1 : 8cf3d5693bb6c6c200ca3c21d9340705c9bb33b5
+    git SHA1 : 8cf3d5693bb6c6c200ca3c21d9340705c9bb33b5
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/JsonNodeCreator.java
+    jar SHA1 : b5276e0259f40689cb4c2b66035111bf8c0a7310
+    git SHA1 : b5276e0259f40689cb4c2b66035111bf8c0a7310
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/JsonNodeFactory.java
+    jar SHA1 : cf115e35594095444c53b2fb0408e60307fc2b59
+    git SHA1 : cf115e35594095444c53b2fb0408e60307fc2b59
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/JsonNodeType.java
+    jar SHA1 : 22d09abb8c8d2dee8df022ad02b5affaef843159
+    git SHA1 : 22d09abb8c8d2dee8df022ad02b5affaef843159
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/LongNode.java
+    jar SHA1 : bb86da43764cda85c0a505f9df7f759727d6b5d8
+    git SHA1 : bb86da43764cda85c0a505f9df7f759727d6b5d8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/MissingNode.java
+    jar SHA1 : 87843c274bb337a83f76f8b2726d8ab009557c2c
+    git SHA1 : 87843c274bb337a83f76f8b2726d8ab009557c2c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/NodeCursor.java
+    jar SHA1 : ba81898cee5ded24b1bc2c456e9e9190e233dcdd
+    git SHA1 : ba81898cee5ded24b1bc2c456e9e9190e233dcdd
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/NodeSerialization.java
+    jar SHA1 : c9262ad90fa97037fb75cafabd30fdeaf31cae85
+    git SHA1 : c9262ad90fa97037fb75cafabd30fdeaf31cae85
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/NullNode.java
+    jar SHA1 : 822cbb20409fccf4ded49f262574bdaf2473fbdb
+    git SHA1 : 822cbb20409fccf4ded49f262574bdaf2473fbdb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/NumericNode.java
+    jar SHA1 : fe3e33137038f680831b081a33bd3b7628ee9026
+    git SHA1 : fe3e33137038f680831b081a33bd3b7628ee9026
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/ObjectNode.java
+    jar SHA1 : c2fa6408a7b4865abdc147c527dfef7657649e7f
+    git SHA1 : c2fa6408a7b4865abdc147c527dfef7657649e7f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/POJONode.java
+    jar SHA1 : b24511bb5e08709b6126dd9a61b121162ab35522
+    git SHA1 : b24511bb5e08709b6126dd9a61b121162ab35522
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/ShortNode.java
+    jar SHA1 : 3a2dbb3db630307d1227929b8fc6ec0485ee5f68
+    git SHA1 : 3a2dbb3db630307d1227929b8fc6ec0485ee5f68
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/TextNode.java
+    jar SHA1 : d22ba3354195d323bf1608676dfdef9c6e644902
+    git SHA1 : d22ba3354195d323bf1608676dfdef9c6e644902
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/TreeTraversingParser.java
+    jar SHA1 : 80f54d69b03e24cc98b02c84c308833f9b0ceb18
+    git SHA1 : 80f54d69b03e24cc98b02c84c308833f9b0ceb18
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/ValueNode.java
+    jar SHA1 : dcb419c6483c5800021b273602ba47dafcbd03eb
+    git SHA1 : dcb419c6483c5800021b273602ba47dafcbd03eb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/node/package-info.java
+    jar SHA1 : 7732ebc14ec0b3636687c31bab7498fa69a7adcc
+    git SHA1 : 7732ebc14ec0b3636687c31bab7498fa69a7adcc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/package-info.java
+    jar SHA1 : e2f13f6c5e02dae3188b36dfc645f589dce25a94
+    git SHA1 : e2f13f6c5e02dae3188b36dfc645f589dce25a94
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/AnyGetterWriter.java
+    jar SHA1 : c50bd0b85da41d3bce09dca57af70159e4cb5769
+    git SHA1 : c50bd0b85da41d3bce09dca57af70159e4cb5769
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/BasicSerializerFactory.java
+    jar SHA1 : e230d89529212f1858b4cc2db9c67e5125cd5e68
+    git SHA1 : e230d89529212f1858b4cc2db9c67e5125cd5e68
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/BeanPropertyFilter.java
+    jar SHA1 : 8092d5379c8083f10564ec68c5b3dc1d15da0dc6
+    git SHA1 : 8092d5379c8083f10564ec68c5b3dc1d15da0dc6
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/BeanPropertyWriter.java
+    jar SHA1 : 812c239032241454d508cfd1c34141aa2fe77783
+    git SHA1 : 812c239032241454d508cfd1c34141aa2fe77783
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/BeanSerializer.java
+    jar SHA1 : dd9c86ed8edfd6616fbcf43afff424aa729a2a0a
+    git SHA1 : dd9c86ed8edfd6616fbcf43afff424aa729a2a0a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/BeanSerializerBuilder.java
+    jar SHA1 : 8b31ab0154ab3ecd462ec1391211f2033e3e9e7f
+    git SHA1 : 8b31ab0154ab3ecd462ec1391211f2033e3e9e7f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/BeanSerializerFactory.java
+    jar SHA1 : 0f70bd9717b9a9da8cbee0ea83470a79349ebdae
+    git SHA1 : 0f70bd9717b9a9da8cbee0ea83470a79349ebdae
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/BeanSerializerModifier.java
+    jar SHA1 : d6182975d60d9b76d2a51ac0ba648a3ca6e05039
+    git SHA1 : d6182975d60d9b76d2a51ac0ba648a3ca6e05039
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/ContainerSerializer.java
+    jar SHA1 : aa444d3faa1fa9068ba88935bbcce0f19f70a52e
+    git SHA1 : aa444d3faa1fa9068ba88935bbcce0f19f70a52e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/ContextualSerializer.java
+    jar SHA1 : 0dd90a010a8de0fdb6160fff006c07348d909ce4
+    git SHA1 : 0dd90a010a8de0fdb6160fff006c07348d909ce4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/DefaultSerializerProvider.java
+    jar SHA1 : c64b224857eea5bd54287efca3494afe5f4c2926
+    git SHA1 : c64b224857eea5bd54287efca3494afe5f4c2926
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/FilterProvider.java
+    jar SHA1 : 96830a4e085d6698cbda3e0baea158b14866e6d5
+    git SHA1 : 96830a4e085d6698cbda3e0baea158b14866e6d5
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/PropertyBuilder.java
+    jar SHA1 : 5be5923328048c604dc459ff115de92b926b389c
+    git SHA1 : 5be5923328048c604dc459ff115de92b926b389c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/PropertyFilter.java
+    jar SHA1 : 6346c30fec03d7de32d84f43f62f5355dd7092e5
+    git SHA1 : 6346c30fec03d7de32d84f43f62f5355dd7092e5
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/PropertyWriter.java
+    jar SHA1 : 2e6627ca8c5e82888a34ad7acd2543d9bceb46c4
+    git SHA1 : 2e6627ca8c5e82888a34ad7acd2543d9bceb46c4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/ResolvableSerializer.java
+    jar SHA1 : c86d0c1a2cd30a3a189467c9282f472761d7a264
+    git SHA1 : c86d0c1a2cd30a3a189467c9282f472761d7a264
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/SerializerCache.java
+    jar SHA1 : c9b49f77eb7f020fdc163500cae6a800865f9e6a
+    git SHA1 : c9b49f77eb7f020fdc163500cae6a800865f9e6a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/SerializerFactory.java
+    jar SHA1 : 2cb6e0869380fc833bbc4c5eb632992a1895824b
+    git SHA1 : 2cb6e0869380fc833bbc4c5eb632992a1895824b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/Serializers.java
+    jar SHA1 : ffa65a05a083670b12fb28ff65eb0dff68b7325a
+    git SHA1 : ffa65a05a083670b12fb28ff65eb0dff68b7325a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/VirtualBeanPropertyWriter.java
+    jar SHA1 : ba5893dfb4b0c33d7d6a5e9b6a058be2730cb577
+    git SHA1 : ba5893dfb4b0c33d7d6a5e9b6a058be2730cb577
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/AttributePropertyWriter.java
+    jar SHA1 : ee266ff4adaded7a718cbf22eabc2c399c5be628
+    git SHA1 : ee266ff4adaded7a718cbf22eabc2c399c5be628
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/BeanAsArraySerializer.java
+    jar SHA1 : 02f01cec00003a576f22afe002cb465720521aeb
+    git SHA1 : 02f01cec00003a576f22afe002cb465720521aeb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/FailingSerializer.java
+    jar SHA1 : d2ce1bea0d7aa9963fd4c7e1ac4b9175a52a7b1f
+    git SHA1 : d2ce1bea0d7aa9963fd4c7e1ac4b9175a52a7b1f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/FilteredBeanPropertyWriter.java
+    jar SHA1 : cd116b202efa5d51263c7468c97b01412c74156d
+    git SHA1 : cd116b202efa5d51263c7468c97b01412c74156d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/IndexedListSerializer.java
+    jar SHA1 : dc4b320569f0087ced2bf34ee8bbf7d6f60f17f8
+    git SHA1 : dc4b320569f0087ced2bf34ee8bbf7d6f60f17f8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/IndexedStringListSerializer.java
+    jar SHA1 : 48f5d91feca5882f4c614ad8316350dd42195486
+    git SHA1 : 48f5d91feca5882f4c614ad8316350dd42195486
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/IteratorSerializer.java
+    jar SHA1 : 10aba9b654cdc7012c39628742929ceeefe6e59a
+    git SHA1 : 10aba9b654cdc7012c39628742929ceeefe6e59a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/MapEntrySerializer.java
+    jar SHA1 : 09dcfcb3802fbcba0f19505b4b5fa2d592317311
+    git SHA1 : 09dcfcb3802fbcba0f19505b4b5fa2d592317311
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/ObjectIdWriter.java
+    jar SHA1 : 9051cfce2a6b687580e972b7b8d5eb6dfc796c35
+    git SHA1 : 9051cfce2a6b687580e972b7b8d5eb6dfc796c35
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/PropertyBasedObjectIdGenerator.java
+    jar SHA1 : 68a426023e047375efb38f33bdfd8562a1ad8531
+    git SHA1 : 68a426023e047375efb38f33bdfd8562a1ad8531
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/PropertySerializerMap.java
+    jar SHA1 : d206ee3d2c3265215b6cfa795b8ec48badad6130
+    git SHA1 : d206ee3d2c3265215b6cfa795b8ec48badad6130
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/ReadOnlyClassToSerializerMap.java
+    jar SHA1 : b163fe73b90643aeaea3c8ed11fc7d20ebbcf2ca
+    git SHA1 : b163fe73b90643aeaea3c8ed11fc7d20ebbcf2ca
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/SimpleBeanPropertyFilter.java
+    jar SHA1 : fad1693391c2745dee62532535d8c7f64540e86a
+    git SHA1 : fad1693391c2745dee62532535d8c7f64540e86a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/SimpleFilterProvider.java
+    jar SHA1 : d1bbcbea47a2c7651acc252669110758b7bdfcac
+    git SHA1 : d1bbcbea47a2c7651acc252669110758b7bdfcac
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/StringArraySerializer.java
+    jar SHA1 : f555307791beb46d995911466865ed9ad1a9fb44
+    git SHA1 : f555307791beb46d995911466865ed9ad1a9fb44
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/StringCollectionSerializer.java
+    jar SHA1 : be2e52eab704edddc6dde32b59fd6a56b8319313
+    git SHA1 : be2e52eab704edddc6dde32b59fd6a56b8319313
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/TypeWrappedSerializer.java
+    jar SHA1 : 62ad61d6c47fe03dcd544a647b5a2f6ce76276e8
+    git SHA1 : 62ad61d6c47fe03dcd544a647b5a2f6ce76276e8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/UnknownSerializer.java
+    jar SHA1 : 16c9c8645148dc04f58ef03e9d907fe9c5740728
+    git SHA1 : 16c9c8645148dc04f58ef03e9d907fe9c5740728
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/UnsupportedTypeSerializer.java
+    jar SHA1 : b849ee3d2d8fb7fb9491b952bfd008648316e7aa
+    git SHA1 : b849ee3d2d8fb7fb9491b952bfd008648316e7aa
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/UnwrappingBeanPropertyWriter.java
+    jar SHA1 : b701728b9e0ffbe0fb54877390f464d729b433c4
+    git SHA1 : b701728b9e0ffbe0fb54877390f464d729b433c4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/UnwrappingBeanSerializer.java
+    jar SHA1 : f54b9fb90f829ed437c70a1c5d3c72157cc4887b
+    git SHA1 : f54b9fb90f829ed437c70a1c5d3c72157cc4887b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/WritableObjectId.java
+    jar SHA1 : ce8bed31c8cf4c72eb849b6e29096102f44956ff
+    git SHA1 : ce8bed31c8cf4c72eb849b6e29096102f44956ff
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/impl/package-info.java
+    jar SHA1 : 4acb13cf2efa958764ccab8be8e0b9877215c954
+    git SHA1 : 4acb13cf2efa958764ccab8be8e0b9877215c954
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/package-info.java
+    jar SHA1 : 0bc9c1f69baaf18da61c1cd97f9d85fb3e57074f
+    git SHA1 : 0bc9c1f69baaf18da61c1cd97f9d85fb3e57074f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/ArraySerializerBase.java
+    jar SHA1 : 47e953083b76329a65b81bdd8670079612cee2d8
+    git SHA1 : 47e953083b76329a65b81bdd8670079612cee2d8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/AsArraySerializerBase.java
+    jar SHA1 : e364e3e254154b158eacef3d9fcbea5893fb5b80
+    git SHA1 : e364e3e254154b158eacef3d9fcbea5893fb5b80
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/AtomicReferenceSerializer.java
+    jar SHA1 : d44d9af42bada7496975afa656b692c5a866e97f
+    git SHA1 : d44d9af42bada7496975afa656b692c5a866e97f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/BeanSerializerBase.java
+    jar SHA1 : 742d14d44e07c46793e953ff3c7e558b1a24f338
+    git SHA1 : 742d14d44e07c46793e953ff3c7e558b1a24f338
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/BooleanSerializer.java
+    jar SHA1 : b986aab8146a8bee821392be1d79bb02815054fd
+    git SHA1 : b986aab8146a8bee821392be1d79bb02815054fd
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/ByteArraySerializer.java
+    jar SHA1 : 01585010907e17489239f15353cf006ad3ec1df3
+    git SHA1 : 01585010907e17489239f15353cf006ad3ec1df3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/ByteBufferSerializer.java
+    jar SHA1 : 48a2045cb6545f0ac53b0797f5d18ef35960f316
+    git SHA1 : 48a2045cb6545f0ac53b0797f5d18ef35960f316
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/CalendarSerializer.java
+    jar SHA1 : 3140352be3ccc38f923753d277aa03e032ca4762
+    git SHA1 : 3140352be3ccc38f923753d277aa03e032ca4762
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/ClassSerializer.java
+    jar SHA1 : 6340d6d8fefe4dcd3baa43ce67f76e78d11e9f0c
+    git SHA1 : 6340d6d8fefe4dcd3baa43ce67f76e78d11e9f0c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/CollectionSerializer.java
+    jar SHA1 : 6b7f718fb6e06bb49eacdd671a2f8539bb60d474
+    git SHA1 : 6b7f718fb6e06bb49eacdd671a2f8539bb60d474
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/DateSerializer.java
+    jar SHA1 : 7dd534495bc8c2dd38d1b53d8120f398c93fe270
+    git SHA1 : 7dd534495bc8c2dd38d1b53d8120f398c93fe270
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/DateTimeSerializerBase.java
+    jar SHA1 : c5f1f981ad7814b522dbc81cb2747591c52700d9
+    git SHA1 : c5f1f981ad7814b522dbc81cb2747591c52700d9
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/EnumSerializer.java
+    jar SHA1 : efc8d67ee2dd8a341846b3db24949d8a4393d17e
+    git SHA1 : efc8d67ee2dd8a341846b3db24949d8a4393d17e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/EnumSetSerializer.java
+    jar SHA1 : 0995768d7e51b9237cf3bf56af2d9ff4a16b28c4
+    git SHA1 : 0995768d7e51b9237cf3bf56af2d9ff4a16b28c4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/FileSerializer.java
+    jar SHA1 : b21588e41a9597f01bcaf4c33904f862873acbc7
+    git SHA1 : b21588e41a9597f01bcaf4c33904f862873acbc7
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/InetAddressSerializer.java
+    jar SHA1 : ecf60997783c95abea3d75c03348939942feb55f
+    git SHA1 : ecf60997783c95abea3d75c03348939942feb55f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/InetSocketAddressSerializer.java
+    jar SHA1 : 13b8be84244e0eff587a8a5196a4f0d1e3bf7691
+    git SHA1 : 13b8be84244e0eff587a8a5196a4f0d1e3bf7691
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/IterableSerializer.java
+    jar SHA1 : 4116ef603b782436528844208749b099a928dce4
+    git SHA1 : 4116ef603b782436528844208749b099a928dce4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/JsonValueSerializer.java
+    jar SHA1 : 45469063b76778cc3e026c4d08b552e3131ffebb
+    git SHA1 : 45469063b76778cc3e026c4d08b552e3131ffebb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/MapProperty.java
+    jar SHA1 : c499277aa1070aa0ce3e664b96766c56231fdcfd
+    git SHA1 : c499277aa1070aa0ce3e664b96766c56231fdcfd
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/MapSerializer.java
+    jar SHA1 : 78a2d75bb9afddc74dcf1b20aec02d5e28161b41
+    git SHA1 : 78a2d75bb9afddc74dcf1b20aec02d5e28161b41
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/NonTypedScalarSerializerBase.java
+    jar SHA1 : b9028acdf2d848286d2d21ff18df792c69202c34
+    git SHA1 : b9028acdf2d848286d2d21ff18df792c69202c34
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/NullSerializer.java
+    jar SHA1 : 14d830b1b69f2ffd82f9d0cff4facd82a72a0e8f
+    git SHA1 : 14d830b1b69f2ffd82f9d0cff4facd82a72a0e8f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/NumberSerializer.java
+    jar SHA1 : df3a3b4e548d97e4b17637ed394a9d67f4eb2cb4
+    git SHA1 : df3a3b4e548d97e4b17637ed394a9d67f4eb2cb4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/NumberSerializers.java
+    jar SHA1 : c81c2ba2e23b242269891fbb7e8b207874071d46
+    git SHA1 : c81c2ba2e23b242269891fbb7e8b207874071d46
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/ObjectArraySerializer.java
+    jar SHA1 : 046e4473db010dee9b2e451c9bad0b733b0f07ab
+    git SHA1 : 046e4473db010dee9b2e451c9bad0b733b0f07ab
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/RawSerializer.java
+    jar SHA1 : 705253b0b77ca489c8e76bd94277ef1f18591744
+    git SHA1 : 705253b0b77ca489c8e76bd94277ef1f18591744
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/ReferenceTypeSerializer.java
+    jar SHA1 : 1288d63167eb902a9ddd837a406c766e9c6a3494
+    git SHA1 : 1288d63167eb902a9ddd837a406c766e9c6a3494
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/SerializableSerializer.java
+    jar SHA1 : 93efb685819fc750c6e055880dbbf161e5aaa7c6
+    git SHA1 : 93efb685819fc750c6e055880dbbf161e5aaa7c6
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/SqlDateSerializer.java
+    jar SHA1 : 439971a451f19ced5e86eeafe98ade9879e12945
+    git SHA1 : 439971a451f19ced5e86eeafe98ade9879e12945
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/SqlTimeSerializer.java
+    jar SHA1 : 645a1b5509961c9c6005b81ad4f1675efe750bdd
+    git SHA1 : 645a1b5509961c9c6005b81ad4f1675efe750bdd
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/StaticListSerializerBase.java
+    jar SHA1 : 04e708eaca69b297e37c97cf8e86c8a35e1b6895
+    git SHA1 : 04e708eaca69b297e37c97cf8e86c8a35e1b6895
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/StdArraySerializers.java
+    jar SHA1 : d5ea4cfd03ddbeaa3faf53a9dd4ebf6a9dd2e484
+    git SHA1 : d5ea4cfd03ddbeaa3faf53a9dd4ebf6a9dd2e484
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/StdDelegatingSerializer.java
+    jar SHA1 : 58b6debc1f09e42e330b0d88a9a0c7f2875368df
+    git SHA1 : 58b6debc1f09e42e330b0d88a9a0c7f2875368df
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/StdJdkSerializers.java
+    jar SHA1 : eb158a926929a29ee330a88119e93a11274e3234
+    git SHA1 : eb158a926929a29ee330a88119e93a11274e3234
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/StdKeySerializer.java
+    jar SHA1 : c62e4440559feaaed5f7c09ab2efe26aa706a5f9
+    git SHA1 : c62e4440559feaaed5f7c09ab2efe26aa706a5f9
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/StdKeySerializers.java
+    jar SHA1 : 6f27b0b0563104e5589ea38d108ab57b4934382b
+    git SHA1 : 6f27b0b0563104e5589ea38d108ab57b4934382b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/StdScalarSerializer.java
+    jar SHA1 : cf083900574af176a61237c2dd2c7b0f3ace410f
+    git SHA1 : cf083900574af176a61237c2dd2c7b0f3ace410f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/StdSerializer.java
+    jar SHA1 : c8eec1c08aca7d7d1c4929798b49b7034ea8ba97
+    git SHA1 : c8eec1c08aca7d7d1c4929798b49b7034ea8ba97
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/StringSerializer.java
+    jar SHA1 : 432a3772bdf93bcf53f746ced9afe0fe53236c53
+    git SHA1 : 432a3772bdf93bcf53f746ced9afe0fe53236c53
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/TimeZoneSerializer.java
+    jar SHA1 : 6bfb2149ca090b0a4c370a035095eccc664c49d2
+    git SHA1 : 6bfb2149ca090b0a4c370a035095eccc664c49d2
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/ToEmptyObjectSerializer.java
+    jar SHA1 : bded43f0c2ccb6d5bd26f6226ddb923138a9a66f
+    git SHA1 : bded43f0c2ccb6d5bd26f6226ddb923138a9a66f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/ToStringSerializer.java
+    jar SHA1 : 71dec950a60cf10057159651efeb56fa3e384e19
+    git SHA1 : 71dec950a60cf10057159651efeb56fa3e384e19
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/ToStringSerializerBase.java
+    jar SHA1 : 034c2a3a9cdf421fc7e2c9d24bef47104de612ef
+    git SHA1 : 034c2a3a9cdf421fc7e2c9d24bef47104de612ef
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/TokenBufferSerializer.java
+    jar SHA1 : b99d1cbae34dbbc807de76c78dce7ffc31fbeefd
+    git SHA1 : b99d1cbae34dbbc807de76c78dce7ffc31fbeefd
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/ser/std/UUIDSerializer.java
+    jar SHA1 : 09cfb205f5ca4c89f710f0f048d8eccc73b5ba9a
+    git SHA1 : 09cfb205f5ca4c89f710f0f048d8eccc73b5ba9a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/ArrayType.java
+    jar SHA1 : 5b6d655667a9dbe2be1bdca5294c381c4ee66e3b
+    git SHA1 : 5b6d655667a9dbe2be1bdca5294c381c4ee66e3b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/ClassKey.java
+    jar SHA1 : cc09534149839336da67fc2065a07e030ac37e75
+    git SHA1 : cc09534149839336da67fc2065a07e030ac37e75
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/ClassStack.java
+    jar SHA1 : 03f5a17676a701617146ee2d3137b8e9726a121f
+    git SHA1 : 03f5a17676a701617146ee2d3137b8e9726a121f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/CollectionLikeType.java
+    jar SHA1 : 64422dc5f4e25f55fc4b33f8dddc8b2351db903c
+    git SHA1 : 64422dc5f4e25f55fc4b33f8dddc8b2351db903c
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/CollectionType.java
+    jar SHA1 : ecf985dc9e9307c2ad281ebbcafa41538f57738e
+    git SHA1 : ecf985dc9e9307c2ad281ebbcafa41538f57738e
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/IdentityEqualityType.java
+    jar SHA1 : 6a3da696d8ef54b21e4627a3b887d0c0b478cad5
+    git SHA1 : 6a3da696d8ef54b21e4627a3b887d0c0b478cad5
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/IterationType.java
+    jar SHA1 : a2e5823511997862c8543bf39e8d59fcfff898a0
+    git SHA1 : a2e5823511997862c8543bf39e8d59fcfff898a0
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/LogicalType.java
+    jar SHA1 : 8bd0170fd19f6077bab5b5af5d2207e9d7f64c47
+    git SHA1 : 8bd0170fd19f6077bab5b5af5d2207e9d7f64c47
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/MapLikeType.java
+    jar SHA1 : 36342b9b81fca84a02aceae1c1166663ebfe7bdf
+    git SHA1 : 36342b9b81fca84a02aceae1c1166663ebfe7bdf
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/MapType.java
+    jar SHA1 : a469298eea3405fb829b9b40d84ad0b784979cc8
+    git SHA1 : a469298eea3405fb829b9b40d84ad0b784979cc8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/PlaceholderForType.java
+    jar SHA1 : 4ffa28fff424d30a0197fd9b883c218206052831
+    git SHA1 : 4ffa28fff424d30a0197fd9b883c218206052831
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/ReferenceType.java
+    jar SHA1 : 11d2e8322bb23c610471098b8db2760202f55ef3
+    git SHA1 : 11d2e8322bb23c610471098b8db2760202f55ef3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/ResolvedRecursiveType.java
+    jar SHA1 : 9cd29a88251c553ee7d78f99749f3b0e9009c581
+    git SHA1 : 9cd29a88251c553ee7d78f99749f3b0e9009c581
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/SimpleType.java
+    jar SHA1 : a76310db5404e786a127446770d96b43484a7fc0
+    git SHA1 : a76310db5404e786a127446770d96b43484a7fc0
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/TypeBase.java
+    jar SHA1 : fe978992980a5e3342fcbff24d95700754208f43
+    git SHA1 : fe978992980a5e3342fcbff24d95700754208f43
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/TypeBindings.java
+    jar SHA1 : 4023cd6c653421837cbb896c424fcbc30b5b1a10
+    git SHA1 : 4023cd6c653421837cbb896c424fcbc30b5b1a10
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/TypeFactory.java
+    jar SHA1 : ce35d06ff0494940d3c48c1774e8cf726b5448fd
+    git SHA1 : ce35d06ff0494940d3c48c1774e8cf726b5448fd
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/TypeModifier.java
+    jar SHA1 : d42702fcad1881f0d683583d1cc5393e419f419a
+    git SHA1 : d42702fcad1881f0d683583d1cc5393e419f419a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/TypeParser.java
+    jar SHA1 : a92fe456b3caef4b629facb675be4ed7090c1b66
+    git SHA1 : a92fe456b3caef4b629facb675be4ed7090c1b66
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/type/package-info.java
+    jar SHA1 : 13b6d33b766253953f1aafca8be1b6e906e42643
+    git SHA1 : 13b6d33b766253953f1aafca8be1b6e906e42643
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/AccessPattern.java
+    jar SHA1 : 03cabcdb2c49e1c82900c74ce54f79ed5ee8fc90
+    git SHA1 : 03cabcdb2c49e1c82900c74ce54f79ed5ee8fc90
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/Annotations.java
+    jar SHA1 : d362403c221c75c48728f933cc7f65f6cbc8db61
+    git SHA1 : d362403c221c75c48728f933cc7f65f6cbc8db61
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/ArrayBuilders.java
+    jar SHA1 : 70c9968002ae7777e9095cdbce9e86d0d04d859b
+    git SHA1 : 70c9968002ae7777e9095cdbce9e86d0d04d859b
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/ArrayIterator.java
+    jar SHA1 : ae60c92b06396a5f74491096707bafd98b978b49
+    git SHA1 : ae60c92b06396a5f74491096707bafd98b978b49
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/BeanUtil.java
+    jar SHA1 : bb355cc6703cf3a4b3633af3c1e9d9625871d3d4
+    git SHA1 : bb355cc6703cf3a4b3633af3c1e9d9625871d3d4
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/ByteBufferBackedInputStream.java
+    jar SHA1 : 72a4d1de21d849e3ea517f2cb4b7b532cd8ddf8f
+    git SHA1 : 72a4d1de21d849e3ea517f2cb4b7b532cd8ddf8f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/ByteBufferBackedOutputStream.java
+    jar SHA1 : e59a8010597981606fa7f409bcc66f00eefd2c21
+    git SHA1 : e59a8010597981606fa7f409bcc66f00eefd2c21
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/ClassUtil.java
+    jar SHA1 : 319882261ef05dab86e30e7ccfa8972c2f44dd91
+    git SHA1 : 319882261ef05dab86e30e7ccfa8972c2f44dd91
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/CompactStringObjectMap.java
+    jar SHA1 : 526d484349d602cd1fdf9954408c0fc09b6d793f
+    git SHA1 : 526d484349d602cd1fdf9954408c0fc09b6d793f
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/Converter.java
+    jar SHA1 : 584c3b92c59e40ba327a8d2e20694577ff82aee1
+    git SHA1 : 584c3b92c59e40ba327a8d2e20694577ff82aee1
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/EnumResolver.java
+    jar SHA1 : 62429ea4d326df4f59efc8919b99e6419f791e02
+    git SHA1 : 62429ea4d326df4f59efc8919b99e6419f791e02
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/EnumValues.java
+    jar SHA1 : 4fb910f8f0fd7fdc849155aa6f8d098fde3402bb
+    git SHA1 : 4fb910f8f0fd7fdc849155aa6f8d098fde3402bb
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/ExceptionUtil.java
+    jar SHA1 : 4af2efe6c735261a4aeb89be9d883efa9e84d1f2
+    git SHA1 : 4af2efe6c735261a4aeb89be9d883efa9e84d1f2
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/ISO8601DateFormat.java
+    jar SHA1 : f36004fad6b3b944c7e0ad7b1c546c01fd3c131a
+    git SHA1 : f36004fad6b3b944c7e0ad7b1c546c01fd3c131a
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/ISO8601Utils.java
+    jar SHA1 : 9b1cfabb4ad2954f14b7789ab79d30d2971d4c0d
+    git SHA1 : 9b1cfabb4ad2954f14b7789ab79d30d2971d4c0d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/IgnorePropertiesUtil.java
+    jar SHA1 : 81bcafa793db860eae9f0b5e08c41ed26edbea03
+    git SHA1 : 81bcafa793db860eae9f0b5e08c41ed26edbea03
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/JSONPObject.java
+    jar SHA1 : fd40a3687248d3bf0ef13b2b3d0a22dcca522990
+    git SHA1 : fd40a3687248d3bf0ef13b2b3d0a22dcca522990
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/JSONWrappedObject.java
+    jar SHA1 : a856ebd638ebaf524727889bf304734d91ea25f8
+    git SHA1 : a856ebd638ebaf524727889bf304734d91ea25f8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/LRUMap.java
+    jar SHA1 : b60c530939ac13e0a0850d36f46ea84af79e6761
+    git SHA1 : b60c530939ac13e0a0850d36f46ea84af79e6761
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/LinkedNode.java
+    jar SHA1 : c304453a3297d4ee0824a96ae126ef868898bb8d
+    git SHA1 : c304453a3297d4ee0824a96ae126ef868898bb8d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/LookupCache.java
+    jar SHA1 : 834e2ff366e9f8f79b33f9c1d2eec3594fb7d5bc
+    git SHA1 : 834e2ff366e9f8f79b33f9c1d2eec3594fb7d5bc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/NameTransformer.java
+    jar SHA1 : 8f3d0fca3104c920fe4dfeebce12b258dfbbc6e9
+    git SHA1 : 8f3d0fca3104c920fe4dfeebce12b258dfbbc6e9
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/Named.java
+    jar SHA1 : b3f9eb0a62379d1443b893453b441d45409f5316
+    git SHA1 : b3f9eb0a62379d1443b893453b441d45409f5316
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/NativeImageUtil.java
+    jar SHA1 : 6a04e207fbb023fd3344de42ec8238688e80e338
+    git SHA1 : 6a04e207fbb023fd3344de42ec8238688e80e338
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/ObjectBuffer.java
+    jar SHA1 : f47275d02c4140cf096cc57a91cd10ab56234515
+    git SHA1 : f47275d02c4140cf096cc57a91cd10ab56234515
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/PrimitiveArrayBuilder.java
+    jar SHA1 : c5f4461e6ef40f85a4aedee09053f17284a83f08
+    git SHA1 : c5f4461e6ef40f85a4aedee09053f17284a83f08
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/RawValue.java
+    jar SHA1 : 634aeccf3d1fca6d0757b003297e490ed46f0d54
+    git SHA1 : 634aeccf3d1fca6d0757b003297e490ed46f0d54
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/RootNameLookup.java
+    jar SHA1 : 8662b9fa259ce929a56e571480bad173211ac477
+    git SHA1 : 8662b9fa259ce929a56e571480bad173211ac477
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/SimpleBeanPropertyDefinition.java
+    jar SHA1 : 43bdc9667bbcf81910f4fb76cf31900fff491add
+    git SHA1 : 43bdc9667bbcf81910f4fb76cf31900fff491add
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/StdConverter.java
+    jar SHA1 : abb908d9cca4a021d8dc2f21302492ede47b04c7
+    git SHA1 : abb908d9cca4a021d8dc2f21302492ede47b04c7
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/StdDateFormat.java
+    jar SHA1 : 24a13b35c8a9f77e2448cab3aa6fb22c2fbb2be8
+    git SHA1 : 24a13b35c8a9f77e2448cab3aa6fb22c2fbb2be8
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/TokenBuffer.java
+    jar SHA1 : 7f730c5ce2d990557d9551d0976cfafcabca7d33
+    git SHA1 : 7f730c5ce2d990557d9551d0976cfafcabca7d33
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/TokenBufferReadContext.java
+    jar SHA1 : d4b03ecc2aca3b5a412c9250e9606ef9a11be6b3
+    git SHA1 : d4b03ecc2aca3b5a412c9250e9606ef9a11be6b3
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/TypeKey.java
+    jar SHA1 : 127e674f20ac12ec217a8f322f776133076c21fc
+    git SHA1 : 127e674f20ac12ec217a8f322f776133076c21fc
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/ViewMatcher.java
+    jar SHA1 : e1b1006dc55c2a95a2821deaef010c3eaebca279
+    git SHA1 : e1b1006dc55c2a95a2821deaef010c3eaebca279
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/internal/LinkedDeque.java
+    jar SHA1 : 0bc8ce2cd1b061f929543a01620e51f3d6427b7d
+    git SHA1 : 0bc8ce2cd1b061f929543a01620e51f3d6427b7d
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/internal/PrivateMaxEntriesMap.java
+    jar SHA1 : d74b89aa0b02905bfc68943a4860963a5340bca2
+    git SHA1 : d74b89aa0b02905bfc68943a4860963a5340bca2
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/internal/package-info.java
+    jar SHA1 : d7d8ec3eb8b449283f851473b452224d633cadd0
+    git SHA1 : d7d8ec3eb8b449283f851473b452224d633cadd0
+    result   : BYTE-IDENTICAL
+
+  com/fasterxml/jackson/databind/util/package-info.java
+    jar SHA1 : b965a85f8c8756f8bc5e035af8bfafa8c0ba7629
+    git SHA1 : b965a85f8c8756f8bc5e035af8bfafa8c0ba7629
+    result   : BYTE-IDENTICAL
+
+Summary: 474/474 files are byte-identical to git.
+All content SWHIDs (swh:1:cnt:{sha1}) will match the archive.

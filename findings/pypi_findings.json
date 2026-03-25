@@ -1,6 +1,6 @@
 {
   "ecosystem": "pypi",
-  "generated_at": "2026-03-21",
+  "generated_at": "2026-03-25",
   "findings": [
     {
       "purl": "pkg:pypi/torch@2.6.0",
@@ -24,6 +24,17 @@
       "swhid": "swh:1:dir:4da2041ac8f56cddd75d4e00d2f5d29a904db239",
       "found_in_swh": false,
       "finding": "sdist tree diverges from git tree \u2014 generated files present in sdist"
+    },
+    {
+      "purl": "pkg:pypi/pip@25.1.1",
+      "filename": "pip-25.1.1.tar.gz",
+      "publisher_kind": "GitHub",
+      "publisher_repo": "pypa/pip",
+      "publisher_workflow": "release.yml",
+      "commit_sha": "01857ef79f59a98db592bacb6e7b48f354528c80",
+      "commit_in_swh": true,
+      "swh_revision_url": "https://archive.softwareheritage.org/api/1/revision/01857ef79f59a98db592bacb6e7b48f354528c80/",
+      "finding": "PEP 740 attestation links pkg:pypi/pip@25.1.1 to commit 01857ef79f59a98db592bacb6e7b48f354528c80, found in Software Heritage"
     }
   ]
 }
