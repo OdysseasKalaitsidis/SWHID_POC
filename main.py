@@ -1,6 +1,3 @@
-# main.py
-# Runs all demonstrations in sequence and writes per-ecosystem findings JSON.
-#
 # Usage: python main.py
 
 import sys
@@ -16,7 +13,6 @@ from maven import maven_analyzer, sources_inspector
 
 FINDINGS_DIR = os.path.join(os.path.dirname(__file__), "findings")
 
-# Each entry: (ecosystem, title, one-line finding, callable)
 demos = [
     (
         "pypi",
@@ -99,7 +95,6 @@ def build_spdx_records(ecosystem_findings):
                 "note": f.get("finding", ""),
             })
         elif "commit_in_swh" in f:
-            # PEP 740 attestation — commit SHA verified
             sha = f.get("commit_sha", "")
             records.append({
                 "purl": purl,
@@ -112,7 +107,6 @@ def build_spdx_records(ecosystem_findings):
                 "note": f.get("finding", ""),
             })
         else:
-            # wheel-only — no SWHID possible
             records.append({
                 "purl": purl,
                 "swhid": None,
@@ -126,7 +120,7 @@ def build_spdx_records(ecosystem_findings):
 
     for f in ecosystem_findings.get("crates", []):
         if "swhid" not in f:
-            continue  # crate_analyzer entry — normalizer entry has the swhid
+            continue
         purl = f"pkg:cargo/{f['name']}@{f['version']}"
         total = f.get("verified_matches", 0) + f.get("verified_mismatches", 0)
         records.append({
@@ -141,10 +135,8 @@ def build_spdx_records(ecosystem_findings):
         })
 
     for f in ecosystem_findings.get("maven", []):
-        # SCM survey entry — no per-package SWHID, skip
         if "packages_surveyed" in f:
             continue
-        # sources inspector entry
         coords = f.get("coords", "")
         if not coords:
             continue
@@ -184,7 +176,6 @@ def write_spdx_json(records):
     print(f"  -> written: findings/SPDX.json  ({len(records)} records)")
 
 
-# Collect findings keyed by ecosystem
 ecosystem_findings = {"pypi": [], "crates": [], "maven": []}
 
 for i, (ecosystem, title, finding, run) in enumerate(demos, 1):
@@ -195,7 +186,6 @@ for i, (ecosystem, title, finding, run) in enumerate(demos, 1):
     if result:
         ecosystem_findings[ecosystem].append(result)
 
-# Write one JSON file per ecosystem
 print("\n" + "=" * 60)
 print("Writing findings JSON files...")
 print()
