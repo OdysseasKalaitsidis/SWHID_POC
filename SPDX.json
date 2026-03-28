@@ -1,8 +1,0 @@
-{
-  "purl": "pkg:pypi/six@1.17.0",
-  "swhid": "swh:1:dir:06d75b2068453349f94529b5d491c3f8cdcbb3eb",
-  "confidence": "verified",
-  "strategy": "attestation",
-  "verifiedFiles": 1,
-  "totalFiles": 1
-}
