@@ -1,8 +1,4 @@
-# crates/crate_analyzer.py
-# Downloads a .crate from crates.io and reports which files the registry
-# added or modified compared to the original git source.
-#
-# Usage: python crates/crate_analyzer.py pkg:cargo/serde@1.0.203
+
 
 import io
 import json
@@ -13,9 +9,8 @@ import tarfile
 import requests
 
 CRATES_HEADERS = {"User-Agent": "swhid-poc/0.1 (gsoc research)"}
-# Files added or rewritten by the crates.io registry (not present in git as-is)
+# Cargo.toml is rewritten by the registry; .orig holds the original
 INJECTED_FILES = [".cargo_vcs_info.json", "Cargo.toml", "Cargo.toml.orig"]
-# Note: Cargo.toml is rewritten (not added); Cargo.toml.orig holds the original
 
 
 def parse_input(args):

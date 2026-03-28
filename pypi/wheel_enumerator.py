@@ -1,7 +1,3 @@
-# pypi/wheel_enumerator.py
-# Takes a PURL like pkg:pypi/torch@2.6.0 and lists all distribution artifacts
-# with sizes and platform tags.
-#
 # Usage: python pypi/wheel_enumerator.py pkg:pypi/torch@2.6.0
 
 import sys

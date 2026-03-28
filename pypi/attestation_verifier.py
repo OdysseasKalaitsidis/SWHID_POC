@@ -1,8 +1,3 @@
-# pypi/attestation_verifier.py
-# Downloads a PEP 740 Sigstore attestation from PyPI, extracts the source
-# commit SHA from the signing certificate, and checks if that commit is
-# archived in Software Heritage.
-#
 # Usage: python pypi/attestation_verifier.py pip 25.1.1
 
 import sys
@@ -34,9 +29,7 @@ def fetch_provenance(name, version, filename):
 
 
 def extract_commit_sha(provenance):
-    # The commit SHA is stored as a UTF-8 string inside the DER-encoded
-    # signing certificate. Fulcio embeds it in multiple OID extensions,
-    # so we can just find all 40-char hex strings — they are all the same.
+    # Fulcio embeds the commit SHA in the signing cert; find any 40-char hex string
     cert_b64 = (
         provenance["attestation_bundles"][0]
         ["attestations"][0]

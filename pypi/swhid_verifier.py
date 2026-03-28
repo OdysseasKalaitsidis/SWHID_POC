@@ -1,7 +1,3 @@
-# pypi/swhid_verifier.py
-# Downloads a PyPI sdist, computes its directory SWHID using swh.model,
-# and checks if it exists in the Software Heritage archive.
-#
 # Usage: python pypi/swhid_verifier.py pkg:pypi/six@1.17.0
 
 import io

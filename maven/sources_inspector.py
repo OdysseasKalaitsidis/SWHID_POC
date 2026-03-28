@@ -73,7 +73,6 @@ def extract_github_owner_repo(url):
 
 
 def fetch_git_tree(owner, repo, tag):
-    # Returns {path: blob_sha} for all blobs, or None on failure.
     for ref in [tag, f"v{tag}"]:
         url = f"{GITHUB_API}/repos/{owner}/{repo}/git/trees/{ref}?recursive=1"
         resp = requests.get(url, timeout=15, headers={"Accept": "application/vnd.github+json"})
@@ -97,13 +96,6 @@ def git_blob_sha1(data):
 
 
 def verify_content_overlap(zf, overlap_files, git_java_shas):
-    """
-    Check all files from the overlap set.
-    For each: read bytes from jar, compute git blob SHA, compare with git tree SHA.
-    If SHAs differ, check whether normalising CRLF -> LF fixes it.
-    Also verify one matched file against the SWH archive to close the pipeline.
-    Returns a list of result dicts.
-    """
     sorted_files = sorted(overlap_files)
 
     results = []
@@ -117,14 +109,12 @@ def verify_content_overlap(zf, overlap_files, git_java_shas):
         if jar_sha == git_sha:
             status = "BYTE_IDENTICAL"
             note = ""
-            # Check one file against SWH to confirm end-to-end
             if not swh_checked:
                 swh_resp = requests.get(f"{SWH_API}/content/sha1_git:{jar_sha}/", timeout=10)
                 swh_found = swh_resp.status_code == 200
                 swh_checked = True
                 note = f"verified in SWH archive: {'YES' if swh_found else 'NOT FOUND'}"
         else:
-            # Check if the only difference is line endings
             normalised = jar_bytes.replace(b"\r\n", b"\n")
             if git_blob_sha1(normalised) == git_sha:
                 status = "LINE_ENDING_DIFF"
@@ -266,7 +256,6 @@ def main():
         if git_tree is not None:
             git_total = len(git_tree)
 
-            # Strip src/main/java/ prefix from git paths, keep blob SHAs
             git_java_shas = {
                 strip_src_prefix(p): sha
                 for p, sha in git_tree.items()

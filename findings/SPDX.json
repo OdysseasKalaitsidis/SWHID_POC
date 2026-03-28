@@ -1,6 +1,6 @@
 {
   "spdxVersion": "SPDX-2.3",
-  "generated_at": "2026-03-25",
+  "generated_at": "2026-03-28",
   "comment": "SWHID provenance records computed by swhid-poc across PyPI, crates.io, and Maven",
   "packages": [
     {

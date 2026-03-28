@@ -1,11 +1,3 @@
-# crates/crate_normalizer.py
-# Normalizes a .crate artifact by stripping registry-injected files and
-# verifying all source file content hashes against the SWH archive.
-#
-# Normalization: restore Cargo.toml from Cargo.toml.orig, remove
-# .cargo_vcs_info.json and Cargo.toml.orig. Then compare every remaining
-# file's content hash against the corresponding SWH blob.
-#
 # Usage: python crates/crate_normalizer.py pkg:cargo/serde@1.0.203
 
 import io
@@ -76,7 +68,6 @@ def _normalize(source_path):
 
 
 def _build_swh_tree(dir_hash, prefix=""):
-    """Recursively fetch a SWH directory tree, returning {rel_path: blob_hash}."""
     resp = requests.get(f"{SWH_API}/directory/{dir_hash}/", headers=CRATES_HEADERS)
     if resp.status_code != 200:
         return {}
@@ -92,7 +83,6 @@ def _build_swh_tree(dir_hash, prefix=""):
 
 
 def _fetch_swh_dir(sha1, path_in_vcs):
-    """Return the SWH directory hash for the relevant subtree."""
     resp = requests.get(
         f"{SWH_API}/revision/{sha1}/",
         headers=CRATES_HEADERS,
@@ -107,7 +97,6 @@ def _fetch_swh_dir(sha1, path_in_vcs):
     if not path_in_vcs:
         return root_dir
 
-    # Monorepo: navigate into the crate's subdirectory
     resp2 = requests.get(f"{SWH_API}/directory/{root_dir}/", headers=CRATES_HEADERS)
     for entry in resp2.json():
         if entry["name"] == path_in_vcs and entry["perms"] == 0o040000:
@@ -123,7 +112,6 @@ def main(name, version):
     print(f"Downloading {name}-{version}.crate ...")
     source_path = _download_and_extract(name, version)
 
-    # read provenance info embedded by the registry
     vcs_path = os.path.join(source_path, ".cargo_vcs_info.json")
     if os.path.exists(vcs_path):
         vcs = json.load(open(vcs_path))
@@ -174,7 +162,6 @@ def main(name, version):
     print(f"SWH blobs indexed  : {len(swh_blobs)}")
     print()
 
-    # Verify every file in the normalized crate against the SWH blob index
     print("Verifying file content hashes against SWH archive:")
     print()
 
