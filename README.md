@@ -115,8 +115,7 @@ This is a research prototype. Not production code.
 
 The focus of this PoC is research, not engineering. Code was written purely as a
 validation tool to confirm or disprove hypotheses about how published artifacts map
-to Software Heritage's archived git trees. Every finding and conclusion was driven by
-Odysseas Kalaitsidis.
+to Software Heritage's archived git trees.
 
 Claude Opus 4.6 was used as an AI assistant for syntax lookups and for
 navigating complex areas where AI tooling provides genuine leverage beyond what is
