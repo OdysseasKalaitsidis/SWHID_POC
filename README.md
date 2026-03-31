@@ -113,14 +113,14 @@ This is a research prototype. Not production code.
 
 ## Development Notes
 
-The focus of this PoC is **research**, not engineering. Code was written purely as a
-validation tool — to confirm or disprove hypotheses about how published artifacts map
+The focus of this PoC is research, not engineering. Code was written purely as a
+validation tool to confirm or disprove hypotheses about how published artifacts map
 to Software Heritage's archived git trees. Every finding and conclusion was driven by
 Odysseas Kalaitsidis.
 
-Claude Opus 4.6 (Anthropic) was used as an AI assistant for syntax lookups and for
+Claude Opus 4.6 was used as an AI assistant for syntax lookups and for
 navigating complex areas where AI tooling provides genuine leverage beyond what is
-reasonable to expect from a student alone — specifically: cross-referencing the SWH
+reasonable to expect from a student alone specifically: cross-referencing the SWH
 data model internals, interpreting SPDX 2.3/3.0 specification edge cases, and
 reasoning about registry-injected file normalization across three different ecosystems
 simultaneously. These are tasks that involve synthesizing large volumes of
