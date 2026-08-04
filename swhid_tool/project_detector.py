@@ -6,7 +6,8 @@ import re
 import json
 import glob
 import xml.etree.ElementTree as ET
-from typing import List
+from importlib.metadata import version as installed_version, PackageNotFoundError
+from typing import List, Optional
 
 class ProjectDetector:
     """
@@ -124,12 +125,32 @@ class ProjectDetector:
                         continue
                     # Match name==version, name>=version, or name~=version
                     # Package names can contain letters, numbers, _, -, and .
-                    match = re.match(r'^([a-zA-Z0-9_\-\.]+)\s*(?:==|>=|~=)\s*([a-zA-Z0-9\.\-_]+)', line)
+                    match = re.match(r'^([a-zA-Z0-9_\-\.]+)\s*(==|>=|~=)\s*([a-zA-Z0-9\.\-_]+)', line)
                     if match:
-                        purls.append(f"pkg:pypi/{match.group(1)}@{match.group(2)}")
+                        name, operator, declared_version = match.group(1), match.group(2), match.group(3)
+                        version = declared_version
+                        # For open-ended specifiers (>=, ~=), the declared version is only a
+                        # floor, not what's actually installed - auditing it as if it were
+                        # exact produces stale/false findings (e.g. flags a CVE fixed upstream
+                        # of the installed version). Prefer the real installed version when
+                        # we can resolve it; fall back to the declared floor otherwise.
+                        if operator != "==":
+                            resolved = self._resolve_installed_version(name)
+                            if resolved:
+                                version = resolved
+                        purls.append(f"pkg:pypi/{name}@{version}")
         except Exception:
             pass
         return purls
+
+    @staticmethod
+    def _resolve_installed_version(name: str) -> Optional[str]:
+        try:
+            return installed_version(name)
+        except PackageNotFoundError:
+            return None
+        except Exception:
+            return None
 
     def _extract_cargo(self, file_path: str) -> List[str]:
         purls = []

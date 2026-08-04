@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import json
+import pytest
 from swhid_tool.project_detector import ProjectDetector
 
 def test_project_detector_extracts_dependencies(tmp_path):
@@ -48,3 +49,30 @@ def test_project_detector_extracts_dependencies(tmp_path):
     assert "pkg:pypi/six@1.17.0" in purls
     assert "pkg:pypi/requests@2.31.0" in purls
     assert len(purls) == 6
+
+
+def test_project_detector_resolves_installed_version_for_open_ended_specifiers(tmp_path):
+    # requirements.txt often declares a floor (`>=`), not what's actually
+    # installed. Auditing the floor as if it were exact produces stale,
+    # false findings, so the detector should prefer the real installed
+    # version when one can be resolved.
+    installed = pytest.__version__
+
+    requirements = tmp_path / "requirements.txt"
+    requirements.write_text("pytest>=0.0.1\n")
+
+    detector = ProjectDetector(str(tmp_path))
+    purls = detector.detect_and_extract()
+
+    assert f"pkg:pypi/pytest@{installed}" in purls
+    assert "pkg:pypi/pytest@0.0.1" not in purls
+
+
+def test_project_detector_falls_back_to_declared_version_when_uninstalled(tmp_path):
+    requirements = tmp_path / "requirements.txt"
+    requirements.write_text("this-package-does-not-exist-anywhere>=9.9.9\n")
+
+    detector = ProjectDetector(str(tmp_path))
+    purls = detector.detect_and_extract()
+
+    assert "pkg:pypi/this-package-does-not-exist-anywhere@9.9.9" in purls

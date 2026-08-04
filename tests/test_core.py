@@ -48,7 +48,7 @@ def test_swh_client_check_swhid(mock_get):
     dummy_swhid = "swh:1:cnt:943a702d6893f0b2f4f2c00227d8196e85741639"
     assert client.check_swhid(dummy_swhid) is True
     mock_get.assert_called_with(
-        f"https://archive.softwareheritage.org/api/1/provenance/{dummy_swhid}/",
+        "https://archive.softwareheritage.org/api/1/content/sha1_git:943a702d6893f0b2f4f2c00227d8196e85741639/",
         timeout=30
     )
 

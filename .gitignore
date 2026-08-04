@@ -34,6 +34,10 @@ findings/
 *.key
 *.pem
 
+# Personal notes, not for the repo
+ALEXIOS.TXT
+OG_PROJECCT_DES
+
 # IDEs
 .vscode/
 .idea/

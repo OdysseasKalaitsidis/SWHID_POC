@@ -111,6 +111,17 @@ graph TD
     Exporter --> JSONLD[JSON-LD Manifest]
 ```
 
+## What This Tool Verifies (and What It Doesn't)
+
+A SWHID is a content-addressed hash: it identifies an exact set of bytes, nothing more. The hard part of this project is not computing that hash, it's being precise about *what bytes it was computed from* — a package release, its source tree, and the artifact that eventually lands in a `site-packages` or `node_modules` directory are three different things, and conflating them produces a false sense of provenance.
+
+**What a `Verified` result means:** the SWHID was independently recomputed — either from the commit referenced by a signed attestation (PyPI Sigstore/PEP 740), from a matched Git tag, or from a normalized source distribution — and matches an object already present in the Software Heritage archive. This is a claim about **source provenance**: *this release corresponds to this exact, archived source tree.*
+
+**What it does not claim:** that the compiled, platform-specific artifact installed on any given machine is byte-identical to that source tree. A single `pip install X` can produce different files depending on OS, architecture, and Python version — compiled extensions, generated bindings, and build-time metadata have no upstream Git equivalent to hash against. Collapsing "verified source" and "verified installed binary" into one SWHID would overstate what the archive can actually prove, which is why:
+
+- Confidence is reported on a four-level scale (`Verified` / `Inferred` / `Partial` / `Failed`), not as a boolean, and every PyPI result carries the chain of strategies attempted (attestation → metadata/tag matching → normalized file-level hashing) so the basis for the claim is inspectable, not asserted.
+- Source verification and installed-artifact verification are two separate operations: `swhid-map`/`audit` verify the **release's source**; `verify-path` (and `audit`'s local-installation scan) separately hashes what's **actually on disk** in a given environment and diffs it against the verified source SWHID. A mismatch there is not a bug in the tool — it's the environment-dependence problem made visible instead of hidden.
+
 ## Validation and Standards
 
 Verification findings are exported as SPDX 3.0 documents. Compliance with RDF standards is ensured through SHACL shape validation using the integrated `test_validation.py` suite.
