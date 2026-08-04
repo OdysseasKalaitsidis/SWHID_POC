@@ -14,19 +14,22 @@ To guarantee reproducibility and security, we need **cryptographic, content-addr
 
 ## Dataset
 
-We have generated a verified showcase dataset containing 25 of the most popular packages across all 5 ecosystems. The resulting **SPDX 3.0 JSON-LD** manifest is available at [`dataset/showcase_manifest.jsonld`](dataset/showcase_manifest.jsonld).
+Two datasets are published, at different scales, and they should be read together rather than in isolation.
 
-### Verification Statistics
+The original showcase — 25 packages across all 6 ecosystems, [`dataset/showcase_manifest.jsonld`](dataset/showcase_manifest.jsonld) — is 4% Verified, 72% Inferred, 4% Partial, 20% Failed. On its own that number looks bad. It is left in the repository unchanged because it is an honest record of how ambiguous PURL→SWHID mapping is before any ecosystem-specific normalization exists, not a result to be smoothed over.
 
-| Metric | Count | Percentage |
-| :--- | :--- | :--- |
-| **Total Packages** | 25 | 100% |
-| **Inferred (Medium Confidence)** | 18 | 72.0% |
-| **Verified (High Confidence)** | 1 | 4.0% |
-| **Partial (Low Confidence)** | 1 | 4.0% |
-| **Errors/Failed** | 5 | 20.0% |
+The full dataset — 300 packages, 50 per ecosystem, in [`dataset/`](dataset/) as CSV, SPDX 3.0 JSON-LD, and a [findings report](dataset/findings_report.md) — is 63.7% Verified overall. That aggregate is not the point; the per-ecosystem breakdown is:
 
-*Note: The "Inferred" status indicates that the repository was successfully matched and verified in the Software Heritage archive, but the specific version tag was not found in the latest snapshot. Running the tool with a Software Heritage API token resolves rate-limiting errors (HTTP 429) encountered during "Save Code Now" triggers.*
+| Ecosystem | Verification Rate |
+| :--- | ---: |
+| PyPI / npm / NuGet | 100% |
+| Go Modules | 74% |
+| Maven Central | 8% |
+| Crates.io | 0% |
+
+The three ecosystems at 100% are the ones where the registry itself publishes a checkable link to a source commit — a Sigstore attestation, or a Git tag that matches a SWH snapshot branch. Crates.io does this too: every crate's `.cargo_vcs_info.json` records the exact commit SHA it was built from, and the tool extracts and normalizes it correctly. The 0% is not a normalization failure — it is a direct measurement of how many of the top 50 crates by downloads have that recorded commit already present in the Software Heritage archive: none of them, at time of writing. Maven's 8% is a related but different problem: Central serves compiled JARs, and only a minority of artifacts publish a `sources.jar` to resolve against at all.
+
+So the dataset is not only a report on the tool. It is a measurement of the gap between "the registry claims a source commit" and "the archive already has it" — per ecosystem, which is a more specific question than a single verification percentage can answer.
 
 ## Key Features
 
